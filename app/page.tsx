@@ -7,6 +7,7 @@ import gsap from "gsap";
 import Lenis from "lenis";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { useState } from "react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -19,10 +20,22 @@ const c = {
   dark: "#1A1208",
   muted: "#7A5C4F",
   white: "#ffffff",
+  forest: "#43a574",
+  lime: "#D4F84B",
+  purple: "#B197FC",
 };
 
 export default function Home() {
   const container = useRef<HTMLDivElement>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const faqs = [
+    { q: "¿La primera clase es realmente gratis?", a: "¡Sí! Creemos en que debes experimentar nuestra metodología antes de comprometerte. La sesión de diagnóstico y la primera clase introductoria son totalmente gratuitas." },
+    { q: "¿Cómo eligen al mentor adecuado?", a: "Realizamos un match basado en tus objetivos de carrera, personalidad y el área de impacto que deseas desarrollar." },
+    { q: "¿El mentor da feedback de tareas?", a: "Más que tareas, trabajamos en proyectos reales. Tu mentor revisará tus avances semanalmente y te dará feedback accionable." },
+    { q: "¿Qué pasa si pierdo una sesión?", a: "Todas nuestras sesiones grupales se graban y las mentorías 1:1 pueden reagendarse con 24h de anticipación." },
+    { q: "¿Qué pasa si necesito ayuda extra?", a: "Nuestra comunidad en Slack está activa 24/7 y tenemos horas de oficina semanales para resolver dudas técnicas." },
+  ];
 
   useGSAP((context, contextSafe) => {
     // ── Smooth Scroll (Lenis) ──
@@ -157,6 +170,51 @@ export default function Home() {
         }
       }
     );
+
+    // ── FAQ Entrance & Scroll Effects ──
+    gsap.from(".faq-container", {
+      scale: 0.95,
+      y: 80,
+      opacity: 0,
+      duration: 1.6,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: ".faq-section",
+        start: "top 85%",
+      }
+    });
+
+    gsap.from(".faq-title", {
+      y: 40,
+      opacity: 0,
+      rotationX: -20,
+      duration: 1.2,
+      ease: "back.out(1.4)",
+      scrollTrigger: {
+        trigger: ".faq-container",
+        start: "top 75%",
+      }
+    });
+
+    gsap.from(".faq-subtitle", {
+      y: 20,
+      opacity: 0,
+      duration: 1,
+      delay: 0.2,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".faq-container",
+        start: "top 75%",
+      }
+    });
+
+    ScrollTrigger.batch(".faq-item", {
+      onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, scale: 1, stagger: 0.12, duration: 1, ease: "back.out(1.2)", overwrite: true }),
+      onLeaveBack: (batch) => gsap.set(batch, { opacity: 0, y: 40, scale: 0.98, overwrite: true }),
+      start: "top 85%",
+    });
+    // Set initial state for batch items
+    gsap.set(".faq-item", { opacity: 0, y: 40, scale: 0.98 });
 
     // ── Magnetic Button Effect (from Skill) ──
     const onMouseMove = contextSafe!((e: MouseEvent) => {
@@ -367,6 +425,89 @@ export default function Home() {
                     <p style={{ fontWeight: 800, fontSize: "1rem", color: c.dark }}>{t.name}</p>
                     <p style={{ fontSize: "0.85rem", color: c.muted, fontWeight: 600 }}>{t.role}</p>
                   </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════ FAQ ═══════════════════ */}
+      <section id="faq" className="faq-section" style={{ padding: "8rem 1.5rem", background: c.cream }}>
+        <div className="faq-container" style={{
+          maxWidth: 1000, margin: "0 auto",
+          backgroundColor: c.forest,
+          borderRadius: 48,
+          padding: "6rem 2rem",
+          position: "relative",
+          overflow: "hidden",
+          color: c.white,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          boxShadow: "0 40px 100px rgba(67, 165, 116, 0.2)"
+        }}>
+          
+          <div className="faq-header" style={{ textAlign: "center", marginBottom: "4rem", maxWidth: "600px" }}>
+            <h2 className="faq-title" style={{ fontSize: "clamp(4rem, 12vw, 7rem)", margin: 0, lineHeight: 1, letterSpacing: "-0.03em" }}>FAQ</h2>
+            <p className="faq-subtitle" style={{ color: "rgba(255,255,255,0.8)", fontWeight: 500, fontSize: "1.1rem", marginTop: "1rem" }}>
+              Todo lo que necesitas saber sobre el programa
+            </p>
+          </div>
+
+          <div className="faq-list" style={{ width: "100%", maxWidth: "800px" }}>
+            {faqs.map((faq, index) => (
+              <div key={index} className="faq-item" style={{ marginBottom: "1rem" }}>
+                <button
+                  onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                  style={{
+                    width: "100%", textAlign: "left" as const,
+                    background: openFaq === index ? "rgba(255,255,255,0.15)" : "rgba(255,255,255,0.06)",
+                    backdropFilter: "blur(12px)",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                    borderRadius: 24, padding: "1.5rem 2rem",
+                    color: c.white, cursor: "pointer",
+                    display: "flex", justifyContent: "space-between", alignItems: "center",
+                    transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (openFaq !== index) e.currentTarget.style.background = "rgba(255,255,255,0.12)";
+                    e.currentTarget.style.transform = "scale(1.01)";
+                  }}
+                  onMouseLeave={(e) => {
+                    if (openFaq !== index) e.currentTarget.style.background = "rgba(255,255,255,0.06)";
+                    e.currentTarget.style.transform = "scale(1)";
+                  }}
+                >
+                  <span style={{ fontSize: "1.1rem", fontWeight: 700, maxWidth: "85%", lineHeight: 1.4 }}>{faq.q}</span>
+                  <div style={{
+                    width: 36, height: 36, borderRadius: "50%", flexShrink: 0,
+                    background: openFaq === index ? c.lime : "rgba(255,255,255,0.15)",
+                    color: openFaq === index ? c.forest : c.white,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    transition: "all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+                    transform: openFaq === index ? "rotate(135deg)" : "rotate(0deg)"
+                  }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                  </div>
+                </button>
+                <div style={{
+                  maxHeight: openFaq === index ? "300px" : "0",
+                  overflow: "hidden", transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+                  padding: openFaq === index ? "0.5rem 2rem 1.5rem" : "0 2rem",
+                  opacity: openFaq === index ? 1 : 0,
+                }}>
+                  <p style={{
+                    fontSize: "1rem", lineHeight: 1.6, 
+                    color: "rgba(255,255,255,0.85)", marginTop: "1rem",
+                    fontFamily: "'Plus Jakarta Sans', sans-serif",
+                    textTransform: "none"
+                  }}>
+                    {faq.a}
+                  </p>
                 </div>
               </div>
             ))}

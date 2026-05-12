@@ -32,7 +32,6 @@ export default function RootLayout({
           minHeight: "100%",
           display: "flex",
           flexDirection: "column",
-          fontFamily: "'Plus Jakarta Sans', sans-serif",
         }}
       >
         {children}

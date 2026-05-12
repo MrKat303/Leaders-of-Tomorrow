@@ -14,12 +14,26 @@
   --color-white: #ffffff;
   --radius-xl: 28px;
   --radius-2xl: 36px;
-}
-
-@theme inline {
+  
+  /* FAQ Colors */
+  --color-forest: #2D7D5E;
+  --color-lime: #D4F84B;
+  --color-purple: #B197FC;
+  --color-purple-dark: #9B7CF2;
+  
+  /* Tailwind 4 Theme Overrides */
   --color-background: var(--color-cream);
   --color-foreground: var(--color-text);
   --font-sans: "Plus Jakarta Sans", sans-serif;
+  --font-primary: "Gebuk", sans-serif;
+}
+
+@font-face {
+  font-family: 'Gebuk';
+  src: url('/Gebuk-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 * {
@@ -40,18 +54,46 @@ body {
   background: var(--color-cream);
   color: var(--color-text);
   font-family: "Plus Jakarta Sans", sans-serif;
+  text-transform: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
+/* Gebuk Font for Brand Elements */
+.nav-wrapper, 
+.nav-wrapper *,
+.btn-primary,
+.btn-ghost,
+.magnetic-btn,
+.footer-brand-font {
+  font-family: var(--font-primary) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em;
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+}
+
+/* Plus Jakarta for Body and Subtitles (Lower priority than brand elements) */
+.hero-sub,
+.section-heading + p,
+.feature-card-content p,
+.testimonial-card p,
+.footer-col a,
+.footer-col p {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  text-transform: none !important;
+  letter-spacing: normal;
+}
+
 /* ── Typography ──────────────────────────────────────────────── */
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: var(--font-primary);
   font-weight: 800;
   color: var(--color-dark);
   line-height: 1.1;
   letter-spacing: -0.025em;
+  text-transform: uppercase;
 }
 
 /* ── Section container ───────────────────────────────────────── */
