@@ -88,7 +88,7 @@ export default function Navbar() {
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                fontWeight: 600,
+                fontWeight: 400,
                 fontSize: "0.9rem",
                 padding: "0.5rem 1rem",
                 borderRadius: "9999px",
@@ -147,7 +147,7 @@ export default function Navbar() {
             style={{
               display: "inline-flex",
               alignItems: "center",
-              fontWeight: 600,
+              fontWeight: 400,
               fontSize: "0.9rem",
               padding: "0.5rem 1rem",
               borderRadius: "9999px",
@@ -166,7 +166,7 @@ export default function Navbar() {
               gap: "0.5rem",
               background: "var(--color-orange)",
               color: "#fff",
-              fontWeight: 800,
+              fontWeight: 400,
               fontSize: "0.85rem",
               padding: "0.6rem 1.4rem",
               borderRadius: "9999px",
@@ -249,7 +249,7 @@ export default function Navbar() {
               href={link.href}
               className="btn-ghost"
               onClick={() => setMenuOpen(false)}
-              style={{ justifyContent: "flex-start", fontWeight: 700, fontSize: "1rem", padding: "0.75rem 1rem" }}
+              style={{ justifyContent: "flex-start", fontWeight: 400, fontSize: "1rem", padding: "0.75rem 1rem" }}
             >
               {link.label}
             </a>

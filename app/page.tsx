@@ -9,7 +9,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useState } from "react";
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 
 const c = {
   orange: "#FA6742",
@@ -59,33 +61,13 @@ export default function Home() {
     // ── Hero entrance ──
     const heroTl = gsap.timeline({ defaults: { ease: "expo.out" } });
     heroTl
-      .from(".hero-badge", { y: "100%", opacity: 0, duration: 1.5, delay: 0.2 })
+
       .from(".hero-title-line", { y: "120%", rotation: 4, duration: 1.8, stagger: 0.15 }, "-=1.2")
       .from(".hero-sub", { y: "100%", opacity: 0, duration: 1.5 }, "-=1.4")
       .from(".hero-cta-wrap", { y: "100%", opacity: 0, duration: 1.5 }, "-=1.3")
       .from(".hero-logos", { opacity: 0, duration: 2 }, "-=1");
 
-    // ── Parallax circles ──
-    gsap.to(".hero-circle-1", {
-      y: -100,
-      rotate: 15,
-      scrollTrigger: {
-        trigger: ".hero-section",
-        start: "top top",
-        end: "bottom top",
-        scrub: 1.5,
-      },
-    });
-    gsap.to(".hero-circle-2", {
-      y: -150,
-      rotate: -15,
-      scrollTrigger: {
-        trigger: ".hero-section",
-        start: "top top",
-        end: "bottom top",
-        scrub: 2,
-      },
-    });
+
 
     // ── Section headings reveal ──
     gsap.utils.toArray<HTMLElement>(".section-heading").forEach((el) => {
@@ -271,34 +253,30 @@ export default function Home() {
           padding: "8rem 1.5rem 4rem", textAlign: "center", position: "relative", overflow: "hidden",
         }}
       >
-        {/* Parallax elements */}
-        <div className="hero-circle-1" style={{ position: "absolute", width: 600, height: 600, top: -150, right: -100, borderRadius: "50%", background: "rgba(255,255,255,0.12)", pointerEvents: "none" }} />
-        <div className="hero-circle-2" style={{ position: "absolute", width: 450, height: 450, bottom: -120, left: -100, borderRadius: "50%", background: "rgba(255,255,255,0.1)", pointerEvents: "none" }} />
-        <div style={{ position: "absolute", width: 250, height: 250, top: "30%", left: "12%", borderRadius: "50%", background: "rgba(255,255,255,0.06)", pointerEvents: "none" }} />
 
-        <div className="hero-badge" style={{
-          display: "inline-flex", alignItems: "center", gap: "0.6rem",
-          background: "rgba(255,255,255,0.22)", backdropFilter: "blur(12px)",
-          border: "1px solid rgba(255,255,255,0.4)", borderRadius: 9999,
-          padding: "0.5rem 1.25rem", marginBottom: "2rem", color: c.white,
-          fontWeight: 700, fontSize: "0.85rem", letterSpacing: "0.06em", textTransform: "uppercase" as const,
-        }}>
-          <span style={{ fontSize: "1.1rem" }}>✨</span> Bootcamp · Cohorte 2026
-        </div>
+
+
+
+        {/* Decorative Hero SVGs */}
+        <img src="/hero/Hero%201.svg" alt="" style={{ position: "absolute", top: "5%", left: "4%", width: "clamp(50px, 8vw, 100px)", zIndex: 1, animation: "float 6s ease-in-out infinite" }} className="hero-svg" />
+        <img src="/hero/Hero%202.svg" alt="" style={{ position: "absolute", top: "4%", right: "6%", width: "clamp(40px, 6vw, 85px)", zIndex: 1, animation: "float 8s ease-in-out infinite reverse" }} className="hero-svg" />
+        <img src="/hero/Hero%203.svg" alt="" style={{ position: "absolute", bottom: "5%", left: "6%", width: "clamp(60px, 10vw, 130px)", zIndex: 1, animation: "float 7s ease-in-out infinite 1s" }} className="hero-svg" />
+        <img src="/hero/Hero%204.svg" alt="" style={{ position: "absolute", bottom: "4%", right: "8%", width: "clamp(50px, 8vw, 110px)", zIndex: 1, animation: "float 9s ease-in-out infinite 0.5s" }} className="hero-svg" />
 
         <h1 style={{
-          fontSize: "clamp(2.8rem, 7vw, 5.5rem)", fontWeight: 800, color: c.white,
-          lineHeight: 1.05, maxWidth: 900, marginBottom: "1.8rem", letterSpacing: "-0.03em",
+          fontSize: "clamp(2rem, 6vw, 4rem)", fontWeight: 400, color: c.white,
+          lineHeight: 1, maxWidth: 1100, marginBottom: "1.5rem", letterSpacing: "-0.04em",
+          position: "relative", zIndex: 2
         }}>
           <span style={{ display: "block", overflow: "hidden" }}>
             <span className="hero-title-line" style={{ display: "block" }}>Conviértete en el líder</span>
           </span>
-          <span style={{ display: "block", overflow: "hidden", marginTop: "0.1em" }}>
-            <span className="hero-title-line" style={{ display: "inline-block", background: "rgba(255,255,255,0.18)", borderRadius: "16px", padding: "0 0.4em" }}>del mañana</span>
+          <span style={{ display: "block", overflow: "hidden", marginTop: "-0.05em" }}>
+            <span className="hero-title-line" style={{ display: "inline-block", background: "rgba(255,255,255,0.18)", borderRadius: "24px", padding: "0 0.4em" }}>del mañana</span>
           </span>
         </h1>
 
-        <div style={{ overflow: "hidden", marginBottom: "3rem" }}>
+        <div style={{ overflow: "hidden", marginBottom: "2rem" }}>
           <p className="hero-sub" style={{
             fontSize: "clamp(1.1rem, 2.5vw, 1.35rem)", color: "rgba(255,255,255,0.92)",
             maxWidth: 640, lineHeight: 1.6, fontWeight: 500,
@@ -340,33 +318,65 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════ FEATURES ═══════════════════ */}
+      {/* ═══════════════════ PROGRAM OVERVIEW ═══════════════════ */}
       <section id="programa" style={{ padding: "8rem 0", background: c.cream }}>
-        <div className="section-container">
-          <div style={{ overflow: "hidden", marginBottom: "1rem" }}>
-            <p className="section-heading" style={{ color: c.orange, fontWeight: 800, fontSize: "0.9rem", letterSpacing: "0.15em", textTransform: "uppercase" as const, textAlign: "center" }}>
-              Currículo del Futuro
+        <div className="section-container" style={{ maxWidth: "1000px" }}>
+          <div style={{ marginBottom: "5rem" }}>
+            <h2 className="section-heading" style={{ fontSize: "clamp(2.5rem, 5vw, 3.5rem)", lineHeight: 1.1, marginBottom: "2rem" }}>
+              Cómo Funciona el Programa
+            </h2>
+            <p style={{ fontSize: "1.2rem", color: c.dark, lineHeight: 1.6, maxWidth: "800px", opacity: 0.8 }}>
+              Bootcamp de innovación, emprendimiento y tecnología diseñado para la próxima generación de builders, founders y agentes de cambio.
             </p>
           </div>
-          <div style={{ overflow: "hidden", margin: "0 auto 4rem", maxWidth: 800 }}>
-            <h2 className="section-heading" style={{ fontSize: "clamp(2.2rem, 5vw, 3.5rem)", textAlign: "center", lineHeight: 1.1 }}>
-              Habilidades exponenciales para mentes curiosas
-            </h2>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "4rem", marginBottom: "6rem" }}>
+            <div>
+              <h3 style={{ fontSize: "1.4rem", fontWeight: 800, marginBottom: "1.2rem", color: c.orange, textTransform: "uppercase" }}>Metodología</h3>
+              <p style={{ color: c.dark, opacity: 0.7, lineHeight: 1.7, fontSize: "1.05rem" }}>
+                Leaders of Tomorrow está diseñado bajo una metodología práctica y orientada a ejecución real. 
+                Los módulos combinan contenidos de innovación, emprendimiento y tecnología con construcción práctica.
+              </p>
+            </div>
+            <div>
+              <h3 style={{ fontSize: "1.4rem", fontWeight: 800, marginBottom: "1.2rem", color: c.orange, textTransform: "uppercase" }}>Módulos</h3>
+              <p style={{ color: c.dark, opacity: 0.7, lineHeight: 1.7, fontSize: "1.05rem" }}>
+                A medida que avanzan las sesiones, los equipos aplican inmediatamente lo aprendido en su proyecto mediante entregables, validaciones e iteraciones constantes.
+              </p>
+            </div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "2rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "2.5rem" }}>
             {[
-              { title: "Liderazgo Consciente", desc: "No se trata de mandar, sino de inspirar. Desarrolla autoconocimiento, empatía sistémica y visión estratégica.", color: "#FFF8F5", icon: "🎯" },
-              { title: "Pensamiento Futuro", desc: "Aprende a anticipar tendencias y diseñar escenarios. Innovación frugal y resolución creativa de problemas.", color: "#F5FFF9", icon: "🔮" },
-              { title: "Comunicación Persuasiva", desc: "Domina el storytelling para movilizar personas. Pitching, negociación y marca personal de alto impacto.", color: "#F8F5FF", icon: "⚡" },
-            ].map((f) => (
-              <div key={f.title} className="feature-card" style={{ opacity: 0, transform: "translateY(50px) scale(0.95)" }}>
-                <div className="feature-card-visual" style={{ background: f.color, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <span style={{ fontSize: "6rem" }}>{f.icon}</span>
-                </div>
-                <div className="feature-card-content">
-                  <h3>{f.title}</h3>
-                  <p>{f.desc}</p>
+              {
+                title: "Workshops",
+                desc: "Los workshops son talleres y espacios liderados por empresas, startups, founders y expertos del ecosistema. Están diseñados para acercar a los participantes al mundo real de innovación y tecnología mediante casos reales, dinámicas prácticas, construcción en vivo y conversaciones directas con líderes de industria.",
+                icon: "💡"
+              },
+              {
+                title: "Checkpoints",
+                desc: "Los checkpoints son instancias de revisión estratégica y mentoría donde cada equipo presenta sus avances y recibe feedback personalizado de CEOs, founders, comunidad CBA, etc. El objetivo es ayudar a los equipos a validar decisiones, mejorar su solución e iterar rápidamente.",
+                icon: "🏁"
+              },
+              {
+                title: "Labs Vespertinos",
+                desc: "Los labs vespertinos son espacios de acompañamiento tecnológico diseñados para preparar y acelerar el desarrollo de los equipos. Se realizarán dos labs antes del bootcamp y un lab adicional durante la semana del programa, enfocados en mejorar el avance tecnológico de cada proyecto.",
+                icon: "💻"
+              }
+            ].map((item) => (
+              <div key={item.title} style={{ 
+                background: "rgba(26,18,8,0.03)", 
+                padding: "3rem", 
+                borderRadius: "32px", 
+                border: "1px solid rgba(26,18,8,0.05)",
+                display: "flex",
+                gap: "2.5rem",
+                alignItems: "flex-start"
+              }}>
+                <div style={{ fontSize: "2.5rem", opacity: 0.8 }}>{item.icon}</div>
+                <div>
+                  <h4 style={{ fontSize: "1.6rem", fontWeight: 800, marginBottom: "1rem", textTransform: "uppercase" }}>{item.title}</h4>
+                  <p style={{ color: c.dark, opacity: 0.7, lineHeight: 1.7, fontSize: "1.05rem", margin: 0 }}>{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -375,7 +385,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ STATS ═══════════════════ */}
-      <section style={{ padding: "6rem 0", background: c.white, borderTop: `1px solid rgba(250,103,66,0.12)`, borderBottom: `1px solid rgba(250,103,66,0.12)` }}>
+      <section style={{ padding: "6rem 0", background: c.cream, borderTop: `1px solid rgba(250,103,66,0.08)`, borderBottom: `1px solid rgba(250,103,66,0.08)` }}>
         <div className="section-container">
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "3rem", textAlign: "center" }}>
             {[
@@ -526,7 +536,7 @@ export default function Home() {
           <div style={{ position: "absolute", width: 400, height: 400, top: -100, right: -100, borderRadius: "50%", background: "rgba(255,255,255,0.15)", pointerEvents: "none" }} />
           <div style={{ position: "absolute", width: 250, height: 250, bottom: -50, left: -50, borderRadius: "50%", background: "rgba(255,255,255,0.08)", pointerEvents: "none" }} />
           
-          <h2 style={{ fontSize: "clamp(2.4rem, 6vw, 3.8rem)", color: c.white, marginBottom: "1.5rem", fontWeight: 800, lineHeight: 1 }}>
+          <h2 style={{ fontSize: "clamp(2.4rem, 6vw, 3.8rem)", color: c.white, marginBottom: "1.5rem", fontWeight: 400, lineHeight: 1 }}>
             Tu viaje comienza aquí
           </h2>
           <p style={{ color: "rgba(255,255,255,0.9)", fontSize: "1.25rem", maxWidth: 600, margin: "0 auto 3rem", lineHeight: 1.6, fontWeight: 500 }}>

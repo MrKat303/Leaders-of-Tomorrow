@@ -70,8 +70,10 @@ body {
   font-family: var(--font-primary) !important;
   text-transform: uppercase !important;
   letter-spacing: 0.1em;
-  font-weight: 600 !important;
+  font-weight: normal !important;
   font-size: 0.95rem !important;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Plus Jakarta for Body and Subtitles (Lower priority than brand elements) */
@@ -89,11 +91,13 @@ body {
 /* ── Typography ──────────────────────────────────────────────── */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-primary);
-  font-weight: 800;
+  font-weight: normal;
   color: var(--color-dark);
   line-height: 1.1;
   letter-spacing: -0.025em;
   text-transform: uppercase;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ── Section container ───────────────────────────────────────── */
@@ -296,4 +300,11 @@ h1, h2, h3, h4, h5, h6 {
   .feature-card-content {
     padding: 1.5rem;
   }
+}
+
+/* ── Custom Animations ───────────────────────────────────────── */
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0); }
 }
