@@ -117,7 +117,7 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
           }}
         >
           <Image
-            src="/Leaders Of Tomorrow Lab (1).svg"
+            src="/logo-white.svg"
             alt="Leaders of Tomorrow"
             width={240}
             height={64}
