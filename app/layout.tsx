@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Leaders of Tomorrow Lab · Bootcamp de Liderazgo",
+  title: "Leaders of Tomorrow by CBA · Bootcamp de Liderazgo",
   description:
     "Programa intensivo para jóvenes que quieren desarrollar habilidades de liderazgo, emprendimiento e impacto social. Cohorte 2026.",
 };

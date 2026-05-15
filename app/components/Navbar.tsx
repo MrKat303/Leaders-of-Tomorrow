@@ -12,17 +12,21 @@ if (typeof window !== "undefined") {
 }
 
 const NAV_LINKS = [
-  { label: "Programa", href: "#programa" },
-  { label: "Mentores", href: "#mentores" },
-  { label: "Testimonios", href: "#testimonios" },
+  { label: "Programa", href: "/#programa" },
+  { label: "Mentores", href: "/#mentores" },
+  { label: "Testimonios", href: "/#testimonios" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ solid = false }: { solid?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const container = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLElement>(null);
 
   useGSAP(() => {
+    if (solid) {
+      container.current?.classList.add("scrolled");
+      return;
+    }
     // ── Scroll animation for the floating bar ──
     gsap.to(headerRef.current, {
       paddingTop: "0.5rem",
@@ -142,7 +146,7 @@ export default function Navbar() {
           }}
         >
           <a
-            href="#faq"
+            href="/#faq"
             className="nav-link desktop-nav"
             style={{
               display: "inline-flex",
@@ -157,8 +161,8 @@ export default function Navbar() {
             FAQ
           </a>
 
-          <a
-            href="#apply"
+          <Link
+            href="/apply"
             className="desktop-cta"
             style={{
               display: "inline-flex",
@@ -189,7 +193,7 @@ export default function Navbar() {
           >
             Aplicar ahora
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
+          </Link>
 
           {/* Hamburger (mobile only) */}
           <button
@@ -243,7 +247,7 @@ export default function Navbar() {
             animation: "slideIn 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
           }}
         >
-          {[...NAV_LINKS, { label: "FAQ", href: "#faq" }].map((link) => (
+          {[...NAV_LINKS, { label: "FAQ", href: "/#faq" }].map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -254,14 +258,15 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
-          <a
-            href="#apply"
+          <Link
+            href="/apply"
             className="btn-primary"
             style={{ marginTop: "0.75rem", justifyContent: "center", padding: "1rem" }}
             onClick={() => setMenuOpen(false)}
           >
-            Aplicar ahora →
-          </a>
+            Aplicar ahora 
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: "0.25rem" }}><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </Link>
         </div>
       )}
 

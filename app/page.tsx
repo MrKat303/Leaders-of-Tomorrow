@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Navbar from "./components/Navbar";
 import gsap from "gsap";
 import Lenis from "lenis";
@@ -10,7 +11,7 @@ import { useGSAP } from "@gsap/react";
 import { useState } from "react";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
+  gsap.registerPlugin(ScrollTrigger);
 }
 
 const c = {
@@ -65,6 +66,7 @@ export default function Home() {
       .from(".hero-title-line", { y: "120%", rotation: 4, duration: 1.8, stagger: 0.15 }, "-=1.2")
       .from(".hero-sub", { y: "100%", opacity: 0, duration: 1.5 }, "-=1.4")
       .from(".hero-cta-wrap", { y: "100%", opacity: 0, duration: 1.5 }, "-=1.3")
+      .from(".hero-svg", { scale: 0, opacity: 0, rotation: 15, duration: 1.5, stagger: 0.1, ease: "back.out(1.7)" }, "-=1.2")
       .from(".hero-logos", { opacity: 0, duration: 2 }, "-=1");
 
 
@@ -258,10 +260,10 @@ export default function Home() {
 
 
         {/* Decorative Hero SVGs */}
-        <img src="/hero/Hero%201.svg" alt="" style={{ position: "absolute", top: "5%", left: "4%", width: "clamp(50px, 8vw, 100px)", zIndex: 1, animation: "float 6s ease-in-out infinite" }} className="hero-svg" />
-        <img src="/hero/Hero%202.svg" alt="" style={{ position: "absolute", top: "4%", right: "6%", width: "clamp(40px, 6vw, 85px)", zIndex: 1, animation: "float 8s ease-in-out infinite reverse" }} className="hero-svg" />
-        <img src="/hero/Hero%203.svg" alt="" style={{ position: "absolute", bottom: "5%", left: "6%", width: "clamp(60px, 10vw, 130px)", zIndex: 1, animation: "float 7s ease-in-out infinite 1s" }} className="hero-svg" />
-        <img src="/hero/Hero%204.svg" alt="" style={{ position: "absolute", bottom: "4%", right: "8%", width: "clamp(50px, 8vw, 110px)", zIndex: 1, animation: "float 9s ease-in-out infinite 0.5s" }} className="hero-svg" />
+        <img src="/hero/Hero%201.svg" alt="" style={{ position: "absolute", top: "22%", left: "4%", width: "clamp(70px, 10vw, 140px)", zIndex: 1, animation: "float 6s ease-in-out infinite", pointerEvents: "none" }} className="hero-svg" />
+        <img src="/hero/Hero%202.svg" alt="" style={{ position: "absolute", top: "18%", right: "6%", width: "clamp(60px, 8vw, 120px)", zIndex: 1, animation: "float 8s ease-in-out infinite reverse", pointerEvents: "none" }} className="hero-svg" />
+        <img src="/hero/Hero%203.svg" alt="" style={{ position: "absolute", bottom: "18%", left: "6%", width: "clamp(80px, 12vw, 160px)", zIndex: 1, animation: "float 7s ease-in-out infinite 1s", pointerEvents: "none" }} className="hero-svg" />
+        <img src="/hero/Hero%204.svg" alt="" style={{ position: "absolute", bottom: "15%", right: "8%", width: "clamp(70px, 10vw, 140px)", zIndex: 1, animation: "float 9s ease-in-out infinite 0.5s", pointerEvents: "none" }} className="hero-svg" />
 
         <h1 style={{
           fontSize: "clamp(2rem, 6vw, 4rem)", fontWeight: 400, color: c.white,
@@ -286,14 +288,14 @@ export default function Home() {
         </div>
 
         <div className="hero-cta-wrap" style={{ display: "flex", gap: "1.2rem", flexWrap: "wrap" as const, justifyContent: "center" }}>
-          <a href="#apply" className="magnetic-btn" style={{ 
+          <Link href="/apply" className="magnetic-btn" style={{ 
             background: c.white, color: c.orange, fontWeight: 800, fontSize: "1.05rem", 
             padding: "1rem 2.5rem", borderRadius: 9999, textDecoration: "none", 
             boxShadow: "0 12px 40px rgba(26,18,8,0.22)", display: "inline-flex", alignItems: "center", gap: "0.5rem" 
           }}>
             Quiero aplicar
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
+          </Link>
           <a href="#programa" style={{
             display: "inline-flex", alignItems: "center", gap: "0.5rem",
             background: "rgba(255,255,255,0.15)", backdropFilter: "blur(12px)",
@@ -346,41 +348,125 @@ export default function Home() {
             </div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "2.5rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
             {[
               {
                 title: "Workshops",
                 desc: "Los workshops son talleres y espacios liderados por empresas, startups, founders y expertos del ecosistema. Están diseñados para acercar a los participantes al mundo real de innovación y tecnología mediante casos reales, dinámicas prácticas, construcción en vivo y conversaciones directas con líderes de industria.",
-                icon: "💡"
+                icon: (
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={c.orange} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A5 5 0 0 0 8 8c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5"/>
+                    <path d="M9 18h6"/>
+                    <path d="M10 22h4"/>
+                  </svg>
+                )
               },
               {
                 title: "Checkpoints",
                 desc: "Los checkpoints son instancias de revisión estratégica y mentoría donde cada equipo presenta sus avances y recibe feedback personalizado de CEOs, founders, comunidad CBA, etc. El objetivo es ayudar a los equipos a validar decisiones, mejorar su solución e iterar rápidamente.",
-                icon: "🏁"
+                icon: (
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={c.orange} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+                    <line x1="4" y1="22" x2="4" y2="15"/>
+                  </svg>
+                )
               },
               {
                 title: "Labs Vespertinos",
                 desc: "Los labs vespertinos son espacios de acompañamiento tecnológico diseñados para preparar y acelerar el desarrollo de los equipos. Se realizarán dos labs antes del bootcamp y un lab adicional durante la semana del programa, enfocados en mejorar el avance tecnológico de cada proyecto.",
-                icon: "💻"
+                icon: (
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={c.orange} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21"/>
+                    <line x1="12" y1="17" x2="12" y2="21"/>
+                  </svg>
+                )
               }
             ].map((item) => (
               <div key={item.title} style={{ 
                 background: "rgba(26,18,8,0.03)", 
-                padding: "3rem", 
+                padding: "3rem 2rem", 
                 borderRadius: "32px", 
                 border: "1px solid rgba(26,18,8,0.05)",
                 display: "flex",
-                gap: "2.5rem",
-                alignItems: "flex-start"
-              }}>
-                <div style={{ fontSize: "2.5rem", opacity: 0.8 }}>{item.icon}</div>
+                flexDirection: "column",
+                gap: "1.5rem",
+                height: "100%",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-10px)";
+                e.currentTarget.style.boxShadow = "0 20px 40px rgba(0,0,0,0.05)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "none";
+              }}
+              >
+                <div style={{ width: "64px", height: "64px", borderRadius: "16px", background: "rgba(250,103,66,0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  {item.icon}
+                </div>
                 <div>
-                  <h4 style={{ fontSize: "1.6rem", fontWeight: 800, marginBottom: "1rem", textTransform: "uppercase" }}>{item.title}</h4>
-                  <p style={{ color: c.dark, opacity: 0.7, lineHeight: 1.7, fontSize: "1.05rem", margin: 0 }}>{item.desc}</p>
+                  <h4 style={{ fontSize: "1.4rem", fontWeight: 800, marginBottom: "1rem", textTransform: "uppercase" }}>{item.title}</h4>
+                  <p style={{ color: c.dark, opacity: 0.7, lineHeight: 1.7, fontSize: "1rem", margin: 0 }}>{item.desc}</p>
                 </div>
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════ VIDEO SECTION ═══════════════════ */}
+      <section style={{ padding: "6rem 1.5rem", background: c.cream, position: "relative", overflow: "hidden" }}>
+        {/* Decorative background element */}
+        <div style={{ position: "absolute", width: "30%", height: "30%", top: "10%", left: "-10%", background: `radial-gradient(circle, ${c.orangeLight} 0%, transparent 70%)`, opacity: 0.1, pointerEvents: "none" }} />
+        
+        <div className="section-container" style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "4rem", alignItems: "center", position: "relative", zIndex: 1 }}>
+          
+          {/* Video Container (Left) */}
+          <div style={{ 
+            position: "relative", 
+            borderRadius: "32px",
+            padding: "0.8rem",
+            background: c.white,
+            boxShadow: "0 30px 100px rgba(26,18,8,0.12)",
+            border: "1px solid rgba(250,103,66,0.1)",
+          }}>
+            <div style={{ 
+              position: "relative", 
+              paddingBottom: "56.25%", 
+              height: 0, 
+              overflow: "hidden", 
+              borderRadius: "24px",
+            }}>
+              <iframe 
+                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: 0 }}
+                src="https://www.youtube.com/embed/y8xZJ0Mg4yY"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+
+          {/* Text Content (Right) */}
+          <div style={{ textAlign: "left" }}>
+            <h2 className="section-heading" style={{ fontSize: "clamp(2rem, 5vw, 2.8rem)", marginBottom: "1.5rem", lineHeight: 1.1 }}>
+              Revive la Experiencia
+            </h2>
+            <p style={{ color: c.muted, fontSize: "1.15rem", lineHeight: 1.6, marginBottom: "2rem", maxWidth: "450px" }}>
+              Descubre por qué Leaders of Tomorrow es el programa que está transformando el ecosistema joven. Un vistazo a la energía y el impacto de nuestras ediciones pasadas.
+            </p>
+            <div style={{ display: "flex", gap: "1rem" }}>
+              <span style={{ fontSize: "0.9rem", color: c.orange, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", background: "rgba(250,103,66,0.1)", padding: "0.4rem 1rem", borderRadius: "99px" }}>
+                #ImpactoReal
+              </span>
+              <span style={{ fontSize: "0.9rem", color: c.orange, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", background: "rgba(250,103,66,0.1)", padding: "0.4rem 1rem", borderRadius: "99px" }}>
+                #CBA
+              </span>
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -542,14 +628,14 @@ export default function Home() {
           <p style={{ color: "rgba(255,255,255,0.9)", fontSize: "1.25rem", maxWidth: 600, margin: "0 auto 3rem", lineHeight: 1.6, fontWeight: 500 }}>
             No esperes a que el futuro suceda. Créalo. Postulaciones abiertas para el próximo semestre.
           </p>
-          <a href="#apply" className="magnetic-btn" style={{
+          <Link href="/apply" className="magnetic-btn" style={{
             background: c.white, color: c.orange, fontWeight: 900, fontSize: "1.1rem",
             padding: "1.2rem 3rem", borderRadius: 9999, textDecoration: "none",
             boxShadow: "0 15px 45px rgba(0,0,0,0.15)", display: "inline-flex", alignItems: "center", gap: "0.6rem"
           }}>
             Aplicar ahora
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
+          </Link>
         </div>
       </section>
 
@@ -577,7 +663,7 @@ export default function Home() {
           ))}
         </div>
         <div style={{ borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" as const, gap: "1rem" }}>
-          <p style={{ fontSize: "0.9rem" }}>© {new Date().getFullYear()} Leaders of Tomorrow Lab. Made with ✨ for future leaders.</p>
+          <p style={{ fontSize: "0.9rem" }}>© {new Date().getFullYear()} Leaders of Tomorrow by CBA</p>
           <div style={{ display: "flex", gap: "1.5rem" }}>
             {["Twitter", "LinkedIn", "Instagram", "Spotify"].map(s => (
               <a key={s} href="#" style={{ color: "rgba(255,255,255,0.9)", textDecoration: "none", fontSize: "0.9rem", fontWeight: 600 }}>{s}</a>
