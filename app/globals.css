@@ -43,7 +43,6 @@
 }
 
 html {
-  scroll-behavior: smooth;
 }
 
 * {
@@ -57,7 +56,6 @@ body {
   text-transform: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
 }
 
 /* Gebuk Font for Brand Elements */
@@ -293,12 +291,213 @@ h1, h2, h3, h4, h5, h6 {
 ::-webkit-scrollbar-thumb:hover { background: var(--color-orange); }
 
 /* ── Responsive ──────────────────────────────────────────────── */
+
+/* ── Tablet ──────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .section-container {
+    padding: 0 1.25rem;
+  }
+}
+
+/* ── Mobile ──────────────────────────────────────────────────── */
 @media (max-width: 768px) {
+  /* ── Navbar mobile fixes ── */
+  .nav-wrapper {
+    padding: 0.5rem 0.75rem 0 !important;
+  }
+
+  .nav-inner {
+    padding: 0 0.75rem !important;
+    height: 56px !important;
+    border-radius: 16px !important;
+    gap: 0.5rem !important;
+  }
+
+  .nav-inner img {
+    max-height: 40px !important;
+    max-width: 160px !important;
+  }
+
+  /* Feature cards */
   .feature-card-visual {
     height: 200px;
   }
   .feature-card-content {
     padding: 1.5rem;
+  }
+
+  /* Section containers - tighter padding */
+  .section-container {
+    padding: 0 1rem;
+  }
+
+  /* Mentor cards */
+  .mentor-card {
+    padding: 2rem 1.5rem;
+    border-radius: 24px;
+  }
+
+  .mentor-monogram {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem !important;
+    margin-bottom: 1.2rem;
+  }
+
+  .mentor-name {
+    font-size: 1.2rem;
+  }
+
+  .mentor-desc {
+    font-size: 0.9rem !important;
+  }
+
+  .mentor-tags {
+    margin-bottom: 1.5rem;
+  }
+
+  .mentor-more-btn {
+    padding: 0.45rem 1rem;
+    font-size: 0.75rem !important;
+  }
+
+  /* Testimonial cards */
+  .testimonial-card {
+    padding: 1.8rem 1.5rem;
+    border-radius: 24px;
+  }
+
+  /* FAQ */
+  .faq-container {
+    border-radius: 32px !important;
+    padding: 3rem 1.25rem !important;
+  }
+
+  .faq-title {
+    font-size: clamp(2.5rem, 10vw, 4rem) !important;
+  }
+
+  .faq-item button {
+    padding: 1.2rem 1.25rem !important;
+    border-radius: 18px !important;
+  }
+
+  .faq-item button span {
+    font-size: 0.95rem !important;
+  }
+
+  /* Mentor modal */
+  .mentor-modal-content {
+    padding: 2rem 1.5rem !important;
+    border-radius: 24px !important;
+    max-width: 100% !important;
+    margin: 0 0.5rem;
+  }
+
+  /* Stat numbers */
+  .stat-number {
+    font-size: clamp(2.5rem, 10vw, 3.5rem) !important;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+  }
+
+  /* Magnetic buttons */
+  .magnetic-btn {
+    padding: 0.85rem 1.8rem;
+    font-size: 0.95rem;
+  }
+
+  /* ── Footer mobile ── */
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+    text-align: center;
+  }
+
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-col:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .footer-col img {
+    margin: 0 auto 1.5rem !important;
+    display: block;
+  }
+
+  .footer-col p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .footer-col a {
+    text-align: center;
+  }
+
+  .footer-bottom {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 1rem !important;
+  }
+
+  /* ── Mentors grid mobile: single column ── */
+  .mentors-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Mentor card wrapper — let cards stretch full width */
+  .mentor-card-wrapper {
+    width: 100%;
+  }
+
+  /* Testimonial card wrapper */
+  .testimonial-card-wrapper {
+    width: 100%;
+  }
+}
+
+/* ── Tablet: mentors 2 columns ────────────────────────────────── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .mentors-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ── Small phones ────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .nav-inner {
+    height: 50px !important;
+    padding: 0 0.6rem !important;
+  }
+
+  .nav-inner img {
+    max-height: 34px !important;
+    max-width: 130px !important;
+  }
+
+  .mentor-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .testimonial-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .faq-container {
+    padding: 2.5rem 1rem !important;
+    border-radius: 24px !important;
+  }
+
+  .mentor-modal-content {
+    padding: 1.5rem 1.25rem !important;
   }
 }
 
@@ -307,4 +506,148 @@ h1, h2, h3, h4, h5, h6 {
   0% { transform: translateY(0); }
   50% { transform: translateY(-15px); }
   100% { transform: translateY(0); }
+}
+
+/* ── Mentor Card ─────────────────────────────────────────────── */
+.mentor-card {
+  background: var(--color-white);
+  border-radius: var(--radius-2xl);
+  padding: 2.5rem 2rem;
+  border: 1px solid rgba(250, 103, 66, 0.08);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+              box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+              border-color 0.4s ease;
+  box-shadow: 0 10px 40px rgba(26, 18, 8, 0.03);
+}
+
+.mentor-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 24px 64px rgba(250, 103, 66, 0.12);
+  border-color: var(--color-orange);
+}
+
+.mentor-monogram {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  font-family: var(--font-primary) !important;
+  text-transform: uppercase !important;
+  font-size: 1.8rem !important;
+  font-weight: normal !important;
+  box-shadow: 0 8px 24px rgba(26, 18, 8, 0.1);
+  margin-bottom: 1.5rem;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.mentor-card:hover .mentor-monogram {
+  transform: scale(1.08) rotate(-5deg);
+  box-shadow: 0 12px 30px rgba(26, 18, 8, 0.18);
+}
+
+.mentor-name {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.mentor-role {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  color: var(--color-orange);
+  margin-bottom: 1rem;
+  text-transform: none !important;
+}
+
+.mentor-desc {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-size: 0.95rem !important;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.mentor-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.mentor-tag {
+  background: var(--color-orange-pale);
+  color: var(--color-orange);
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  padding: 0.35rem 0.8rem;
+  border-radius: 99px;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em;
+  border: 1px solid rgba(250, 103, 66, 0.1);
+}
+
+.mentor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.linkedin-btn {
+  color: var(--color-text-muted);
+  transition: color 0.3s ease, transform 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.linkedin-btn:hover {
+  color: #0077b5;
+  transform: scale(1.1);
+}
+
+.mentor-more-btn {
+  font-family: var(--font-primary) !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.05em;
+  text-transform: uppercase !important;
+  background: transparent;
+  color: var(--color-text);
+  border: 2px solid var(--color-text);
+  padding: 0.5rem 1.2rem;
+  border-radius: 99px;
+  cursor: pointer;
+  font-weight: normal !important;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.mentor-more-btn:hover {
+  background: var(--color-text);
+  color: var(--color-white);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(26, 18, 8, 0.15);
+}
+
+/* Modal details */
+.mentor-modal-content {
+  animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalPop {
+  from {
+    transform: scale(0.9) translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
 }
