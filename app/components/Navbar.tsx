@@ -19,12 +19,14 @@ const NAV_LINKS = [
 
 export default function Navbar({ solid = false }: { solid?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(solid);
   const container = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLElement>(null);
 
   useGSAP(() => {
     if (solid) {
       container.current?.classList.add("scrolled");
+      setIsScrolled(true);
       return;
     }
     // ── Scroll animation for the floating bar ──
@@ -39,8 +41,14 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
 
     ScrollTrigger.create({
       start: () => (typeof window !== "undefined" ? window.innerHeight - 80 : 800),
-      onEnter: () => container.current?.classList.add("scrolled"),
-      onLeaveBack: () => container.current?.classList.remove("scrolled"),
+      onEnter: () => {
+        container.current?.classList.add("scrolled");
+        setIsScrolled(true);
+      },
+      onLeaveBack: () => {
+        container.current?.classList.remove("scrolled");
+        setIsScrolled(false);
+      },
     });
   }, { scope: container });
 
@@ -104,6 +112,8 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
             </a>
           ))}
         </div>
+        {/* Mobile Spacer to keep Logo centered */}
+        <div className="mobile-spacer" style={{ display: "none" }}></div>
 
         {/* ─── Center: Logo ─────────────────────────────────────── */}
         <Link
@@ -117,22 +127,12 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
           }}
         >
           <Image
-            src="/logo-white.svg"
+            src={isScrolled ? "/logo-dark.svg" : "/logo-white.svg"}
             alt="Leaders of Tomorrow"
             width={240}
             height={64}
             priority
-            className="logo-default"
-            style={{ height: "auto", width: "auto", maxHeight: "56px" }}
-          />
-          <Image
-            src="/Leaders Of Tomorrow Lab.svg"
-            alt="Leaders of Tomorrow White"
-            width={240}
-            height={64}
-            priority
-            className="logo-scrolled"
-            style={{ height: "auto", width: "auto", maxHeight: "56px" }}
+            style={{ height: "auto", width: "auto", maxHeight: "56px", transition: "opacity 0.3s ease" }}
           />
         </Link>
 
@@ -279,6 +279,7 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
           .desktop-nav  { display: none !important; }
           .desktop-cta  { display: none !important; }
           .hamburger    { display: flex !important; }
+          .mobile-spacer { display: block !important; }
         }
         .nav-inner.scrolled {
           background-color: var(--color-orange) !important;
