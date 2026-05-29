@@ -15,10 +15,10 @@ if (typeof window !== "undefined") {
 }
 
 const c = {
-  orange: "#FA6742",
-  orangeDark: "#e5522e",
-  orangeLight: "#FFCBB8",
-  orangePale: "#FFF0EB",
+  orange: "#8B5CF6",
+  orangeDark: "#7C3AED",
+  orangeLight: "#DDD6FE",
+  orangePale: "#F5F3FF",
   cream: "#F9F4E1",
   dark: "#1A1208",
   muted: "#7A5C4F",
@@ -48,7 +48,7 @@ const MENTORS: Mentor[] = [
     initials: "SV",
     details: "Especialista en escalamiento de startups en mercados emergentes, levantamiento de capital pre-seed y seed, y diseño de producto enfocado en el usuario. Mentora activa en aceleradoras globales como Techstars y Y Combinator.",
     tags: ["Biotech", "Stanford", "Founder"],
-    gradient: "linear-gradient(135deg, #FA6742 0%, #FF9E79 100%)"
+    gradient: "linear-gradient(135deg, #8B5CF6 0%, #FF9E79 100%)"
   },
   {
     name: "Diego Alarcón",
@@ -365,7 +365,10 @@ export default function Home() {
         className="hero-section"
         style={{
           minHeight: "100vh",
-          backgroundColor: c.orange,
+          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/hero/hero.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
           display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
           padding: "6rem 1.25rem 3rem", textAlign: "center", position: "relative", overflow: "hidden",
         }}
@@ -424,13 +427,10 @@ export default function Home() {
 
         {/* Logos marquee style */}
         <div className="hero-logos" style={{ marginTop: "3rem", opacity: 0.8 }}>
-          <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase" as const, letterSpacing: "0.15em", marginBottom: "1rem" }}>Avalado por instituciones líderes</p>
-          <div style={{ display: "flex", justifyContent: "center", gap: "clamp(1.5rem, 4vw, 4rem)", flexWrap: "wrap" as const, alignItems: "center" }}>
-            {["Harvard", "MIT", "Stanford", "TEC", "UNAM"].map((name) => (
-              <span key={name} style={{ color: c.white, fontWeight: 800, fontSize: "clamp(0.9rem, 2vw, 1.2rem)", letterSpacing: "0.15em", textTransform: "uppercase" as const, opacity: 0.65 }}>
-                {name}
-              </span>
-            ))}
+          <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase" as const, letterSpacing: "0.15em", marginBottom: "1rem" }}>Organizado por</p>
+          <div style={{ display: "flex", justifyContent: "center", gap: "clamp(2rem, 5vw, 4rem)", flexWrap: "wrap" as const, alignItems: "center" }}>
+            <img src="/hero/logos/Cba.png" alt="CBA Logo" style={{ height: "48px", objectFit: "contain", opacity: 0.9 }} />
+            <img src="/hero/logos/hiveyoung.svg" alt="Hiveyoung Logo" style={{ height: "38px", objectFit: "contain", opacity: 0.9 }} />
           </div>
         </div>
       </section>
@@ -518,7 +518,7 @@ export default function Home() {
                 e.currentTarget.style.boxShadow = "none";
               }}
               >
-                <div style={{ width: "64px", height: "64px", borderRadius: "16px", background: "rgba(250,103,66,0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ width: "64px", height: "64px", borderRadius: "16px", background: "rgba(139, 92, 246,0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   {item.icon}
                 </div>
                 <div>
@@ -545,7 +545,7 @@ export default function Home() {
             padding: "0.8rem",
             background: c.white,
             boxShadow: "0 30px 100px rgba(26,18,8,0.12)",
-            border: "1px solid rgba(250,103,66,0.1)",
+            border: "1px solid rgba(139, 92, 246,0.1)",
           }}>
             <div style={{ 
               position: "relative", 
@@ -573,10 +573,10 @@ export default function Home() {
               Descubre por qué Leaders of Tomorrow es el programa que está transformando el ecosistema joven. Un vistazo a la energía y el impacto de nuestras ediciones pasadas.
             </p>
             <div style={{ display: "flex", gap: "1rem" }}>
-              <span style={{ fontSize: "0.9rem", color: c.orange, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", background: "rgba(250,103,66,0.1)", padding: "0.4rem 1rem", borderRadius: "99px" }}>
+              <span style={{ fontSize: "0.9rem", color: c.orange, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", background: "rgba(139, 92, 246,0.1)", padding: "0.4rem 1rem", borderRadius: "99px" }}>
                 #ImpactoReal
               </span>
-              <span style={{ fontSize: "0.9rem", color: c.orange, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", background: "rgba(250,103,66,0.1)", padding: "0.4rem 1rem", borderRadius: "99px" }}>
+              <span style={{ fontSize: "0.9rem", color: c.orange, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", background: "rgba(139, 92, 246,0.1)", padding: "0.4rem 1rem", borderRadius: "99px" }}>
                 #CBA
               </span>
             </div>
@@ -586,7 +586,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ STATS ═══════════════════ */}
-      <section style={{ padding: "clamp(3rem, 6vw, 6rem) 0", background: c.cream, borderTop: `1px solid rgba(250,103,66,0.08)`, borderBottom: `1px solid rgba(250,103,66,0.08)` }}>
+      <section style={{ padding: "clamp(3rem, 6vw, 6rem) 0", background: c.cream, borderTop: `1px solid rgba(139, 92, 246,0.08)`, borderBottom: `1px solid rgba(139, 92, 246,0.08)` }}>
         <div className="section-container">
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 140px), 1fr))", gap: "clamp(1.5rem, 3vw, 3rem)", textAlign: "center" }}>
             {[
@@ -635,9 +635,9 @@ export default function Home() {
                       setHoveredMore(null);
                     }}
                     style={{
-                      border: `1px solid ${isHovered ? c.orange : "rgba(250, 103, 66, 0.08)"}`,
+                      border: `1px solid ${isHovered ? c.orange : "rgba(139, 92, 246, 0.08)"}`,
                       boxShadow: isHovered 
-                        ? "0 24px 64px rgba(250, 103, 66, 0.12)" 
+                        ? "0 24px 64px rgba(139, 92, 246, 0.12)" 
                         : "0 10px 40px rgba(26, 18, 8, 0.03)",
                       transform: isHovered ? "translateY(-8px) scale(1.01)" : "translateY(0) scale(1)",
                     }}
@@ -728,7 +728,7 @@ export default function Home() {
                               borderRadius: "99px",
                               textTransform: "uppercase",
                               letterSpacing: "0.05em",
-                              border: `1px solid rgba(250, 103, 66, 0.1)`,
+                              border: `1px solid rgba(139, 92, 246, 0.1)`,
                             }}
                           >
                             {tag}
@@ -861,7 +861,7 @@ export default function Home() {
                     background: c.white,
                     borderRadius: "32px",
                     padding: "3rem 2.5rem 2.5rem",
-                    border: "1px solid rgba(250,103,66,0.1)",
+                    border: "1px solid rgba(139, 92, 246,0.1)",
                     boxShadow: "0 10px 40px rgba(26,18,8,0.04)",
                     display: "flex",
                     flexDirection: "column",
@@ -870,7 +870,7 @@ export default function Home() {
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = "translateY(-8px)";
-                    e.currentTarget.style.boxShadow = "0 24px 60px rgba(250,103,66,0.12)";
+                    e.currentTarget.style.boxShadow = "0 24px 60px rgba(139, 92, 246,0.12)";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = "translateY(0)";
@@ -908,7 +908,7 @@ export default function Home() {
                       color: c.white, 
                       fontWeight: 900, 
                       fontSize: "1.2rem",
-                      boxShadow: "0 8px 20px rgba(250,103,66,0.2)"
+                      boxShadow: "0 8px 20px rgba(139, 92, 246,0.2)"
                     }}>
                       {t.name.charAt(0)}
                     </div>
@@ -1013,7 +1013,7 @@ export default function Home() {
           maxWidth: 1100, margin: "0 auto",
           background: `linear-gradient(145deg, ${c.orange}, #FF7D5A)`,
           borderRadius: "clamp(24px, 5vw, 48px)", padding: "clamp(3rem, 6vw, 6rem) clamp(1.25rem, 3vw, 2rem)", textAlign: "center", position: "relative", overflow: "hidden",
-          boxShadow: "0 30px 90px rgba(250,103,66,0.3)"
+          boxShadow: "0 30px 90px rgba(139, 92, 246,0.3)"
         }}>
           <div style={{ position: "absolute", width: 400, height: 400, top: -100, right: -100, borderRadius: "50%", background: "rgba(255,255,255,0.15)", pointerEvents: "none" }} />
           <div style={{ position: "absolute", width: 250, height: 250, bottom: -50, left: -50, borderRadius: "50%", background: "rgba(255,255,255,0.08)", pointerEvents: "none" }} />
@@ -1099,7 +1099,7 @@ export default function Home() {
               maxWidth: "540px",
               padding: "3rem 2.5rem",
               boxShadow: "0 30px 90px rgba(26,18,8,0.25)",
-              border: "1px solid rgba(250,103,66,0.1)",
+              border: "1px solid rgba(139, 92, 246,0.1)",
               position: "relative",
             }}
           >
@@ -1158,7 +1158,7 @@ export default function Home() {
                   fontSize: "2.2rem",
                   fontWeight: "normal",
                   marginBottom: "1.5rem",
-                  boxShadow: "0 10px 30px rgba(250,103,66,0.2)"
+                  boxShadow: "0 10px 30px rgba(139, 92, 246,0.2)"
                 }}
               >
                 {selectedMentor.initials}
@@ -1182,7 +1182,7 @@ export default function Home() {
                       borderRadius: "99px",
                       textTransform: "uppercase",
                       letterSpacing: "0.05em",
-                      border: `1px solid rgba(250, 103, 66, 0.1)`,
+                      border: `1px solid rgba(139, 92, 246, 0.1)`,
                     }}
                   >
                     {tag}

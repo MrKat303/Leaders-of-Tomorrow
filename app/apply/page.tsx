@@ -7,8 +7,8 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 const c = {
-  orange: "#FA6742",
-  orangeDark: "#e5522e",
+  orange: "#8B5CF6",
+  orangeDark: "#7C3AED",
   cream: "#F9F4E1",
   dark: "#1A1208",
   muted: "#7A5C4F",
@@ -97,7 +97,7 @@ export default function ApplyPage() {
 
   const handleFocus = (e: any) => {
     e.target.style.borderColor = c.orange;
-    e.target.style.boxShadow = "0 0 0 4px rgba(250,103,66,0.08)";
+    e.target.style.boxShadow = "0 0 0 4px rgba(139, 92, 246,0.08)";
   };
 
   const handleBlur = (e: any) => {
