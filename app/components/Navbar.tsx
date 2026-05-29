@@ -72,7 +72,10 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
         style={{
           maxWidth: "1140px",
           margin: "0 auto",
-          backgroundColor: "#F9F4E1",
+          backgroundColor: "rgba(255, 255, 255, 0.1)",
+          backdropFilter: "blur(16px)",
+          WebkitBackdropFilter: "blur(16px)",
+          border: "1px solid rgba(255, 255, 255, 0.2)",
           borderRadius: "20px",
           padding: "0 1.5rem",
           height: "64px",
@@ -168,7 +171,7 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
               display: "inline-flex",
               alignItems: "center",
               gap: "0.5rem",
-              background: "var(--color-orange)",
+              background: "#7b2cbf",
               color: "#fff",
               fontWeight: 400,
               fontSize: "0.85rem",
@@ -178,17 +181,17 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
               border: "none",
               cursor: "pointer",
               transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
-              boxShadow: "0 4px 12px rgba(250,103,66,0.2)",
+              boxShadow: "0 4px 12px rgba(139, 92, 246,0.2)",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = "var(--color-orange-dark)";
+              e.currentTarget.style.background = "#5a189a";
               e.currentTarget.style.transform = "translateY(-2px)";
-              e.currentTarget.style.boxShadow = "0 8px 24px rgba(250,103,66,0.35)";
+              e.currentTarget.style.boxShadow = "0 8px 24px rgba(139, 92, 246,0.35)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = "var(--color-orange)";
+              e.currentTarget.style.background = "#7b2cbf";
               e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "0 4px 12px rgba(250,103,66,0.2)";
+              e.currentTarget.style.boxShadow = "0 4px 12px rgba(139, 92, 246,0.2)";
             }}
           >
             Aplicar ahora
@@ -261,7 +264,7 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
           <Link
             href="/apply"
             className="btn-primary"
-            style={{ marginTop: "0.75rem", justifyContent: "center", padding: "1rem" }}
+            style={{ marginTop: "0.75rem", justifyContent: "center", padding: "1rem", background: "#7b2cbf" }}
             onClick={() => setMenuOpen(false)}
           >
             Aplicar ahora 
@@ -282,8 +285,10 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
           .mobile-spacer { display: block !important; }
         }
         .nav-inner.scrolled {
-          background-color: var(--color-orange) !important;
-          box-shadow: none !important;
+          background-color: rgba(255, 255, 255, 0.7) !important;
+          backdrop-filter: blur(20px) !important;
+          -webkit-backdrop-filter: blur(20px) !important;
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08) !important;
           border: none !important;
           outline: none !important;
           transition: background-color 0.4s ease;
@@ -298,28 +303,28 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
           display: block !important;
         }
         .nav-link {
-          color: var(--color-text);
+          color: #ffffff;
           transition: all 0.3s ease;
         }
         .nav-link:hover {
-          color: var(--color-orange);
-          background: rgba(250, 103, 66, 0.08);
+          color: #c77dff;
+          background: rgba(255, 255, 255, 0.15);
         }
         .nav-inner.scrolled .nav-link {
-          color: #ffffff !important;
-        }
-        .nav-inner.scrolled .nav-link:hover {
-          background: rgba(255, 255, 255, 0.15) !important;
-          color: #ffffff !important;
-        }
-        .nav-inner.scrolled .desktop-cta {
-          background: #f4ce71 !important;
           color: #1A1208 !important;
         }
+        .nav-inner.scrolled .nav-link:hover {
+          background: rgba(0, 0, 0, 0.05) !important;
+          color: #c77dff !important;
+        }
+        .nav-inner.scrolled .desktop-cta {
+          background: #7b2cbf !important;
+          color: #ffffff !important;
+        }
         .nav-inner.scrolled .desktop-cta:hover {
-          background: #e3b854 !important;
+          background: #5a189a !important;
           transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(244, 206, 113, 0.35) !important;
+          box-shadow: 0 8px 24px rgba(123, 44, 191, 0.35) !important;
         }
         .nav-inner.scrolled .hamburger span {
           background: #ffffff !important;
