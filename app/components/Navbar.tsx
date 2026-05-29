@@ -2,14 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 const NAV_LINKS = [
   { label: "Programa", href: "/#programa" },
@@ -23,13 +18,25 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
   const container = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLElement>(null);
 
-  useGSAP(() => {
+  // Detect scroll past the hero (100vh) with native scroll event
+  useEffect(() => {
     if (solid) {
-      container.current?.classList.add("scrolled");
       setIsScrolled(true);
       return;
     }
-    // ── Scroll animation for the floating bar ──
+
+    const handleScroll = () => {
+      const heroHeight = window.innerHeight;
+      setIsScrolled(window.scrollY > heroHeight * 0.8);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [solid]);
+
+  useGSAP(() => {
+    if (solid) return;
+    // Shrink padding on scroll
     gsap.to(headerRef.current, {
       paddingTop: "0.5rem",
       duration: 0.4,
@@ -38,19 +45,7 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
         toggleActions: "play none none reverse",
       }
     });
-
-    ScrollTrigger.create({
-      start: () => (typeof window !== "undefined" ? window.innerHeight - 80 : 800),
-      onEnter: () => {
-        container.current?.classList.add("scrolled");
-        setIsScrolled(true);
-      },
-      onLeaveBack: () => {
-        container.current?.classList.remove("scrolled");
-        setIsScrolled(false);
-      },
-    });
-  }, { scope: container });
+  });
 
   return (
     <header
@@ -72,10 +67,10 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
         style={{
           maxWidth: "1140px",
           margin: "0 auto",
-          backgroundColor: "rgba(255, 255, 255, 0.1)",
+          backgroundColor: isScrolled ? "#5a189a" : "rgba(255, 255, 255, 0.1)",
           backdropFilter: "blur(16px)",
           WebkitBackdropFilter: "blur(16px)",
-          border: "1px solid rgba(255, 255, 255, 0.2)",
+          border: isScrolled ? "1px solid rgba(138, 43, 226, 0.4)" : "1px solid rgba(255, 255, 255, 0.2)",
           borderRadius: "20px",
           padding: "0 1.5rem",
           height: "64px",
@@ -83,7 +78,8 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
           gridTemplateColumns: "1fr auto 1fr",
           alignItems: "center",
           gap: "1rem",
-          transition: "background-color 0.4s ease, box-shadow 0.4s ease, padding 0.4s ease",
+          transition: "background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease",
+          boxShadow: isScrolled ? "0 8px 32px rgba(90, 24, 154, 0.4)" : "none",
         }}
       >
         {/* ─── Left: Nav links ──────────────────────────────────── */}
@@ -130,7 +126,7 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
           }}
         >
           <Image
-            src={isScrolled ? "/logo-dark.svg" : "/logo-white.svg"}
+            src="/logo-white.svg"
             alt="Leaders of Tomorrow"
             width={240}
             height={64}
@@ -171,7 +167,7 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
               display: "inline-flex",
               alignItems: "center",
               gap: "0.5rem",
-              background: "#7b2cbf",
+              background: isScrolled ? "#e91e8c" : "#5A189A",
               color: "#fff",
               fontWeight: 400,
               fontSize: "0.85rem",
@@ -181,17 +177,17 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
               border: "none",
               cursor: "pointer",
               transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
-              boxShadow: "0 4px 12px rgba(139, 92, 246,0.2)",
+              boxShadow: isScrolled ? "0 4px 12px rgba(233, 30, 140, 0.35)" : "0 4px 12px rgba(90, 24, 154, 0.35)",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = "#5a189a";
+              e.currentTarget.style.background = isScrolled ? "#c2185b" : "#3c096c";
               e.currentTarget.style.transform = "translateY(-2px)";
-              e.currentTarget.style.boxShadow = "0 8px 24px rgba(139, 92, 246,0.35)";
+              e.currentTarget.style.boxShadow = isScrolled ? "0 8px 24px rgba(233, 30, 140, 0.5)" : "0 8px 24px rgba(90, 24, 154, 0.5)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = "#7b2cbf";
+              e.currentTarget.style.background = isScrolled ? "#e91e8c" : "#5A189A";
               e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "0 4px 12px rgba(139, 92, 246,0.2)";
+              e.currentTarget.style.boxShadow = isScrolled ? "0 4px 12px rgba(233, 30, 140, 0.35)" : "0 4px 12px rgba(90, 24, 154, 0.35)";
             }}
           >
             Aplicar ahora

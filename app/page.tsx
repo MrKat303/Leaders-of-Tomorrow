@@ -15,17 +15,21 @@ if (typeof window !== "undefined") {
 }
 
 const c = {
-  orange: "#8B5CF6",
-  orangeDark: "#7C3AED",
-  orangeLight: "#DDD6FE",
-  orangePale: "#F5F3FF",
-  cream: "#F9F4E1",
-  dark: "#1A1208",
-  muted: "#7A5C4F",
+  orange: "#e0aaff",
+  orangeDark: "#c77dff",
+  orangeLight: "rgba(224, 170, 255, 0.25)",
+  orangePale: "rgba(224, 170, 255, 0.15)",
+  cream: "transparent",
+  dark: "#ffffff",
+  muted: "rgba(255, 255, 255, 0.75)",
   white: "#ffffff",
-  forest: "#43a574",
-  lime: "#D4F84B",
-  purple: "#B197FC",
+  forest: "#e0aaff",
+  lime: "#e0aaff",
+  purple: "#e0aaff",
+  glassBg: "rgba(255, 255, 255, 0.08)",
+  glassBorder: "rgba(255, 255, 255, 0.15)",
+  glassHover: "rgba(255, 255, 255, 0.15)",
+  bgLight: "transparent",
 };
 
 interface Mentor {
@@ -48,7 +52,7 @@ const MENTORS: Mentor[] = [
     initials: "SV",
     details: "Especialista en escalamiento de startups en mercados emergentes, levantamiento de capital pre-seed y seed, y diseño de producto enfocado en el usuario. Mentora activa en aceleradoras globales como Techstars y Y Combinator.",
     tags: ["Biotech", "Stanford", "Founder"],
-    gradient: "linear-gradient(135deg, #8B5CF6 0%, #FF9E79 100%)"
+    gradient: "linear-gradient(135deg, #7b2cbf 0%, #c77dff 100%)"
   },
   {
     name: "Diego Alarcón",
@@ -58,7 +62,7 @@ const MENTORS: Mentor[] = [
     initials: "DA",
     details: "Experto en desarrollo de Inteligencia Artificial aplicada, optimización de infraestructura de cómputo para entrenamiento de redes neuronales gigantescas y liderazgo de equipos técnicos multidisciplinarios en Silicon Valley.",
     tags: ["AI", "MIT", "Tech Lead"],
-    gradient: "linear-gradient(135deg, #43a574 0%, #a3e9c5 100%)"
+    gradient: "linear-gradient(135deg, #5a189a 0%, #9d4edd 100%)"
   },
   {
     name: "Camila Rossi",
@@ -68,7 +72,7 @@ const MENTORS: Mentor[] = [
     initials: "CR",
     details: "Ex-asociada sénior en Sequoia Capital. Ha liderado más de 20 inversiones exitosas en la región. Apasionada por el ecosistema SaaS y por potenciar el talento sub-30 a través de redes estratégicas.",
     tags: ["VC", "SaaS", "LatAm Lead"],
-    gradient: "linear-gradient(135deg, #B197FC 0%, #E5DBFF 100%)"
+    gradient: "linear-gradient(135deg, #9d4edd 0%, #c77dff 100%)"
   },
   {
     name: "Mateo Mendoza",
@@ -78,7 +82,7 @@ const MENTORS: Mentor[] = [
     initials: "MM",
     details: "Especialista en metodologías ágiles, Product-Led Growth (PLG), diseño UX/UI a escala y diseño e implementación de sistemas transfronterizos de pagos digitales.",
     tags: ["Product", "Fintech", "Agile"],
-    gradient: "linear-gradient(135deg, #F4CE71 0%, #FFEFC4 100%)"
+    gradient: "linear-gradient(135deg, #3c096c 0%, #7b2cbf 100%)"
   },
   {
     name: "Valentina Rojas",
@@ -88,7 +92,7 @@ const MENTORS: Mentor[] = [
     initials: "VR",
     details: "Experta en growth hacking, SEO técnico, marketing de performance y experimentación. Mentora en 500 Startups LatAm.",
     tags: ["Growth", "Marketing", "YC"],
-    gradient: "linear-gradient(135deg, #FF6B6B 0%, #FFD93D 100%)"
+    gradient: "linear-gradient(135deg, #5a189a 0%, #e0aaff 100%)"
   },
   {
     name: "Julián Castro",
@@ -98,7 +102,7 @@ const MENTORS: Mentor[] = [
     initials: "JC",
     details: "Especialista en arquitecturas distribuidas, React, Node.js y DevOps. Apasionado por la educación tecnológica comunitaria.",
     tags: ["Engineering", "Open Source", "DevOps"],
-    gradient: "linear-gradient(135deg, #4D96FF 0%, #6BCB77 100%)"
+    gradient: "linear-gradient(135deg, #7b2cbf 0%, #5a189a 100%)"
   },
   {
     name: "Isabella Silva",
@@ -108,7 +112,7 @@ const MENTORS: Mentor[] = [
     initials: "IS",
     details: "Lidera equipos de research cualitativo y cuantitativo. Ayuda a founders a encontrar el product-market fit a través de la empatía.",
     tags: ["UX", "Research", "Design"],
-    gradient: "linear-gradient(135deg, #FF9A8B 0%, #FF6A88 100%)"
+    gradient: "linear-gradient(135deg, #c77dff 0%, #9d4edd 100%)"
   },
   {
     name: "Tomás Navarro",
@@ -118,7 +122,7 @@ const MENTORS: Mentor[] = [
     initials: "TN",
     details: "Conecta a founders prometedores con capital inteligente. Asesora en modelos de negocio b2b SaaS y unit economics.",
     tags: ["Angel Investor", "B2B", "Seed"],
-    gradient: "linear-gradient(135deg, #A8E6CF 0%, #DCEDC1 100%)"
+    gradient: "linear-gradient(135deg, #3c096c 0%, #5a189a 100%)"
   }
 ];
 
@@ -347,6 +351,30 @@ export default function Home() {
       btn.addEventListener("mouseleave", onMouseLeave);
     });
 
+    // ── Parallax Background ──
+    gsap.to(".parallax-bg", {
+      backgroundPosition: "center 100%",
+      ease: "none",
+      scrollTrigger: {
+        trigger: container.current,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true,
+      }
+    });
+
+    // ── Hero Background Fade Transition ──
+    gsap.to(".hero-bg", {
+      opacity: 0,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".hero-section",
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      }
+    });
+
     return () => {
       lenis.destroy();
       magneticBtns.forEach(btn => {
@@ -357,7 +385,39 @@ export default function Home() {
   }, { scope: container });
 
   return (
-    <div ref={container} className="bg-cream min-h-screen" style={{ overflowX: "hidden", maxWidth: "100vw" }}>
+    <div ref={container} className="min-h-screen" style={{ overflowX: "hidden", maxWidth: "100vw", background: "transparent", position: "relative" }}>
+      {/* Background Parallax Image */}
+      <div 
+        className="parallax-bg"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100vh",
+          backgroundImage: "url('/image.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center 0%",
+          zIndex: -2,
+          pointerEvents: "none"
+        }}
+      />
+      {/* Background Hero Image (City) */}
+      <div 
+        className="hero-bg"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100vh",
+          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/hero/hero.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          zIndex: -1,
+          pointerEvents: "none"
+        }}
+      />
       <Navbar />
 
       {/* ═══════════════════ HERO ═══════════════════ */}
@@ -365,10 +425,7 @@ export default function Home() {
         className="hero-section"
         style={{
           minHeight: "100vh",
-          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/hero/hero.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
+          background: "transparent",
           display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
           padding: "6rem 1.25rem 3rem", textAlign: "center", position: "relative", overflow: "hidden",
         }}
@@ -407,17 +464,17 @@ export default function Home() {
 
         <div className="hero-cta-wrap" style={{ display: "flex", gap: "1rem", flexWrap: "wrap" as const, justifyContent: "center", width: "100%", maxWidth: "500px" }}>
           <Link href="/apply" className="magnetic-btn" style={{ 
-            background: c.white, color: c.orange, fontWeight: 800, fontSize: "1.05rem", 
+            background: "#7b2cbf", color: c.white, fontWeight: 800, fontSize: "1.05rem", 
             padding: "1rem 2.5rem", borderRadius: 9999, textDecoration: "none", 
-            boxShadow: "0 12px 40px rgba(26,18,8,0.22)", display: "inline-flex", alignItems: "center", gap: "0.5rem" 
+            boxShadow: "0 12px 40px rgba(123,44,191,0.4)", display: "inline-flex", alignItems: "center", gap: "0.5rem" 
           }}>
             Quiero aplicar
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </Link>
           <a href="#programa" style={{
             display: "inline-flex", alignItems: "center", gap: "0.5rem",
-            background: "rgba(255,255,255,0.15)", backdropFilter: "blur(12px)",
-            border: "2px solid rgba(255,255,255,0.5)", color: c.white,
+            background: "rgba(255,255,255,0.1)", backdropFilter: "blur(12px)",
+            border: "1px solid rgba(255,255,255,0.2)", color: c.white,
             fontWeight: 700, fontSize: "1.05rem", padding: "1rem 2.5rem",
             borderRadius: 9999, textDecoration: "none", transition: "background 0.3s ease"
           }}>
@@ -442,7 +499,7 @@ export default function Home() {
             <h2 className="section-heading" style={{ fontSize: "clamp(2.5rem, 5vw, 3.5rem)", lineHeight: 1.1, marginBottom: "2rem" }}>
               Cómo Funciona el Programa
             </h2>
-            <p style={{ fontSize: "1.2rem", color: c.dark, lineHeight: 1.6, maxWidth: "800px", opacity: 0.8 }}>
+            <p style={{ fontSize: "1.2rem", color: c.muted, lineHeight: 1.6, maxWidth: "800px", opacity: 0.8 }}>
               Bootcamp de innovación, emprendimiento y tecnología diseñado para la próxima generación de builders, founders y agentes de cambio.
             </p>
           </div>
@@ -450,14 +507,14 @@ export default function Home() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))", gap: "clamp(2rem, 4vw, 4rem)", marginBottom: "clamp(3rem, 6vw, 6rem)" }}>
             <div>
               <h3 style={{ fontSize: "1.4rem", fontWeight: 800, marginBottom: "1.2rem", color: c.orange, textTransform: "uppercase" }}>Metodología</h3>
-              <p style={{ color: c.dark, opacity: 0.7, lineHeight: 1.7, fontSize: "1.05rem" }}>
+              <p style={{ color: c.muted, lineHeight: 1.7, fontSize: "1.05rem" }}>
                 Leaders of Tomorrow está diseñado bajo una metodología práctica y orientada a ejecución real. 
                 Los módulos combinan contenidos de innovación, emprendimiento y tecnología con construcción práctica.
               </p>
             </div>
             <div>
               <h3 style={{ fontSize: "1.4rem", fontWeight: 800, marginBottom: "1.2rem", color: c.orange, textTransform: "uppercase" }}>Módulos</h3>
-              <p style={{ color: c.dark, opacity: 0.7, lineHeight: 1.7, fontSize: "1.05rem" }}>
+              <p style={{ color: c.muted, lineHeight: 1.7, fontSize: "1.05rem" }}>
                 A medida que avanzan las sesiones, los equipos aplican inmediatamente lo aprendido en su proyecto mediante entregables, validaciones e iteraciones constantes.
               </p>
             </div>
@@ -499,31 +556,35 @@ export default function Home() {
               }
             ].map((item) => (
               <div key={item.title} style={{ 
-                background: "rgba(26,18,8,0.03)", 
+                background: c.glassBg, 
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
                 padding: "3rem 2rem", 
                 borderRadius: "32px", 
-                border: "1px solid rgba(26,18,8,0.05)",
+                border: `1px solid ${c.glassBorder}`,
                 display: "flex",
                 flexDirection: "column",
                 gap: "1.5rem",
                 height: "100%",
-                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = "translateY(-10px)";
-                e.currentTarget.style.boxShadow = "0 20px 40px rgba(0,0,0,0.05)";
+                e.currentTarget.style.boxShadow = "0 20px 40px rgba(123,44,191,0.15)";
+                e.currentTarget.style.borderColor = "rgba(199,125,255,0.3)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = "translateY(0)";
                 e.currentTarget.style.boxShadow = "none";
+                e.currentTarget.style.borderColor = c.glassBorder;
               }}
               >
-                <div style={{ width: "64px", height: "64px", borderRadius: "16px", background: "rgba(139, 92, 246,0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ width: "64px", height: "64px", borderRadius: "16px", background: "rgba(123, 44, 191, 0.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   {item.icon}
                 </div>
                 <div>
                   <h4 style={{ fontSize: "1.4rem", fontWeight: 800, marginBottom: "1rem", textTransform: "uppercase" }}>{item.title}</h4>
-                  <p style={{ color: c.dark, opacity: 0.7, lineHeight: 1.7, fontSize: "1rem", margin: 0 }}>{item.desc}</p>
+                  <p style={{ color: c.muted, lineHeight: 1.7, fontSize: "1rem", margin: 0 }}>{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -534,7 +595,7 @@ export default function Home() {
       {/* ═══════════════════ VIDEO SECTION ═══════════════════ */}
       <section style={{ padding: "clamp(3rem, 6vw, 6rem) 1.25rem", background: c.cream, position: "relative", overflow: "hidden" }}>
         {/* Decorative background element */}
-        <div style={{ position: "absolute", width: "30%", height: "30%", top: "10%", left: "-10%", background: `radial-gradient(circle, ${c.orangeLight} 0%, transparent 70%)`, opacity: 0.1, pointerEvents: "none" }} />
+        <div style={{ position: "absolute", width: "30%", height: "30%", top: "10%", left: "-10%", background: `radial-gradient(circle, rgba(123,44,191,0.15) 0%, transparent 70%)`, opacity: 0.5, pointerEvents: "none" }} />
         
         <div className="section-container" style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "4rem", alignItems: "center", position: "relative", zIndex: 1 }}>
           
@@ -543,9 +604,11 @@ export default function Home() {
             position: "relative", 
             borderRadius: "32px",
             padding: "0.8rem",
-            background: c.white,
-            boxShadow: "0 30px 100px rgba(26,18,8,0.12)",
-            border: "1px solid rgba(139, 92, 246,0.1)",
+            background: c.glassBg,
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            boxShadow: "0 30px 100px rgba(0,0,0,0.3)",
+            border: `1px solid ${c.glassBorder}`,
           }}>
             <div style={{ 
               position: "relative", 
@@ -586,7 +649,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ STATS ═══════════════════ */}
-      <section style={{ padding: "clamp(3rem, 6vw, 6rem) 0", background: c.cream, borderTop: `1px solid rgba(139, 92, 246,0.08)`, borderBottom: `1px solid rgba(139, 92, 246,0.08)` }}>
+      <section style={{ padding: "clamp(3rem, 6vw, 6rem) 0", background: c.cream, borderTop: `1px solid ${c.glassBorder}`, borderBottom: `1px solid ${c.glassBorder}` }}>
         <div className="section-container">
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 140px), 1fr))", gap: "clamp(1.5rem, 3vw, 3rem)", textAlign: "center" }}>
             {[
@@ -635,10 +698,10 @@ export default function Home() {
                       setHoveredMore(null);
                     }}
                     style={{
-                      border: `1px solid ${isHovered ? c.orange : "rgba(139, 92, 246, 0.08)"}`,
+                      border: `1px solid ${isHovered ? 'rgba(199,125,255,0.4)' : c.glassBorder}`,
                       boxShadow: isHovered 
-                        ? "0 24px 64px rgba(139, 92, 246, 0.12)" 
-                        : "0 10px 40px rgba(26, 18, 8, 0.03)",
+                        ? "0 24px 64px rgba(123, 44, 191, 0.2)" 
+                        : "0 10px 40px rgba(0, 0, 0, 0.2)",
                       transform: isHovered ? "translateY(-8px) scale(1.01)" : "translateY(0) scale(1)",
                     }}
                   >
@@ -659,8 +722,8 @@ export default function Home() {
                           fontSize: "1.8rem",
                           fontWeight: "normal",
                           boxShadow: isHovered 
-                            ? "0 12px 30px rgba(26, 18, 8, 0.18)" 
-                            : "0 8px 24px rgba(26, 18, 8, 0.1)",
+                            ? "0 12px 30px rgba(123, 44, 191, 0.3)" 
+                            : "0 8px 24px rgba(0, 0, 0, 0.3)",
                           marginBottom: "1.5rem",
                           transition: "transform 0.4s ease, box-shadow 0.4s ease",
                           transform: isHovered ? "scale(1.08) rotate(-5deg)" : "scale(1) rotate(0deg)",
@@ -728,7 +791,7 @@ export default function Home() {
                               borderRadius: "99px",
                               textTransform: "uppercase",
                               letterSpacing: "0.05em",
-                              border: `1px solid rgba(139, 92, 246, 0.1)`,
+                              border: `1px solid rgba(199, 125, 255, 0.15)`,
                             }}
                           >
                             {tag}
@@ -781,16 +844,16 @@ export default function Home() {
                           fontSize: "0.8rem",
                           letterSpacing: "0.05em",
                           textTransform: "uppercase",
-                          background: isMoreHovered ? c.dark : "transparent",
-                          color: isMoreHovered ? c.white : c.dark,
-                          border: `2px solid ${c.dark}`,
+                          background: isMoreHovered ? c.orange : "transparent",
+                          color: isMoreHovered ? c.white : c.white,
+                          border: `2px solid ${isMoreHovered ? c.orange : 'rgba(255,255,255,0.3)'}`,
                           padding: "0.5rem 1.2rem",
                           borderRadius: "99px",
                           cursor: "pointer",
                           fontWeight: "normal",
                           transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
                           transform: isMoreHovered ? "translateY(-2px)" : "translateY(0)",
-                          boxShadow: isMoreHovered ? "0 8px 20px rgba(26, 18, 8, 0.15)" : "none",
+                          boxShadow: isMoreHovered ? "0 8px 20px rgba(123, 44, 191, 0.3)" : "none",
                         }}
                       >
                         Ver más
@@ -858,23 +921,27 @@ export default function Home() {
                   style={{ 
                     height: "100%", 
                     position: "relative",
-                    background: c.white,
+                    background: c.glassBg,
+                    backdropFilter: "blur(20px)",
+                    WebkitBackdropFilter: "blur(20px)",
                     borderRadius: "32px",
                     padding: "3rem 2.5rem 2.5rem",
-                    border: "1px solid rgba(139, 92, 246,0.1)",
-                    boxShadow: "0 10px 40px rgba(26,18,8,0.04)",
+                    border: `1px solid ${c.glassBorder}`,
+                    boxShadow: "0 10px 40px rgba(0,0,0,0.2)",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-between",
-                    transition: "transform 0.4s ease, box-shadow 0.4s ease",
+                    transition: "transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease",
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = "translateY(-8px)";
-                    e.currentTarget.style.boxShadow = "0 24px 60px rgba(139, 92, 246,0.12)";
+                    e.currentTarget.style.boxShadow = "0 24px 60px rgba(123, 44, 191, 0.15)";
+                    e.currentTarget.style.borderColor = "rgba(199,125,255,0.3)";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "0 10px 40px rgba(26,18,8,0.04)";
+                    e.currentTarget.style.boxShadow = "0 10px 40px rgba(0,0,0,0.2)";
+                    e.currentTarget.style.borderColor = c.glassBorder;
                   }}
                 >
                   {/* Decorative Quote Icon */}
@@ -901,14 +968,14 @@ export default function Home() {
                       width: 56, 
                       height: 56, 
                       borderRadius: "50%", 
-                      background: `linear-gradient(135deg, ${c.orange}, ${c.orangeLight})`, 
+                      background: `linear-gradient(135deg, #7b2cbf, #c77dff)`, 
                       display: "flex", 
                       alignItems: "center", 
                       justifyContent: "center", 
                       color: c.white, 
                       fontWeight: 900, 
                       fontSize: "1.2rem",
-                      boxShadow: "0 8px 20px rgba(139, 92, 246,0.2)"
+                      boxShadow: "0 8px 20px rgba(123, 44, 191, 0.3)"
                     }}>
                       {t.name.charAt(0)}
                     </div>
@@ -928,7 +995,9 @@ export default function Home() {
       <section id="faq" className="faq-section" style={{ padding: "clamp(3rem, 6vw, 6rem) 1rem 0.5rem", background: c.cream }}>
         <div className="faq-container" style={{
           maxWidth: 1000, margin: "0 auto",
-          backgroundColor: c.forest,
+          background: c.glassBg,
+          backdropFilter: "blur(24px)",
+          WebkitBackdropFilter: "blur(24px)",
           borderRadius: 48,
           padding: "6rem 2rem",
           position: "relative",
@@ -937,7 +1006,8 @@ export default function Home() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          boxShadow: "0 40px 100px rgba(67, 165, 116, 0.2)"
+          border: `1px solid ${c.glassBorder}`,
+          boxShadow: "0 40px 100px rgba(123, 44, 191, 0.15)"
         }}>
           
           <div className="faq-header" style={{ textAlign: "center", marginBottom: "4rem", maxWidth: "600px" }}>
@@ -974,8 +1044,8 @@ export default function Home() {
                   <span style={{ fontSize: "1.1rem", fontWeight: 700, maxWidth: "85%", lineHeight: 1.4 }}>{faq.q}</span>
                   <div style={{
                     width: 36, height: 36, borderRadius: "50%", flexShrink: 0,
-                    background: openFaq === index ? c.lime : "rgba(255,255,255,0.15)",
-                    color: openFaq === index ? c.forest : c.white,
+                    background: openFaq === index ? c.orange : "rgba(255,255,255,0.1)",
+                    color: openFaq === index ? c.white : c.white,
                     display: "flex", alignItems: "center", justifyContent: "center",
                     transition: "all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)",
                     transform: openFaq === index ? "rotate(135deg)" : "rotate(0deg)"
@@ -1011,9 +1081,9 @@ export default function Home() {
       <section className="cta-section" style={{ padding: "0.5rem 1rem clamp(3rem, 6vw, 6rem)", background: c.cream }}>
         <div className="cta-section-inner" style={{
           maxWidth: 1100, margin: "0 auto",
-          background: `linear-gradient(145deg, ${c.orange}, #FF7D5A)`,
+          background: `linear-gradient(145deg, #5a189a, #7b2cbf)`,
           borderRadius: "clamp(24px, 5vw, 48px)", padding: "clamp(3rem, 6vw, 6rem) clamp(1.25rem, 3vw, 2rem)", textAlign: "center", position: "relative", overflow: "hidden",
-          boxShadow: "0 30px 90px rgba(139, 92, 246,0.3)"
+          boxShadow: "0 30px 90px rgba(123, 44, 191, 0.4)"
         }}>
           <div style={{ position: "absolute", width: 400, height: 400, top: -100, right: -100, borderRadius: "50%", background: "rgba(255,255,255,0.15)", pointerEvents: "none" }} />
           <div style={{ position: "absolute", width: 250, height: 250, bottom: -50, left: -50, borderRadius: "50%", background: "rgba(255,255,255,0.08)", pointerEvents: "none" }} />
@@ -1036,10 +1106,10 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ FOOTER ═══════════════════ */}
-      <footer style={{ background: c.orange, color: "rgba(255,255,255,0.9)", padding: "clamp(3rem, 6vw, 6rem) 1.25rem clamp(1.5rem, 3vw, 3rem)" }}>
+      <footer style={{ background: "#5A189A", color: "rgba(255,255,255,0.9)", padding: "clamp(3rem, 6vw, 6rem) 1.25rem clamp(1.5rem, 3vw, 3rem)", borderTop: `1px solid ${c.glassBorder}` }}>
         <div className="footer-grid" style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", gap: "clamp(2rem, 4vw, 4rem)", marginBottom: "clamp(2rem, 4vw, 4rem)" }}>
           <div className="footer-col" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
-            <Image src="/logo-dark.svg" alt="Logo" width={180} height={50} style={{ height: "auto", marginBottom: "1.5rem", display: "block" }} />
+            <Image src="/logo-white.svg" alt="Logo" width={180} height={50} style={{ height: "auto", marginBottom: "1.5rem", display: "block" }} />
             <p style={{ fontSize: "0.95rem", lineHeight: 1.8, maxWidth: 300, textAlign: "center", margin: "0 auto" }}>La plataforma líder en formación de liderazgo joven en Iberoamérica. Creando impacto desde 2018.</p>
           </div>
           {[
@@ -1058,7 +1128,7 @@ export default function Home() {
             </div>
           ))}
         </div>
-        <div className="footer-bottom" style={{ borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" as const, gap: "1rem", maxWidth: 1200, margin: "0 auto" }}>
+        <div className="footer-bottom" style={{ borderTop: `1px solid ${c.glassBorder}`, paddingTop: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" as const, gap: "1rem", maxWidth: 1200, margin: "0 auto" }}>
 
           <p style={{ fontSize: "0.9rem" }}>© {new Date().getFullYear()} Leaders of Tomorrow by CBA</p>
           <div style={{ display: "flex", gap: "1.5rem" }}>
