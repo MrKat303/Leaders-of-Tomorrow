@@ -349,34 +349,11 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0 1rem;
   }
 
-  /* Mentor cards */
+  /* Mentor cards - horizontal layout on mobile */
   .mentor-card {
-    padding: 2rem 1.5rem;
-    border-radius: 24px;
-  }
-
-  .mentor-monogram {
-    width: 60px;
-    height: 60px;
-    font-size: 1.5rem !important;
-    margin-bottom: 1.2rem;
-  }
-
-  .mentor-name {
-    font-size: 1.2rem;
-  }
-
-  .mentor-desc {
-    font-size: 0.9rem !important;
-  }
-
-  .mentor-tags {
-    margin-bottom: 1.5rem;
-  }
-
-  .mentor-more-btn {
-    padding: 0.45rem 1rem;
-    font-size: 0.75rem !important;
+    padding: 1rem 1.25rem !important;
+    gap: 1rem !important;
+    border-radius: 16px !important;
   }
 
   /* Testimonial cards */

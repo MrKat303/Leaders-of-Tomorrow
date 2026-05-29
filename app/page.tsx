@@ -198,25 +198,7 @@ export default function Home() {
       start: "top 85%",
     });
 
-    // ── Stats counter ──
-    gsap.utils.toArray<HTMLElement>(".stat-number").forEach((el) => {
-      const target = parseInt(el.getAttribute("data-value") || "0");
-      const suffix = el.getAttribute("data-suffix") || "";
-      const prefix = el.getAttribute("data-prefix") || "";
-      const obj = { val: 0 };
-      gsap.to(obj, {
-        val: target,
-        duration: 2.5,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: el,
-          start: "top 90%",
-        },
-        onUpdate: () => {
-          el.textContent = prefix + Math.round(obj.val) + suffix;
-        },
-      });
-    });
+
 
     // ── Icon Parallax in Feature Cards ──
     gsap.utils.toArray<HTMLElement>(".feature-card-visual span").forEach((el) => {
@@ -351,13 +333,29 @@ export default function Home() {
       btn.addEventListener("mouseleave", onMouseLeave);
     });
 
-    // ── Parallax Background ──
+    // ── Parallax Background Panning ──
     gsap.to(".parallax-bg", {
       backgroundPosition: "center 100%",
       ease: "none",
       scrollTrigger: {
         trigger: container.current,
         start: "top top",
+        endTrigger: ".cta-section",
+        end: "bottom bottom",
+        scrub: true,
+      }
+    });
+
+    // ── Parallax Footer Push ──
+    gsap.to(".parallax-bg-container", {
+      y: () => {
+        const footer = document.querySelector('footer');
+        return footer ? -footer.offsetHeight : 0;
+      },
+      ease: "none",
+      scrollTrigger: {
+        trigger: "footer",
+        start: "top bottom",
         end: "bottom bottom",
         scrub: true,
       }
@@ -388,20 +386,31 @@ export default function Home() {
     <div ref={container} className="min-h-screen" style={{ overflowX: "hidden", maxWidth: "100vw", background: "transparent", position: "relative" }}>
       {/* Background Parallax Image */}
       <div 
-        className="parallax-bg"
+        className="parallax-bg-container"
         style={{
           position: "fixed",
           top: 0,
           left: 0,
           width: "100%",
           height: "100vh",
-          backgroundImage: "url('/image.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center 0%",
+          overflow: "hidden",
           zIndex: -2,
-          pointerEvents: "none"
+          pointerEvents: "none",
+          willChange: "transform"
         }}
-      />
+      >
+        <div 
+          className="parallax-bg"
+          style={{
+            width: "100%",
+            height: "100%",
+            backgroundImage: "url('/image.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center 0%",
+            willChange: "background-position",
+          }}
+        />
+      </div>
       {/* Background Hero Image (City) */}
       <div 
         className="hero-bg"
@@ -494,7 +503,7 @@ export default function Home() {
 
       {/* ═══════════════════ PROGRAM OVERVIEW ═══════════════════ */}
       <section id="programa" style={{ padding: "clamp(4rem, 8vw, 8rem) 0", background: c.cream }}>
-        <div className="section-container" style={{ maxWidth: "1000px" }}>
+        <div className="section-container" style={{ maxWidth: "1250px" }}>
           <div style={{ marginBottom: "clamp(2.5rem, 5vw, 5rem)" }}>
             <h2 className="section-heading" style={{ fontSize: "clamp(2.5rem, 5vw, 3.5rem)", lineHeight: 1.1, marginBottom: "2rem" }}>
               Cómo Funciona el Programa
@@ -559,7 +568,7 @@ export default function Home() {
                 background: c.glassBg, 
                 backdropFilter: "blur(20px)",
                 WebkitBackdropFilter: "blur(20px)",
-                padding: "3rem 2rem", 
+                padding: "2rem 1.5rem", 
                 borderRadius: "32px", 
                 border: `1px solid ${c.glassBorder}`,
                 display: "flex",
@@ -600,22 +609,27 @@ export default function Home() {
         <div className="section-container" style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "4rem", alignItems: "center", position: "relative", zIndex: 1 }}>
           
           {/* Video Container (Left) */}
-          <div style={{ 
-            position: "relative", 
-            borderRadius: "32px",
-            padding: "0.8rem",
-            background: c.glassBg,
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            boxShadow: "0 30px 100px rgba(0,0,0,0.3)",
-            border: `1px solid ${c.glassBorder}`,
-          }}>
+          <div style={{ position: "relative" }}>
+            {/* Background Glow */}
+            <div style={{
+              position: "absolute",
+              top: "-5%", left: "-5%", right: "-5%", bottom: "-5%",
+              background: "linear-gradient(135deg, #e0aaff, #7b2cbf)",
+              filter: "blur(40px)",
+              opacity: 0.3,
+              borderRadius: "32px",
+              zIndex: 0
+            }} />
             <div style={{ 
               position: "relative", 
               paddingBottom: "56.25%", 
               height: 0, 
               overflow: "hidden", 
               borderRadius: "24px",
+              border: `1px solid rgba(255, 255, 255, 0.2)`,
+              boxShadow: "0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05) inset",
+              zIndex: 1,
+              background: "#000"
             }}>
               <iframe 
                 style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: 0 }}
@@ -628,18 +642,28 @@ export default function Home() {
           </div>
 
           {/* Text Content (Right) */}
-          <div style={{ textAlign: "left" }}>
-            <h2 className="section-heading" style={{ fontSize: "clamp(2rem, 5vw, 2.8rem)", marginBottom: "1.5rem", lineHeight: 1.1 }}>
+          <div style={{ textAlign: "left", paddingLeft: "clamp(0px, 2vw, 2rem)" }}>
+            <h2 className="section-heading" style={{ fontSize: "clamp(2.4rem, 5vw, 3.2rem)", marginBottom: "1.5rem", lineHeight: 1.1, color: c.white }}>
               Revive la Experiencia
             </h2>
-            <p style={{ color: c.muted, fontSize: "1.15rem", lineHeight: 1.6, marginBottom: "2rem", maxWidth: "450px" }}>
+            <p style={{ color: "rgba(255, 255, 255, 0.8)", fontSize: "1.15rem", lineHeight: 1.7, marginBottom: "2.5rem", maxWidth: "500px", fontWeight: 400 }}>
               Descubre por qué Leaders of Tomorrow es el programa que está transformando el ecosistema joven. Un vistazo a la energía y el impacto de nuestras ediciones pasadas.
             </p>
-            <div style={{ display: "flex", gap: "1rem" }}>
-              <span style={{ fontSize: "0.9rem", color: c.orange, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", background: "rgba(139, 92, 246,0.1)", padding: "0.4rem 1rem", borderRadius: "99px" }}>
+            <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+              <span style={{ 
+                fontSize: "0.85rem", color: c.white, fontWeight: 600, textTransform: "uppercase", 
+                letterSpacing: "0.05em", background: "rgba(255, 255, 255, 0.1)", 
+                border: "1px solid rgba(255, 255, 255, 0.15)", padding: "0.6rem 1.4rem", 
+                borderRadius: "99px", backdropFilter: "blur(10px)" 
+              }}>
                 #ImpactoReal
               </span>
-              <span style={{ fontSize: "0.9rem", color: c.orange, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", background: "rgba(139, 92, 246,0.1)", padding: "0.4rem 1rem", borderRadius: "99px" }}>
+              <span style={{ 
+                fontSize: "0.85rem", color: c.white, fontWeight: 600, textTransform: "uppercase", 
+                letterSpacing: "0.05em", background: "rgba(255, 255, 255, 0.1)", 
+                border: "1px solid rgba(255, 255, 255, 0.15)", padding: "0.6rem 1.4rem", 
+                borderRadius: "99px", backdropFilter: "blur(10px)" 
+              }}>
                 #CBA
               </span>
             </div>
@@ -648,24 +672,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════ STATS ═══════════════════ */}
-      <section style={{ padding: "clamp(3rem, 6vw, 6rem) 0", background: c.cream, borderTop: `1px solid ${c.glassBorder}`, borderBottom: `1px solid ${c.glassBorder}` }}>
-        <div className="section-container">
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 140px), 1fr))", gap: "clamp(1.5rem, 3vw, 3rem)", textAlign: "center" }}>
-            {[
-              { value: 250, prefix: "+", suffix: "", label: "Alumni Impactando" },
-              { value: 12, prefix: "", suffix: "", label: "Semanas Intensivas" },
-              { value: 98, prefix: "", suffix: "%", label: "Satisfacción NPS" },
-              { value: 45, prefix: "+", suffix: "", label: "Mentores Globales" },
-            ].map((s) => (
-              <div key={s.label}>
-                <p className="stat-number" data-value={s.value} data-suffix={s.suffix} data-prefix={s.prefix} style={{ fontSize: "4.5rem", fontWeight: 800, color: c.orange }}>0</p>
-                <p className="stat-label" style={{ fontWeight: 600, textTransform: "uppercase" as const, letterSpacing: "0.1em", fontSize: "0.85rem", color: c.muted }}>{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* ═══════════════════ MENTORES ═══════════════════ */}
       <section id="mentores" style={{ padding: "clamp(3rem, 6vw, 6rem) 0 clamp(1rem, 2vw, 2rem)", background: c.cream }}>
@@ -681,185 +688,128 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="mentors-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.5rem" }}>
+          <div className="mentors-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1rem", maxWidth: "1100px", margin: "0 auto" }}>
             {displayedMentors.map((m, index) => {
               const isHovered = hoveredCard === index;
               const isLinkedinHovered = hoveredLinkedin === index;
-              const isMoreHovered = hoveredMore === index;
+
+              // Extract institution from role string (after "en " or "de ")
+              const roleMatch = m.role.match(/(?:en|de)\s+(.+)$/i);
+              const institution = roleMatch ? roleMatch[1] : "";
+              const roleName = roleMatch ? m.role.replace(roleMatch[0], "").trim() : m.role;
 
               return (
-                <div key={m.name} className="mentor-card-wrapper">
-                  <div 
-                    className="mentor-card"
-                    onMouseEnter={() => setHoveredCard(index)}
-                    onMouseLeave={() => {
-                      setHoveredCard(null);
-                      setHoveredLinkedin(null);
-                      setHoveredMore(null);
-                    }}
+                <div
+                  key={m.name}
+                  className="mentor-card"
+                  onMouseEnter={() => setHoveredCard(index)}
+                  onMouseLeave={() => { setHoveredCard(null); setHoveredLinkedin(null); }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "1.25rem",
+                    padding: "1.25rem 1.5rem",
+                    borderRadius: "20px",
+                    background: isHovered ? "rgba(255,255,255,0.12)" : c.glassBg,
+                    backdropFilter: "blur(20px)",
+                    WebkitBackdropFilter: "blur(20px)",
+                    border: `1px solid ${isHovered ? "rgba(224,170,255,0.4)" : c.glassBorder}`,
+                    boxShadow: isHovered ? "0 16px 40px rgba(123, 44, 191, 0.25)" : "0 4px 20px rgba(0,0,0,0.15)",
+                    transform: isHovered ? "translateY(-4px)" : "translateY(0)",
+                    transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
+                    cursor: "default",
+                  }}
+                >
+                  {/* Avatar */}
+                  <div style={{
+                    background: m.gradient,
+                    minWidth: "56px",
+                    height: "56px",
+                    borderRadius: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: c.white,
+                    fontFamily: "var(--font-primary)",
+                    textTransform: "uppercase",
+                    fontSize: "1.3rem",
+                    fontWeight: "normal",
+                    flexShrink: 0,
+                    boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
+                    transition: "transform 0.3s ease",
+                    transform: isHovered ? "scale(1.08)" : "scale(1)",
+                  }}>
+                    {m.initials}
+                  </div>
+
+                  {/* Info */}
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <h3 style={{
+                      fontSize: "1rem",
+                      fontWeight: "normal",
+                      color: c.white,
+                      fontFamily: "var(--font-primary)",
+                      textTransform: "uppercase",
+                      marginBottom: "0.2rem",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}>
+                      {m.name}
+                    </h3>
+                    <p style={{
+                      fontSize: "0.8rem",
+                      color: c.orange,
+                      fontWeight: 600,
+                      fontFamily: "var(--font-sans)",
+                      marginBottom: "0.15rem",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}>
+                      {roleName || m.role}
+                    </p>
+                    {institution && (
+                      <p style={{
+                        fontSize: "0.75rem",
+                        color: "rgba(255,255,255,0.55)",
+                        fontFamily: "var(--font-sans)",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}>
+                        {institution}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* LinkedIn */}
+                  <a
+                    href={m.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`LinkedIn de ${m.name}`}
+                    onMouseEnter={() => setHoveredLinkedin(index)}
+                    onMouseLeave={() => setHoveredLinkedin(null)}
                     style={{
-                      border: `1px solid ${isHovered ? 'rgba(199,125,255,0.4)' : c.glassBorder}`,
-                      boxShadow: isHovered 
-                        ? "0 24px 64px rgba(123, 44, 191, 0.2)" 
-                        : "0 10px 40px rgba(0, 0, 0, 0.2)",
-                      transform: isHovered ? "translateY(-8px) scale(1.01)" : "translateY(0) scale(1)",
+                      flexShrink: 0,
+                      width: "36px",
+                      height: "36px",
+                      borderRadius: "10px",
+                      background: isLinkedinHovered ? "#0077b5" : "rgba(255,255,255,0.08)",
+                      border: `1px solid ${isLinkedinHovered ? "#0077b5" : "rgba(255,255,255,0.15)"}`,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: c.white,
+                      transition: "all 0.25s ease",
+                      transform: isLinkedinHovered ? "scale(1.1)" : "scale(1)",
                     }}
                   >
-                    <div>
-                      <div 
-                        className="mentor-monogram" 
-                        style={{ 
-                          background: m.gradient,
-                          width: "72px",
-                          height: "72px",
-                          borderRadius: "50%",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          color: c.white,
-                          fontFamily: "var(--font-primary)",
-                          textTransform: "uppercase",
-                          fontSize: "1.8rem",
-                          fontWeight: "normal",
-                          boxShadow: isHovered 
-                            ? "0 12px 30px rgba(123, 44, 191, 0.3)" 
-                            : "0 8px 24px rgba(0, 0, 0, 0.3)",
-                          marginBottom: "1.5rem",
-                          transition: "transform 0.4s ease, box-shadow 0.4s ease",
-                          transform: isHovered ? "scale(1.08) rotate(-5deg)" : "scale(1) rotate(0deg)",
-                        }}
-                      >
-                        {m.initials}
-                      </div>
-                      <h3 
-                        className="mentor-name"
-                        style={{
-                          fontSize: "1.4rem",
-                          marginBottom: "0.5rem",
-                          color: c.dark,
-                          fontFamily: "var(--font-primary)",
-                          textTransform: "uppercase",
-                        }}
-                      >
-                        {m.name}
-                      </h3>
-                      <p 
-                        className="mentor-role"
-                        style={{
-                          fontFamily: "var(--font-sans)",
-                          fontSize: "0.9rem",
-                          fontWeight: 700,
-                          color: c.orange,
-                          marginBottom: "1rem",
-                        }}
-                      >
-                        {m.role}
-                      </p>
-                      <p 
-                        className="mentor-desc"
-                        style={{
-                          fontFamily: "var(--font-sans)",
-                          fontSize: "0.95rem",
-                          lineHeight: 1.6,
-                          color: c.muted,
-                          marginBottom: "1.5rem",
-                        }}
-                      >
-                        {m.description}
-                      </p>
-                      
-                      <div 
-                        className="mentor-tags"
-                        style={{
-                          display: "flex",
-                          flexWrap: "wrap",
-                          gap: "0.5rem",
-                          marginBottom: "2rem",
-                        }}
-                      >
-                        {m.tags.map((tag) => (
-                          <span 
-                            key={tag} 
-                            className="mentor-tag"
-                            style={{
-                              background: c.orangePale,
-                              color: c.orange,
-                              fontFamily: "var(--font-sans)",
-                              fontSize: "0.75rem",
-                              fontWeight: 700,
-                              padding: "0.35rem 0.8rem",
-                              borderRadius: "99px",
-                              textTransform: "uppercase",
-                              letterSpacing: "0.05em",
-                              border: `1px solid rgba(199, 125, 255, 0.15)`,
-                            }}
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div 
-                      className="mentor-footer"
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        marginTop: "auto",
-                      }}
-                    >
-                      <a 
-                        href={m.linkedin} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="linkedin-btn"
-                        title="Ver perfil de LinkedIn"
-                        aria-label={`LinkedIn de ${m.name}`}
-                        onMouseEnter={() => setHoveredLinkedin(index)}
-                        onMouseLeave={() => setHoveredLinkedin(null)}
-                        style={{
-                          color: isLinkedinHovered ? "#0077b5" : c.muted,
-                          transform: isLinkedinHovered ? "scale(1.1)" : "scale(1)",
-                          transition: "color 0.3s ease, transform 0.3s ease",
-                          display: "inline-flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                          <rect x="2" y="9" width="4" height="12"/>
-                          <circle cx="4" cy="4" r="2"/>
-                        </svg>
-                      </a>
-                      
-                      <button 
-                        onClick={() => setSelectedMentor(m)}
-                        className="mentor-more-btn"
-                        onMouseEnter={() => setHoveredMore(index)}
-                        onMouseLeave={() => setHoveredMore(null)}
-                        style={{
-                          fontFamily: "var(--font-primary)",
-                          fontSize: "0.8rem",
-                          letterSpacing: "0.05em",
-                          textTransform: "uppercase",
-                          background: isMoreHovered ? c.orange : "transparent",
-                          color: isMoreHovered ? c.white : c.white,
-                          border: `2px solid ${isMoreHovered ? c.orange : 'rgba(255,255,255,0.3)'}`,
-                          padding: "0.5rem 1.2rem",
-                          borderRadius: "99px",
-                          cursor: "pointer",
-                          fontWeight: "normal",
-                          transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
-                          transform: isMoreHovered ? "translateY(-2px)" : "translateY(0)",
-                          boxShadow: isMoreHovered ? "0 8px 20px rgba(123, 44, 191, 0.3)" : "none",
-                        }}
-                      >
-                        Ver más
-                      </button>
-                    </div>
-                  </div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                  </a>
                 </div>
               );
             })}
@@ -1078,15 +1028,11 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ CTA ═══════════════════ */}
-      <section className="cta-section" style={{ padding: "0.5rem 1rem clamp(3rem, 6vw, 6rem)", background: c.cream }}>
+      <section className="cta-section" style={{ padding: "0.5rem 1rem clamp(3rem, 6vw, 6rem)", background: "transparent" }}>
         <div className="cta-section-inner" style={{
           maxWidth: 1100, margin: "0 auto",
-          background: `linear-gradient(145deg, #5a189a, #7b2cbf)`,
-          borderRadius: "clamp(24px, 5vw, 48px)", padding: "clamp(3rem, 6vw, 6rem) clamp(1.25rem, 3vw, 2rem)", textAlign: "center", position: "relative", overflow: "hidden",
-          boxShadow: "0 30px 90px rgba(123, 44, 191, 0.4)"
+          padding: "clamp(3rem, 6vw, 6rem) clamp(1.25rem, 3vw, 2rem)", textAlign: "center", position: "relative"
         }}>
-          <div style={{ position: "absolute", width: 400, height: 400, top: -100, right: -100, borderRadius: "50%", background: "rgba(255,255,255,0.15)", pointerEvents: "none" }} />
-          <div style={{ position: "absolute", width: 250, height: 250, bottom: -50, left: -50, borderRadius: "50%", background: "rgba(255,255,255,0.08)", pointerEvents: "none" }} />
           
           <h2 style={{ fontSize: "clamp(2.4rem, 6vw, 3.8rem)", color: c.white, marginBottom: "1.5rem", fontWeight: 400, lineHeight: 1 }}>
             Tu viaje comienza aquí

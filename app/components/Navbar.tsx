@@ -230,73 +230,88 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
         </div>
       </nav>
 
-      {/* ─── Mobile dropdown ────────────────────────────────────── */}
-      {menuOpen && (
-        <div
+      {/* ─── Mobile Full-screen Menu ────────────────────────────── */}
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100vh",
+          background: "linear-gradient(180deg, #3c096c 0%, #5a189a 40%, #7b2cbf 100%)",
+          zIndex: 998,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "0.5rem",
+          transition: "opacity 0.4s ease, visibility 0.4s ease, transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
+          opacity: menuOpen ? 1 : 0,
+          visibility: menuOpen ? "visible" : "hidden",
+          transform: menuOpen ? "scale(1)" : "scale(1.05)",
+        }}
+      >
+        {[...NAV_LINKS, { label: "FAQ", href: "/#faq" }].map((link) => (
+          <a
+            key={link.href}
+            href={link.href}
+            onClick={() => setMenuOpen(false)}
+            style={{
+              fontFamily: "var(--font-primary)",
+              textTransform: "uppercase",
+              fontSize: "2rem",
+              fontWeight: "normal",
+              color: "#ffffff",
+              textDecoration: "none",
+              padding: "0.75rem 2rem",
+              borderRadius: "12px",
+              transition: "background 0.3s ease, transform 0.3s ease",
+              letterSpacing: "0.05em",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(255,255,255,0.1)";
+              e.currentTarget.style.transform = "scale(1.05)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "transparent";
+              e.currentTarget.style.transform = "scale(1)";
+            }}
+          >
+            {link.label}
+          </a>
+        ))}
+        <Link
+          href="/apply"
+          onClick={() => setMenuOpen(false)}
           style={{
-            maxWidth: "1140px",
-            margin: "0.75rem auto 0",
-            backgroundColor: "var(--color-cream)",
-            borderRadius: "20px",
-            boxShadow: "0 20px 60px rgba(26,18,8,0.18)",
-            padding: "1.25rem 1.5rem",
-            display: "flex",
-            flexDirection: "column",
-            gap: "0.25rem",
-            animation: "slideIn 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
+            marginTop: "2rem",
+            fontFamily: "var(--font-primary)",
+            textTransform: "uppercase",
+            fontSize: "1.1rem",
+            fontWeight: "normal",
+            letterSpacing: "0.05em",
+            background: "#e91e8c",
+            color: "#fff",
+            padding: "1rem 2.5rem",
+            borderRadius: "9999px",
+            textDecoration: "none",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            boxShadow: "0 8px 30px rgba(233, 30, 140, 0.4)",
           }}
         >
-          {[...NAV_LINKS, { label: "FAQ", href: "/#faq" }].map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="btn-ghost"
-              onClick={() => setMenuOpen(false)}
-              style={{ justifyContent: "flex-start", fontWeight: 400, fontSize: "1rem", padding: "0.75rem 1rem" }}
-            >
-              {link.label}
-            </a>
-          ))}
-          <Link
-            href="/apply"
-            className="btn-primary"
-            style={{ marginTop: "0.75rem", justifyContent: "center", padding: "1rem", background: "#7b2cbf" }}
-            onClick={() => setMenuOpen(false)}
-          >
-            Aplicar ahora 
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: "0.25rem" }}><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </Link>
-        </div>
-      )}
+          Aplicar ahora
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </Link>
+      </div>
 
       <style>{`
-        @keyframes slideIn {
-          from { opacity: 0; transform: translateY(-10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
         @media (max-width: 768px) {
           .desktop-nav  { display: none !important; }
           .desktop-cta  { display: none !important; }
           .hamburger    { display: flex !important; }
           .mobile-spacer { display: block !important; }
-        }
-        .nav-inner.scrolled {
-          background-color: rgba(255, 255, 255, 0.7) !important;
-          backdrop-filter: blur(20px) !important;
-          -webkit-backdrop-filter: blur(20px) !important;
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08) !important;
-          border: none !important;
-          outline: none !important;
-          transition: background-color 0.4s ease;
-        }
-        .logo-scrolled {
-          display: none !important;
-        }
-        .nav-inner.scrolled .logo-default {
-          display: none !important;
-        }
-        .nav-inner.scrolled .logo-scrolled {
-          display: block !important;
         }
         .nav-link {
           color: #ffffff;
@@ -306,23 +321,7 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
           color: #c77dff;
           background: rgba(255, 255, 255, 0.15);
         }
-        .nav-inner.scrolled .nav-link {
-          color: #1A1208 !important;
-        }
-        .nav-inner.scrolled .nav-link:hover {
-          background: rgba(0, 0, 0, 0.05) !important;
-          color: #c77dff !important;
-        }
-        .nav-inner.scrolled .desktop-cta {
-          background: #7b2cbf !important;
-          color: #ffffff !important;
-        }
-        .nav-inner.scrolled .desktop-cta:hover {
-          background: #5a189a !important;
-          transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(123, 44, 191, 0.35) !important;
-        }
-        .nav-inner.scrolled .hamburger span {
+        .hamburger span {
           background: #ffffff !important;
         }
       `}</style>
