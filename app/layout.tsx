@@ -15,6 +15,9 @@ export default function RootLayout({
   return (
     <html lang="es" className="h-full">
       <head>
+        {/* Preload critical background images for instant display */}
+        <link rel="preload" href="/hero/hero.png" as="image" fetchPriority="high" />
+        <link rel="preload" href="/image.png" as="image" fetchPriority="high" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
