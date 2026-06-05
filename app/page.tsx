@@ -38,6 +38,7 @@ interface Mentor {
   description: string;
   linkedin: string;
   initials: string;
+  image: string;
   details: string;
   tags: string[];
   gradient: string;
@@ -45,84 +46,37 @@ interface Mentor {
 
 const MENTORS: Mentor[] = [
   {
-    name: "Sofía Valenzuela",
-    role: "Co-founder & CEO de HealthTech América",
-    description: "Emprendedora serial en biotecnología. Ex-Alumni de Stanford. Ha levantado más de $15M USD en venture capital.",
+    name: "Alejandra Mustakis",
+    role: "Empresaria / Emprendedora",
+    description: "Reconocida empresaria y emprendedora chilena, impulsora del ecosistema de innovación y emprendimiento en Latinoamérica.",
     linkedin: "https://linkedin.com",
-    initials: "SV",
-    details: "Especialista en escalamiento de startups en mercados emergentes, levantamiento de capital pre-seed y seed, y diseño de producto enfocado en el usuario. Mentora activa en aceleradoras globales como Techstars y Y Combinator.",
-    tags: ["Biotech", "Stanford", "Founder"],
+    initials: "AM",
+    image: "/mentors/alejandra-mustakis.jpg",
+    details: "Alejandra Mustakis es una referente del ecosistema emprendedor latinoamericano. Ha fundado múltiples empresas, lidera iniciativas de impacto social y es una voz influyente en innovación y liderazgo en la región.",
+    tags: ["Emprendimiento", "Innovación", "Liderazgo"],
     gradient: "linear-gradient(135deg, #7b2cbf 0%, #c77dff 100%)"
   },
   {
-    name: "Diego Alarcón",
-    role: "Lead Machine Learning Engineer en OpenAI",
-    description: "Investigador senior en modelos de lenguaje a gran escala. Ex-Google Brain y graduado de MIT.",
+    name: "Juliana Ospina",
+    role: "CBA Board Member",
+    description: "Miembro del Board de CBA. Líder estratégica con amplia experiencia en gobernanza corporativa y desarrollo de talento joven.",
     linkedin: "https://linkedin.com",
-    initials: "DA",
-    details: "Experto en desarrollo de Inteligencia Artificial aplicada, optimización de infraestructura de cómputo para entrenamiento de redes neuronales gigantescas y liderazgo de equipos técnicos multidisciplinarios en Silicon Valley.",
-    tags: ["AI", "MIT", "Tech Lead"],
+    initials: "JO",
+    image: "/mentors/juliana-ospina.jpg",
+    details: "Juliana Ospina aporta una visión estratégica y de gobernanza al programa. Como miembro del Board de CBA, se enfoca en impulsar el talento joven y conectar a la próxima generación con oportunidades de alto impacto.",
+    tags: ["Board Member", "CBA", "Estrategia"],
     gradient: "linear-gradient(135deg, #5a189a 0%, #9d4edd 100%)"
   },
   {
-    name: "Camila Rossi",
-    role: "Partner en Andes Horizon VC",
-    description: "Inversionista de capital de riesgo enfocada en startups de software en LatAm. Ex-Sequoia Capital.",
+    name: "Michelle Schnitzer",
+    role: "Emprendedora · CEO de Bondup",
+    description: "Fundadora y CEO de Bondup. Emprendedora con visión de producto y pasión por construir soluciones que conectan personas.",
     linkedin: "https://linkedin.com",
-    initials: "CR",
-    details: "Ex-asociada sénior en Sequoia Capital. Ha liderado más de 20 inversiones exitosas en la región. Apasionada por el ecosistema SaaS y por potenciar el talento sub-30 a través de redes estratégicas.",
-    tags: ["VC", "SaaS", "LatAm Lead"],
+    initials: "MS",
+    image: "/mentors/michelle-schnitzer.jpg",
+    details: "Michelle Schnitzer es la fundadora y CEO de Bondup, una plataforma que conecta personas a través de experiencias. Con un enfoque en producto y comunidad, aporta una perspectiva fresca y práctica al ecosistema emprendedor.",
+    tags: ["CEO", "Startup", "Producto"],
     gradient: "linear-gradient(135deg, #9d4edd 0%, #c77dff 100%)"
-  },
-  {
-    name: "Mateo Mendoza",
-    role: "Head of Product en unicornio fintech",
-    description: "Lidera la estrategia de producto para 5M+ usuarios. Ex-Product Lead en Mercado Libre.",
-    linkedin: "https://linkedin.com",
-    initials: "MM",
-    details: "Especialista en metodologías ágiles, Product-Led Growth (PLG), diseño UX/UI a escala y diseño e implementación de sistemas transfronterizos de pagos digitales.",
-    tags: ["Product", "Fintech", "Agile"],
-    gradient: "linear-gradient(135deg, #3c096c 0%, #7b2cbf 100%)"
-  },
-  {
-    name: "Valentina Rojas",
-    role: "Growth Director en startup YC",
-    description: "Estratega de adquisición de usuarios y retención. Ha escalado startups de 0 a 1M usuarios.",
-    linkedin: "https://linkedin.com",
-    initials: "VR",
-    details: "Experta en growth hacking, SEO técnico, marketing de performance y experimentación. Mentora en 500 Startups LatAm.",
-    tags: ["Growth", "Marketing", "YC"],
-    gradient: "linear-gradient(135deg, #5a189a 0%, #e0aaff 100%)"
-  },
-  {
-    name: "Julián Castro",
-    role: "Senior Software Engineer en GitHub",
-    description: "Desarrollador full-stack y contribuidor open source. Ex-Meta.",
-    linkedin: "https://linkedin.com",
-    initials: "JC",
-    details: "Especialista en arquitecturas distribuidas, React, Node.js y DevOps. Apasionado por la educación tecnológica comunitaria.",
-    tags: ["Engineering", "Open Source", "DevOps"],
-    gradient: "linear-gradient(135deg, #7b2cbf 0%, #5a189a 100%)"
-  },
-  {
-    name: "Isabella Silva",
-    role: "UX Research Lead",
-    description: "Investigadora experta en comportamiento humano y diseño centrado en el usuario.",
-    linkedin: "https://linkedin.com",
-    initials: "IS",
-    details: "Lidera equipos de research cualitativo y cuantitativo. Ayuda a founders a encontrar el product-market fit a través de la empatía.",
-    tags: ["UX", "Research", "Design"],
-    gradient: "linear-gradient(135deg, #c77dff 0%, #9d4edd 100%)"
-  },
-  {
-    name: "Tomás Navarro",
-    role: "Partner de Early-stage Fund",
-    description: "Inversor ángel y ex-founder con exit exitoso. Ayuda a estructurar rondas seed.",
-    linkedin: "https://linkedin.com",
-    initials: "TN",
-    details: "Conecta a founders prometedores con capital inteligente. Asesora en modelos de negocio b2b SaaS y unit economics.",
-    tags: ["Angel Investor", "B2B", "Seed"],
-    gradient: "linear-gradient(135deg, #3c096c 0%, #5a189a 100%)"
   }
 ];
 
@@ -132,10 +86,7 @@ export default function Home() {
   const [selectedMentor, setSelectedMentor] = useState<Mentor | null>(null);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [hoveredLinkedin, setHoveredLinkedin] = useState<number | null>(null);
-  const [showAllMentors, setShowAllMentors] = useState(false);
   const [hoveredMore, setHoveredMore] = useState<number | null>(null);
-
-  const displayedMentors = showAllMentors ? MENTORS : MENTORS.slice(0, 4);
 
   const faqs = [
     { q: "¿La primera clase es realmente gratis?", a: "¡Sí! Creemos en que debes experimentar nuestra metodología antes de comprometerte. La sesión de diagnóstico y la primera clase introductoria son totalmente gratuitas." },
@@ -411,7 +362,7 @@ export default function Home() {
           }}
         />
       </div>
-      {/* Background Hero Image (City) */}
+      {/* Background Hero Image (City) - Scaled down to feel further away */}
       <div 
         className="hero-bg"
         style={{
@@ -420,13 +371,25 @@ export default function Home() {
           left: 0,
           width: "100%",
           height: "100vh",
-          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/hero/hero.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
           zIndex: -1,
-          pointerEvents: "none"
+          pointerEvents: "none",
+          overflow: "hidden",
+          backgroundColor: "#0a0a12"
         }}
-      />
+      >
+        <div 
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundImage: "linear-gradient(to bottom, rgba(10, 10, 18, 0.2), rgba(10, 10, 18, 0.75)), url('/hero/hero.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
+          }}
+        />
+      </div>
       <Navbar />
 
       {/* ═══════════════════ HERO ═══════════════════ */}
@@ -480,7 +443,7 @@ export default function Home() {
             Quiero aplicar
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </Link>
-          <a href="#programa" style={{
+          <Link href="/programa" style={{
             display: "inline-flex", alignItems: "center", gap: "0.5rem",
             background: "rgba(255,255,255,0.1)", backdropFilter: "blur(12px)",
             border: "1px solid rgba(255,255,255,0.2)", color: c.white,
@@ -488,7 +451,7 @@ export default function Home() {
             borderRadius: 9999, textDecoration: "none", transition: "background 0.3s ease"
           }}>
             Ver programa
-          </a>
+          </Link>
         </div>
 
         {/* Logos marquee style */}
@@ -598,6 +561,43 @@ export default function Home() {
               </div>
             ))}
           </div>
+          {/* CTA Button */}
+          <div style={{ textAlign: "center", marginTop: "3rem" }}>
+            <Link
+              href="/programa"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.6rem",
+                background: "transparent",
+                color: "#ffffff",
+                fontWeight: 900,
+                fontSize: "1.05rem",
+                padding: "1rem 2.5rem",
+                borderRadius: 9999,
+                textDecoration: "none",
+                border: "2px solid #ffffff",
+                boxShadow: "none",
+                transition: "all 0.3s cubic-bezier(0.23,1,0.32,1)",
+                fontFamily: "var(--font-primary)",
+                textTransform: "uppercase",
+                letterSpacing: "0.05em",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-3px)";
+                e.currentTarget.style.background = "rgba(255,255,255,0.1)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.background = "transparent";
+              }}
+            >
+              Ver Programa Completo
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -688,160 +688,152 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="mentors-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1rem", maxWidth: "1100px", margin: "0 auto" }}>
-            {displayedMentors.map((m, index) => {
+          <div className="mentors-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem", maxWidth: "1100px", margin: "0 auto" }}>
+            {MENTORS.map((m, index) => {
               const isHovered = hoveredCard === index;
               const isLinkedinHovered = hoveredLinkedin === index;
-
-              // Extract institution from role string (after "en " or "de ")
-              const roleMatch = m.role.match(/(?:en|de)\s+(.+)$/i);
-              const institution = roleMatch ? roleMatch[1] : "";
-              const roleName = roleMatch ? m.role.replace(roleMatch[0], "").trim() : m.role;
 
               return (
                 <div
                   key={m.name}
-                  className="mentor-card"
-                  onMouseEnter={() => setHoveredCard(index)}
-                  onMouseLeave={() => { setHoveredCard(null); setHoveredLinkedin(null); }}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "1.25rem",
-                    padding: "1.25rem 1.5rem",
-                    borderRadius: "20px",
-                    background: isHovered ? "rgba(255,255,255,0.12)" : c.glassBg,
-                    backdropFilter: "blur(20px)",
-                    WebkitBackdropFilter: "blur(20px)",
-                    border: `1px solid ${isHovered ? "rgba(224,170,255,0.4)" : c.glassBorder}`,
-                    boxShadow: isHovered ? "0 16px 40px rgba(123, 44, 191, 0.25)" : "0 4px 20px rgba(0,0,0,0.15)",
-                    transform: isHovered ? "translateY(-4px)" : "translateY(0)",
-                    transition: "all 0.3s cubic-bezier(0.23, 1, 0.32, 1)",
-                    cursor: "default",
-                  }}
+                  className="mentor-card-wrapper"
                 >
-                  {/* Avatar */}
-                  <div style={{
-                    background: m.gradient,
-                    minWidth: "56px",
-                    height: "56px",
-                    borderRadius: "50%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: c.white,
-                    fontFamily: "var(--font-primary)",
-                    textTransform: "uppercase",
-                    fontSize: "1.3rem",
-                    fontWeight: "normal",
-                    flexShrink: 0,
-                    boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
-                    transition: "transform 0.3s ease",
-                    transform: isHovered ? "scale(1.08)" : "scale(1)",
-                  }}>
-                    {m.initials}
-                  </div>
+                  <div
+                    className="mentor-card"
+                    onMouseEnter={() => setHoveredCard(index)}
+                    onMouseLeave={() => { setHoveredCard(null); setHoveredLinkedin(null); }}
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      textAlign: "center",
+                      padding: "2rem 1.5rem 1.5rem",
+                      borderRadius: "24px",
+                      background: isHovered ? "rgba(255,255,255,0.1)" : c.glassBg,
+                      backdropFilter: "blur(20px)",
+                      WebkitBackdropFilter: "blur(20px)",
+                      border: `1px solid ${isHovered ? "rgba(224,170,255,0.4)" : c.glassBorder}`,
+                      boxShadow: isHovered ? "0 20px 50px rgba(123,44,191,0.25)" : "0 4px 20px rgba(0,0,0,0.15)",
+                      transform: isHovered ? "translateY(-6px)" : "translateY(0)",
+                      transition: "all 0.35s cubic-bezier(0.23, 1, 0.32, 1)",
+                      cursor: "default",
+                      height: "100%",
+                    }}
+                  >
+                    {/* Photo */}
+                    <div style={{
+                      width: "100px",
+                      height: "100px",
+                      borderRadius: "50%",
+                      overflow: "hidden",
+                      marginBottom: "1.2rem",
+                      border: isHovered ? "3px solid rgba(199,125,255,0.6)" : "3px solid rgba(255,255,255,0.12)",
+                      boxShadow: isHovered ? "0 8px 24px rgba(123,44,191,0.35)" : "0 4px 16px rgba(0,0,0,0.3)",
+                      transition: "all 0.35s ease",
+                      transform: isHovered ? "scale(1.06)" : "scale(1)",
+                      flexShrink: 0,
+                    }}>
+                      <img
+                        src={m.image}
+                        alt={m.name}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    </div>
 
-                  {/* Info */}
-                  <div style={{ flex: 1, minWidth: 0 }}>
+                    {/* Name */}
                     <h3 style={{
-                      fontSize: "1rem",
+                      fontSize: "1.1rem",
                       fontWeight: "normal",
                       color: c.white,
                       fontFamily: "var(--font-primary)",
                       textTransform: "uppercase",
-                      marginBottom: "0.2rem",
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
+                      marginBottom: "0.35rem",
+                      lineHeight: 1.2,
                     }}>
                       {m.name}
                     </h3>
+
+                    {/* Role */}
                     <p style={{
                       fontSize: "0.8rem",
                       color: c.orange,
                       fontWeight: 600,
                       fontFamily: "var(--font-sans)",
-                      marginBottom: "0.15rem",
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
+                      marginBottom: "0.8rem",
+                      lineHeight: 1.4,
                     }}>
-                      {roleName || m.role}
+                      {m.role}
                     </p>
-                    {institution && (
-                      <p style={{
-                        fontSize: "0.75rem",
-                        color: "rgba(255,255,255,0.55)",
-                        fontFamily: "var(--font-sans)",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                      }}>
-                        {institution}
-                      </p>
-                    )}
-                  </div>
 
-                  {/* LinkedIn */}
-                  <a
-                    href={m.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`LinkedIn de ${m.name}`}
-                    onMouseEnter={() => setHoveredLinkedin(index)}
-                    onMouseLeave={() => setHoveredLinkedin(null)}
-                    style={{
-                      flexShrink: 0,
-                      width: "36px",
-                      height: "36px",
-                      borderRadius: "10px",
-                      background: isLinkedinHovered ? "#0077b5" : "rgba(255,255,255,0.08)",
-                      border: `1px solid ${isLinkedinHovered ? "#0077b5" : "rgba(255,255,255,0.15)"}`,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: c.white,
-                      transition: "all 0.25s ease",
-                      transform: isLinkedinHovered ? "scale(1.1)" : "scale(1)",
-                    }}
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                    </svg>
-                  </a>
+                    {/* Description */}
+                    <p style={{
+                      fontSize: "0.85rem",
+                      color: "rgba(255,255,255,0.6)",
+                      fontFamily: "var(--font-sans)",
+                      lineHeight: 1.6,
+                      marginBottom: "1.2rem",
+                      flex: 1,
+                    }}>
+                      {m.description}
+                    </p>
+
+                    {/* Tags */}
+                    <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap", justifyContent: "center", marginBottom: "1rem" }}>
+                      {m.tags.map((tag) => (
+                        <span key={tag} style={{
+                          fontSize: "0.65rem",
+                          fontFamily: "var(--font-sans)",
+                          fontWeight: 700,
+                          textTransform: "uppercase",
+                          letterSpacing: "0.05em",
+                          background: "rgba(123,44,191,0.15)",
+                          color: c.orange,
+                          border: "1px solid rgba(199,125,255,0.15)",
+                          padding: "0.3rem 0.7rem",
+                          borderRadius: "99px",
+                        }}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* LinkedIn */}
+                    <a
+                      href={m.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`LinkedIn de ${m.name}`}
+                      onMouseEnter={() => setHoveredLinkedin(index)}
+                      onMouseLeave={() => setHoveredLinkedin(null)}
+                      style={{
+                        width: "36px",
+                        height: "36px",
+                        borderRadius: "10px",
+                        background: isLinkedinHovered ? "#0077b5" : "rgba(255,255,255,0.08)",
+                        border: `1px solid ${isLinkedinHovered ? "#0077b5" : "rgba(255,255,255,0.15)"}`,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: c.white,
+                        transition: "all 0.25s ease",
+                        transform: isLinkedinHovered ? "scale(1.1)" : "scale(1)",
+                      }}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                      </svg>
+                    </a>
+                  </div>
                 </div>
               );
             })}
           </div>
 
-          <div style={{ display: "flex", justifyContent: "center", marginTop: "3rem" }}>
-            <button
-              onClick={() => setShowAllMentors(!showAllMentors)}
-              className="magnetic-btn"
-              style={{
-                background: "transparent",
-                border: `2px solid ${c.orange}`,
-                color: c.orange,
-                fontWeight: 800,
-                fontSize: "0.95rem",
-                padding: "0.8rem 2.5rem",
-                borderRadius: 9999,
-                cursor: "pointer",
-                transition: "all 0.3s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = c.orange;
-                e.currentTarget.style.color = c.white;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.color = c.orange;
-              }}
-            >
-              {showAllMentors ? "Ver menos mentores" : "Ver todos los mentores"}
-            </button>
-          </div>
+
         </div>
       </section>
 
@@ -1041,9 +1033,15 @@ export default function Home() {
             No esperes a que el futuro suceda. Créalo. Postulaciones abiertas para el próximo semestre.
           </p>
           <Link href="/apply" className="magnetic-btn" style={{
-            background: c.white, color: c.orange, fontWeight: 900, fontSize: "1.1rem",
-            padding: "1.2rem 3rem", borderRadius: 9999, textDecoration: "none",
-            boxShadow: "0 15px 45px rgba(0,0,0,0.15)", display: "inline-flex", alignItems: "center", gap: "0.6rem"
+            background: "transparent", color: "#ffffff", fontWeight: 900, fontSize: "1.1rem",
+            padding: "1.2rem 3rem", borderRadius: 9999, textDecoration: "none", border: "2px solid #ffffff",
+            boxShadow: "none", display: "inline-flex", alignItems: "center", gap: "0.6rem", transition: "all 0.3s ease"
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "rgba(255,255,255,0.1)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "transparent";
           }}>
             Aplicar ahora
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>

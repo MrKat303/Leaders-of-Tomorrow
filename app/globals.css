@@ -446,6 +446,7 @@ h1, h2, h3, h4, h5, h6 {
   /* ── Mentors grid mobile: single column ── */
   .mentors-grid {
     grid-template-columns: 1fr !important;
+    gap: 1rem !important;
   }
 
   /* Mentor card wrapper — let cards stretch full width */

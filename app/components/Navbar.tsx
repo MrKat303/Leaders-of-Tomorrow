@@ -7,7 +7,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 const NAV_LINKS = [
-  { label: "Programa", href: "/#programa" },
+  { label: "Programa", href: "/programa" },
   { label: "Mentores", href: "/#mentores" },
   { label: "Testimonios", href: "/#testimonios" },
   { label: "FAQ", href: "/#faq" },
