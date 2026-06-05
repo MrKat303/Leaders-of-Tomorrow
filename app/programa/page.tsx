@@ -805,12 +805,21 @@ export default function ProgramaPage() {
           ].map((col) => (
             <div key={col.title} className="footer-col" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
               <p style={{ fontWeight: 800, color: "#ffffff", marginBottom: "1.8rem", fontSize: "1rem", textTransform: "uppercase", letterSpacing: "0.1em", textAlign: "center", width: "100%" }}>{col.title}</p>
-              {col.links.map((link) => (
-                <a key={link} href="#" style={{ display: "inline-block", color: "rgba(255,255,255,0.8)", textDecoration: "none", fontSize: "0.95rem", marginBottom: "0.8rem", transition: "all 0.3s", textAlign: "center" }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = "#ffffff"; e.currentTarget.style.transform = "translateY(-2px)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(255,255,255,0.8)"; e.currentTarget.style.transform = "translateY(0)"; }}
-                >{link}</a>
-              ))}
+              {col.links.map((link) => {
+                const isPodcast = link === "Podcast";
+                const LinkComponent = isPodcast ? Link : "a";
+                return (
+                  <LinkComponent
+                    key={link}
+                    href={isPodcast ? "/podcast" : "#"}
+                    style={{ display: "inline-block", color: "rgba(255,255,255,0.8)", textDecoration: "none", fontSize: "0.95rem", marginBottom: "0.8rem", transition: "all 0.3s", textAlign: "center" }}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = "#ffffff"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(255,255,255,0.8)"; e.currentTarget.style.transform = "translateY(0)"; }}
+                  >
+                    {link}
+                  </LinkComponent>
+                );
+              })}
             </div>
           ))}
         </div>

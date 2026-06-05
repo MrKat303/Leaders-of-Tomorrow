@@ -271,6 +271,25 @@ export default function ApplyPage() {
     color: c.white
   };
 
+  const selectStyle = {
+    width: "100%",
+    padding: "0.95rem 2.8rem 0.95rem 1.25rem",
+    borderRadius: "14px",
+    border: "1px solid rgba(255, 255, 255, 0.15)",
+    fontSize: "0.95rem",
+    outline: "none",
+    transition: "all 0.3s ease",
+    background: "rgba(0,0,0,0.25)",
+    color: c.white,
+    appearance: "none" as const,
+    WebkitAppearance: "none" as const,
+    MozAppearance: "none" as const,
+    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.6)' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "right 1rem center",
+    cursor: "pointer",
+  };
+
   const labelStyle = {
     display: "block",
     fontWeight: 700,
@@ -400,7 +419,7 @@ export default function ApplyPage() {
                       </div>
                       <div>
                         <label htmlFor="course" style={labelStyle}>Curso *</label>
-                        <select id="course" required style={inputStyle} onFocus={handleFocus} onBlur={handleBlur}>
+                        <select id="course" required style={selectStyle} onFocus={handleFocus} onBlur={handleBlur}>
                           <option value="" style={{ color: "black" }}>Selecciona</option>
                           <option value="1" style={{ color: "black" }}>1ro Medio</option>
                           <option value="2" style={{ color: "black" }}>2do Medio</option>
@@ -413,7 +432,7 @@ export default function ApplyPage() {
                     <div className="apply-grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                       <div>
                         <label htmlFor="region" style={labelStyle}>Región *</label>
-                        <select id="region" required style={inputStyle} onFocus={handleFocus} onBlur={handleBlur}>
+                        <select id="region" required style={selectStyle} onFocus={handleFocus} onBlur={handleBlur}>
                           <option value="" style={{ color: "black" }}>Selecciona</option>
                           <option value="Arica y Parinacota" style={{ color: "black" }}>Arica y Parinacota</option>
                           <option value="Tarapacá" style={{ color: "black" }}>Tarapacá</option>
@@ -452,7 +471,7 @@ export default function ApplyPage() {
 
                     <div>
                       <label htmlFor="gender" style={labelStyle}>Género (opcional)</label>
-                      <select id="gender" style={inputStyle} onFocus={handleFocus} onBlur={handleBlur}>
+                      <select id="gender" style={selectStyle} onFocus={handleFocus} onBlur={handleBlur}>
                         <option value="" style={{ color: "black" }}>Selecciona</option>
                         <option value="Femenino" style={{ color: "black" }}>Femenino</option>
                         <option value="Masculino" style={{ color: "black" }}>Masculino</option>
@@ -474,7 +493,7 @@ export default function ApplyPage() {
                     
                     <div>
                       <label htmlFor="actividades" style={labelStyle}>¿Has participado en actividades extracurriculares, concursos, clubes o proyectos fuera del colegio? *</label>
-                      <select id="actividades" required onChange={(e) => setHasLiderado(e.target.value)} value={hasLiderado} style={inputStyle} onFocus={handleFocus} onBlur={handleBlur}>
+                      <select id="actividades" required onChange={(e) => setHasLiderado(e.target.value)} value={hasLiderado} style={selectStyle} onFocus={handleFocus} onBlur={handleBlur}>
                         <option value="" style={{ color: "black" }}>Selecciona</option>
                         <option value="Sí" style={{ color: "black" }}>Sí</option>
                         <option value="No" style={{ color: "black" }}>No</option>
