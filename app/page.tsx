@@ -89,11 +89,11 @@ export default function Home() {
   const [hoveredMore, setHoveredMore] = useState<number | null>(null);
 
   const faqs = [
-    { q: "¿La primera clase es realmente gratis?", a: "¡Sí! Creemos en que debes experimentar nuestra metodología antes de comprometerte. La sesión de diagnóstico y la primera clase introductoria son totalmente gratuitas." },
-    { q: "¿Cómo eligen al mentor adecuado?", a: "Realizamos un match basado en tus objetivos de carrera, personalidad y el área de impacto que deseas desarrollar." },
-    { q: "¿El mentor da feedback de tareas?", a: "Más que tareas, trabajamos en proyectos reales. Tu mentor revisará tus avances semanalmente y te dará feedback accionable." },
-    { q: "¿Qué pasa si pierdo una sesión?", a: "Todas nuestras sesiones grupales se graban y las mentorías 1:1 pueden reagendarse con 24h de anticipación." },
-    { q: "¿Qué pasa si necesito ayuda extra?", a: "Nuestra comunidad en Slack está activa 24/7 y tenemos horas de oficina semanales para resolver dudas técnicas." },
+    { q: "¿Qué es Leaders of Tomorrow?", a: "Es un bootcamp intensivo de innovación, emprendimiento y tecnología de 5 días, creado por CBA BOARD y coproducido por HiveYoung. Está diseñado para preparar a la próxima generación de builders, founders y agentes de cambio con herramientas reales del ecosistema emprendedor." },
+    { q: "¿Cuándo y dónde se realiza?", a: "El bootcamp se realiza del 14 al 18 de diciembre, presencialmente en la Universidad de los Andes, Santiago, Chile." },
+    { q: "¿Cuántas horas tiene el programa?", a: "Entre 42 y 45 horas de estudio e inmersión durante la semana. El programa corre desde las 9:00 AM hasta la tarde, con módulos, workshops, labs vespertinos y checkpoints a lo largo de cada día." },
+    { q: "¿Cuánto cuesta?", a: "La matrícula es de $60.000 CLP. Este valor cubre el almuerzo diario durante los 5 días del bootcamp y el certificado de participación. El programa es sin fines de lucro." },
+    { q: "¿A quién está dirigido?", a: "A estudiantes de enseñanza media (14 a 18 años) apasionados por el liderazgo, el emprendimiento y la tecnología. No se necesita experiencia previa en programación ni en negocios. Basta con tener motivación, curiosidad y ganas de construir algo real." },
   ];
 
   useGSAP((context, contextSafe) => {
@@ -1063,12 +1063,21 @@ export default function Home() {
           ].map((col) => (
             <div key={col.title} className="footer-col" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
               <p style={{ fontWeight: 800, color: c.white, marginBottom: "1.8rem", fontSize: "1rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", textAlign: "center", width: "100%" }}>{col.title}</p>
-              {col.links.map((link) => (
-                <a key={link} href="#" style={{ display: "inline-block", color: "rgba(255,255,255,0.8)", textDecoration: "none", fontSize: "0.95rem", marginBottom: "0.8rem", transition: "all 0.3s", textAlign: "center" }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = c.white; e.currentTarget.style.transform = "translateY(-2px)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(255,255,255,0.8)"; e.currentTarget.style.transform = "translateY(0)"; }}
-                >{link}</a>
-              ))}
+              {col.links.map((link) => {
+                const isPodcast = link === "Podcast";
+                const LinkComponent = isPodcast ? Link : "a";
+                return (
+                  <LinkComponent
+                    key={link}
+                    href={isPodcast ? "/podcast" : "#"}
+                    style={{ display: "inline-block", color: "rgba(255,255,255,0.8)", textDecoration: "none", fontSize: "0.95rem", marginBottom: "0.8rem", transition: "all 0.3s", textAlign: "center" }}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = c.white; e.currentTarget.style.transform = "translateY(-2px)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(255,255,255,0.8)"; e.currentTarget.style.transform = "translateY(0)"; }}
+                  >
+                    {link}
+                  </LinkComponent>
+                );
+              })}
             </div>
           ))}
         </div>
