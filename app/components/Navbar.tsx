@@ -264,13 +264,14 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
           top: 0, right: 0,
           width: "min(340px, 88vw)",
           height: "100dvh",
-          background: "#0d0020",
+          background: "linear-gradient(145deg, #5A189A 0%, #3C096C 100%)",
           zIndex: 1002,
           visibility: menuOpen ? "visible" : "hidden",
           display: "flex",
           flexDirection: "column",
           overflow: "hidden",
-          boxShadow: "-8px 0 60px rgba(0,0,0,0.6)",
+          boxShadow: "-12px 0 60px rgba(60,9,108,0.5)",
+          borderLeft: "1px solid rgba(255,255,255,0.1)",
         }}
       >
         {/* Top bar with X */}

@@ -297,11 +297,19 @@ export default function ProgramaPage() {
       y: 30,
       opacity: 0,
       duration: 1.2,
-      delay: 0.4,
+      delay: 0.2,
       ease: "power3.out",
     });
 
     gsap.from(".tabs-wrapper", {
+      y: 20,
+      opacity: 0,
+      duration: 1,
+      delay: 0.4,
+      ease: "power3.out",
+    });
+
+    gsap.from(".day-banner-card", {
       y: 20,
       opacity: 0,
       duration: 1,
@@ -406,7 +414,7 @@ export default function ProgramaPage() {
             gridTemplateColumns: "repeat(5, 1fr)",
             gap: "0.3rem",
             maxWidth: "700px",
-            margin: "0 auto 2.5rem",
+            margin: "0 auto 3rem",
             boxShadow: "0 10px 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1)",
           }}
         >
@@ -462,6 +470,8 @@ export default function ProgramaPage() {
             );
           })}
         </div>
+
+
 
         {/* Selected Day Banner */}
         <div 
@@ -527,10 +537,10 @@ export default function ProgramaPage() {
                   key={index}
                   className="timeline-card timeline-card-divider"
                   style={{
-                    background: "rgba(255, 255, 255, 0.05)",
+                    background: "transparent",
                     backdropFilter: "blur(24px)",
                     WebkitBackdropFilter: "blur(24px)",
-                    border: "1px dashed rgba(255, 255, 255, 0.2)",
+                    border: "2px dashed rgba(255, 255, 255, 0.5)",
                     borderRadius: "20px",
                     padding: "1rem 2.2rem",
                     display: "grid",
@@ -540,18 +550,18 @@ export default function ProgramaPage() {
                     position: "relative",
                     zIndex: 1,
                     transition: "all 0.3s ease",
-                    boxShadow: "0 8px 32px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.1)",
+                    boxShadow: "none",
                     transform: "translateZ(0)",
                     WebkitBackfaceVisibility: "hidden",
                     backfaceVisibility: "hidden",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.35)";
-                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)";
+                    e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.8)";
+                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.2)";
-                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+                    e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.5)";
+                    e.currentTarget.style.background = "transparent";
                   }}
                 >
                   {/* Time Indicator */}
@@ -606,15 +616,10 @@ export default function ProgramaPage() {
                 key={index}
                 className="timeline-card"
                 style={{
-                  background: item.highlight 
-                    ? "linear-gradient(135deg, rgba(157, 78, 221, 0.25) 0%, rgba(123, 44, 191, 0.15) 100%)" 
-                    : "rgba(255, 255, 255, 0.05)",
+                  background: "transparent",
                   backdropFilter: "blur(32px)",
                   WebkitBackdropFilter: "blur(32px)",
-                  border: item.highlight 
-                    ? "1px solid rgba(224, 170, 255, 0.4)" 
-                    : `1px solid rgba(255,255,255,0.15)`,
-                  borderTop: item.highlight ? "1px solid rgba(255,255,255,0.6)" : "1px solid rgba(255,255,255,0.3)",
+                  border: "2px solid #ffffff",
                   borderRadius: "24px",
                   padding: "1.8rem 2.2rem",
                   display: "grid",
@@ -624,26 +629,16 @@ export default function ProgramaPage() {
                   position: "relative",
                   zIndex: 1,
                   transition: "all 0.35s cubic-bezier(0.23, 1, 0.32, 1)",
-                  boxShadow: "0 10px 40px rgba(0,0,0,0.2)",
+                  boxShadow: "none",
                   transform: "translateZ(0)",
                   WebkitBackfaceVisibility: "hidden",
                   backfaceVisibility: "hidden",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = item.highlight ? "rgba(224, 170, 255, 0.6)" : "rgba(255, 255, 255, 0.35)";
-                  e.currentTarget.style.background = item.highlight 
-                    ? "linear-gradient(135deg, rgba(157, 78, 221, 0.35) 0%, rgba(123, 44, 191, 0.2) 100%)" 
-                    : "rgba(255, 255, 255, 0.09)";
-                  e.currentTarget.style.boxShadow = "0 16px 50px rgba(0,0,0,0.3)";
+                  e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = item.highlight 
-                    ? "rgba(224, 170, 255, 0.4)" 
-                    : "rgba(255, 255, 255, 0.15)";
-                  e.currentTarget.style.background = item.highlight 
-                    ? "linear-gradient(135deg, rgba(157, 78, 221, 0.25) 0%, rgba(123, 44, 191, 0.15) 100%)" 
-                    : "rgba(255, 255, 255, 0.05)";
-                  e.currentTarget.style.boxShadow = "0 10px 40px rgba(0,0,0,0.2)";
+                  e.currentTarget.style.background = "transparent";
                 }}
               >
                 {/* Subtle highlight glow */}
