@@ -9,7 +9,6 @@ import { useGSAP } from "@gsap/react";
 const NAV_LINKS = [
   { label: "Programa", href: "/programa" },
   { label: "Mentores", href: "/#mentores" },
-  { label: "Testimonios", href: "/#testimonios" },
   { label: "FAQ", href: "/#faq" },
 ];
 
@@ -25,7 +24,7 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
   const logoRevealRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (solid) { setIsScrolled(true); return; }
+    if (solid) return;
     const handleScroll = () => {
       setIsScrolled(window.scrollY > window.innerHeight * 0.8);
     };
@@ -145,31 +144,25 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
         {/* Left nav */}
         <div className="desktop-nav" style={{ display: "flex", alignItems: "center", gap: "0.25rem" }}>
           {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href} className="nav-link" style={{
+            <Link key={link.href} href={link.href} className="nav-link" style={{
               display: "inline-flex", alignItems: "center",
               fontWeight: 400, fontSize: "0.9rem",
               padding: "0.5rem 1rem", borderRadius: "9999px",
               textDecoration: "none", whiteSpace: "nowrap",
             }}>
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
         <div className="mobile-spacer" style={{ display: "none" }} />
 
-        {/* Center logo */}
         <Link href="/" style={{ display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none", flexShrink: 0 }}>
-          <Image src="/logo-white.svg" alt="Leaders of Tomorrow" width={240} height={64} priority
-            style={{ height: "auto", width: "auto", maxHeight: "56px", transition: "opacity 0.3s ease" }} />
+          <Image src="/logo-white.svg" alt="Leaders of Tomorrow" width={240} height={56} priority
+            style={{ height: "48px", width: "auto", maxWidth: "200px", transition: "opacity 0.3s ease" }} />
         </Link>
 
         {/* Right actions */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "0.75rem" }}>
-          <a href="/#faq" className="nav-link desktop-nav" style={{
-            display: "inline-flex", alignItems: "center",
-            fontWeight: 400, fontSize: "0.9rem", padding: "0.5rem 1rem",
-            borderRadius: "9999px", textDecoration: "none",
-          }}>FAQ</a>
 
           {/* Desktop CTA — purple */}
           <Link
@@ -379,7 +372,7 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
           }}
         >
           {NAV_LINKS.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="mobile-link-item"
@@ -413,7 +406,7 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ opacity: 0.3 }}>
                 <path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-            </a>
+            </Link>
           ))}
 
           {/* CTA — purple */}

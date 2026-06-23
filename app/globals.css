@@ -54,7 +54,7 @@ html {
 }
 
 body {
-  background-color: transparent;
+  background-color: #0a0a12;
   color: var(--color-text);
   font-family: "Plus Jakarta Sans", sans-serif;
   text-transform: none;
@@ -87,7 +87,6 @@ body {
 .hero-sub,
 .section-heading + p,
 .feature-card-content p,
-.testimonial-card p,
 .footer-col a,
 .footer-col p {
   font-family: "Plus Jakarta Sans", sans-serif !important;
@@ -276,22 +275,6 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 1;
 }
 
-/* ── Testimonial card ────────────────────────────────────────── */
-.testimonial-card {
-  background: var(--color-glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: var(--radius-2xl);
-  padding: 2.5rem;
-  border: 1px solid var(--color-glass-border);
-  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-}
-.testimonial-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 48px rgba(123, 44, 191, 0.15);
-  border-color: rgba(199, 125, 255, 0.25);
-}
-
 /* ── Text reveal animation ───────────────────────────────────── */
 .text-reveal {
   overflow: hidden;
@@ -354,12 +337,6 @@ h1, h2, h3, h4, h5, h6 {
     padding: 1rem 1.25rem !important;
     gap: 1rem !important;
     border-radius: 16px !important;
-  }
-
-  /* Testimonial cards */
-  .testimonial-card {
-    padding: 1.8rem 1.5rem;
-    border-radius: 24px;
   }
 
   /* FAQ */
@@ -453,11 +430,6 @@ h1, h2, h3, h4, h5, h6 {
   .mentor-card-wrapper {
     width: 100%;
   }
-
-  /* Testimonial card wrapper */
-  .testimonial-card-wrapper {
-    width: 100%;
-  }
 }
 
 /* ── Tablet: mentors 2 columns ────────────────────────────────── */
@@ -480,10 +452,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .mentor-card {
-    padding: 1.5rem 1.25rem;
-  }
-
-  .testimonial-card {
     padding: 1.5rem 1.25rem;
   }
 

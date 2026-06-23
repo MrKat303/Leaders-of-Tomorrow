@@ -58,13 +58,13 @@ const MENTORS: Mentor[] = [
   },
   {
     name: "Juliana Ospina",
-    role: "CBA Board Member",
-    description: "Miembro del Board de CBA. Líder estratégica con amplia experiencia en gobernanza corporativa y desarrollo de talento joven.",
+    role: "Líder Estratégica",
+    description: "Líder estratégica con amplia experiencia en gobernanza corporativa y desarrollo de talento joven.",
     linkedin: "https://linkedin.com",
     initials: "JO",
     image: "/mentors/juliana-ospina.jpg",
-    details: "Juliana Ospina aporta una visión estratégica y de gobernanza al programa. Como miembro del Board de CBA, se enfoca en impulsar el talento joven y conectar a la próxima generación con oportunidades de alto impacto.",
-    tags: ["Board Member", "CBA", "Estrategia"],
+    details: "Juliana Ospina aporta una visión estratégica y de gobernanza al programa. Se enfoca en impulsar el talento joven y conectar a la próxima generación con oportunidades de alto impacto.",
+    tags: ["Estrategia", "Gobernanza", "Liderazgo"],
     gradient: "linear-gradient(135deg, #5a189a 0%, #9d4edd 100%)"
   },
   {
@@ -355,7 +355,7 @@ export default function Home() {
           style={{
             width: "100%",
             height: "100%",
-            backgroundImage: "url('/image.png')",
+            backgroundImage: "url('/image.webp')",
             backgroundSize: "cover",
             backgroundPosition: "center 0%",
             willChange: "background-position",
@@ -384,7 +384,7 @@ export default function Home() {
             left: 0,
             width: "100%",
             height: "100%",
-            backgroundImage: "linear-gradient(to bottom, rgba(10, 10, 18, 0.2), rgba(10, 10, 18, 0.75)), url('/hero/hero.png')",
+            backgroundImage: "linear-gradient(to bottom, rgba(10, 10, 18, 0.2), rgba(10, 10, 18, 0.75)), url('/hero/hero.webp')",
             backgroundSize: "cover",
             backgroundPosition: "center center",
           }}
@@ -435,7 +435,7 @@ export default function Home() {
         </div>
 
         <div className="hero-cta-wrap" style={{ display: "flex", gap: "1rem", flexWrap: "wrap" as const, justifyContent: "center", width: "100%", maxWidth: "500px" }}>
-          <Link href="/apply" className="magnetic-btn" style={{ 
+          <Link href="/apply" style={{ 
             background: "#7b2cbf", color: c.white, fontWeight: 800, fontSize: "1.05rem", 
             padding: "1rem 2.5rem", borderRadius: 9999, textDecoration: "none", 
             boxShadow: "0 12px 40px rgba(123,44,191,0.4)", display: "inline-flex", alignItems: "center", gap: "0.5rem" 
@@ -458,8 +458,9 @@ export default function Home() {
         <div className="hero-logos" style={{ marginTop: "3rem", opacity: 0.8 }}>
           <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase" as const, letterSpacing: "0.15em", marginBottom: "1rem" }}>Organizado por</p>
           <div style={{ display: "flex", justifyContent: "center", gap: "clamp(2rem, 5vw, 4rem)", flexWrap: "wrap" as const, alignItems: "center" }}>
-            <img src="/hero/logos/Cba.png" alt="CBA Logo" style={{ height: "48px", objectFit: "contain", opacity: 0.9 }} />
-            <img src="/hero/logos/hiveyoung.svg" alt="Hiveyoung Logo" style={{ height: "38px", objectFit: "contain", opacity: 0.9 }} />
+            <a href="https://hiveyoung.org/" target="_blank" rel="noopener noreferrer">
+              <img src="/hero/logos/hiveyoung.svg" alt="Hiveyoung Logo" style={{ height: "38px", objectFit: "contain", opacity: 0.9 }} />
+            </a>
           </div>
         </div>
       </section>
@@ -600,78 +601,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* ═══════════════════ VIDEO SECTION ═══════════════════ */}
-      <section style={{ padding: "clamp(3rem, 6vw, 6rem) 1.25rem", background: c.cream, position: "relative", overflow: "hidden" }}>
-        {/* Decorative background element */}
-        <div style={{ position: "absolute", width: "30%", height: "30%", top: "10%", left: "-10%", background: `radial-gradient(circle, rgba(123,44,191,0.15) 0%, transparent 70%)`, opacity: 0.5, pointerEvents: "none" }} />
-        
-        <div className="section-container" style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "4rem", alignItems: "center", position: "relative", zIndex: 1 }}>
-          
-          {/* Video Container (Left) */}
-          <div style={{ position: "relative" }}>
-            {/* Background Glow */}
-            <div style={{
-              position: "absolute",
-              top: "-5%", left: "-5%", right: "-5%", bottom: "-5%",
-              background: "linear-gradient(135deg, #e0aaff, #7b2cbf)",
-              filter: "blur(40px)",
-              opacity: 0.3,
-              borderRadius: "32px",
-              zIndex: 0
-            }} />
-            <div style={{ 
-              position: "relative", 
-              paddingBottom: "56.25%", 
-              height: 0, 
-              overflow: "hidden", 
-              borderRadius: "24px",
-              border: `1px solid rgba(255, 255, 255, 0.2)`,
-              boxShadow: "0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05) inset",
-              zIndex: 1,
-              background: "#000"
-            }}>
-              <iframe 
-                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: 0 }}
-                src="https://www.youtube.com/embed/y8xZJ0Mg4yY"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              ></iframe>
-            </div>
-          </div>
-
-          {/* Text Content (Right) */}
-          <div style={{ textAlign: "left", paddingLeft: "clamp(0px, 2vw, 2rem)" }}>
-            <h2 className="section-heading" style={{ fontSize: "clamp(2.4rem, 5vw, 3.2rem)", marginBottom: "1.5rem", lineHeight: 1.1, color: c.white }}>
-              Revive la Experiencia
-            </h2>
-            <p style={{ color: "rgba(255, 255, 255, 0.8)", fontSize: "1.15rem", lineHeight: 1.7, marginBottom: "2.5rem", maxWidth: "500px", fontWeight: 400 }}>
-              Descubre por qué Leaders of Tomorrow es el programa que está transformando el ecosistema joven. Un vistazo a la energía y el impacto de nuestras ediciones pasadas.
-            </p>
-            <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-              <span style={{ 
-                fontSize: "0.85rem", color: c.white, fontWeight: 600, textTransform: "uppercase", 
-                letterSpacing: "0.05em", background: "rgba(255, 255, 255, 0.1)", 
-                border: "1px solid rgba(255, 255, 255, 0.15)", padding: "0.6rem 1.4rem", 
-                borderRadius: "99px", backdropFilter: "blur(10px)" 
-              }}>
-                #ImpactoReal
-              </span>
-              <span style={{ 
-                fontSize: "0.85rem", color: c.white, fontWeight: 600, textTransform: "uppercase", 
-                letterSpacing: "0.05em", background: "rgba(255, 255, 255, 0.1)", 
-                border: "1px solid rgba(255, 255, 255, 0.15)", padding: "0.6rem 1.4rem", 
-                borderRadius: "99px", backdropFilter: "blur(10px)" 
-              }}>
-                #CBA
-              </span>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
 
 
       {/* ═══════════════════ MENTORES ═══════════════════ */}
@@ -837,101 +766,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════ TESTIMONIALS ═══════════════════ */}
-      <section id="testimonios" style={{ padding: "clamp(1rem, 2vw, 2rem) 0 clamp(3rem, 6vw, 6rem)", background: c.cream }}>
-        <div className="section-container">
-          <div style={{ overflow: "hidden", marginBottom: "1rem" }}>
-            <p className="section-heading" style={{ color: c.orange, fontWeight: 800, fontSize: "0.9rem", letterSpacing: "0.15em", textTransform: "uppercase" as const, textAlign: "center" }}>
-              Nuestra Red
-            </p>
-          </div>
-          <div style={{ overflow: "hidden", margin: "0 auto 4.5rem", maxWidth: 700 }}>
-            <h2 className="section-heading" style={{ fontSize: "clamp(2.2rem, 5vw, 3.5rem)", textAlign: "center", lineHeight: 1.1 }}>
-              Historias de transformación real
-            </h2>
-          </div>
-
-          <div className="testimonials-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: "1.5rem" }}>
-            {[
-              { name: "Sofía Martínez", role: "CEO, BioGreen", quote: "Leaders of Tomorrow no solo me dio herramientas, me dio una familia. El nivel de los mentores es otro mundo." },
-              { name: "Andrés Silva", role: "Founder, DataImpact", quote: "Llegué buscando contactos y me fui con una visión clara de cómo quería cambiar mi país. Inversión 100% recomendada." },
-              { name: "Elena Paz", role: "Directora de Innovación", quote: "Lo que más destaco es la metodología práctica. No es teoría aburrida, es ensuciarse las manos y crear." },
-            ].map((t, index) => (
-              <div key={t.name} className="testimonial-card-wrapper" style={{ height: "100%" }}>
-                <div 
-                  className="testimonial-card" 
-                  style={{ 
-                    height: "100%", 
-                    position: "relative",
-                    background: c.glassBg,
-                    backdropFilter: "blur(20px)",
-                    WebkitBackdropFilter: "blur(20px)",
-                    borderRadius: "32px",
-                    padding: "3rem 2.5rem 2.5rem",
-                    border: `1px solid ${c.glassBorder}`,
-                    boxShadow: "0 10px 40px rgba(0,0,0,0.2)",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                    transition: "transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-8px)";
-                    e.currentTarget.style.boxShadow = "0 24px 60px rgba(123, 44, 191, 0.15)";
-                    e.currentTarget.style.borderColor = "rgba(199,125,255,0.3)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "0 10px 40px rgba(0,0,0,0.2)";
-                    e.currentTarget.style.borderColor = c.glassBorder;
-                  }}
-                >
-                  {/* Decorative Quote Icon */}
-                  <div style={{ position: "absolute", top: "2rem", right: "2rem", opacity: 0.1, color: c.orange }}>
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M14.017 21L16.411 14.286C17.705 10.952 18.999 7.619 20.293 4.286H24L20.293 21H14.017ZM3.724 21L6.118 14.286C7.412 10.952 8.706 7.619 10 4.286H13.707L10 21H3.724Z" />
-                    </svg>
-                  </div>
-                  
-                  <p style={{ 
-                    fontSize: "1.1rem", 
-                    lineHeight: 1.7, 
-                    color: c.dark, 
-                    marginBottom: "2.5rem", 
-                    fontWeight: 500,
-                    position: "relative",
-                    zIndex: 1
-                  }}>
-                    "{t.quote}"
-                  </p>
-                  
-                  <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginTop: "auto" }}>
-                    <div style={{ 
-                      width: 56, 
-                      height: 56, 
-                      borderRadius: "50%", 
-                      background: `linear-gradient(135deg, #7b2cbf, #c77dff)`, 
-                      display: "flex", 
-                      alignItems: "center", 
-                      justifyContent: "center", 
-                      color: c.white, 
-                      fontWeight: 900, 
-                      fontSize: "1.2rem",
-                      boxShadow: "0 8px 20px rgba(123, 44, 191, 0.3)"
-                    }}>
-                      {t.name.charAt(0)}
-                    </div>
-                    <div>
-                      <p style={{ fontWeight: 800, fontSize: "1.05rem", color: c.dark, marginBottom: "0.2rem" }}>{t.name}</p>
-                      <p style={{ fontSize: "0.85rem", color: c.orange, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em" }}>{t.role}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ═══════════════════ FAQ ═══════════════════ */}
       <section id="faq" className="faq-section" style={{ padding: "clamp(3rem, 6vw, 6rem) 1rem 0.5rem", background: c.cream }}>
@@ -1054,7 +888,7 @@ export default function Home() {
         <div className="footer-grid" style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", gap: "clamp(2rem, 4vw, 4rem)", marginBottom: "clamp(2rem, 4vw, 4rem)" }}>
           <div className="footer-col" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
             <Image src="/logo-white.svg" alt="Logo" width={180} height={50} style={{ height: "auto", marginBottom: "1.5rem", display: "block" }} />
-            <p style={{ fontSize: "0.95rem", lineHeight: 1.8, maxWidth: 300, textAlign: "center", margin: "0 auto" }}>La plataforma líder en formación de liderazgo joven en Iberoamérica. Creando impacto desde 2018.</p>
+            <p style={{ fontSize: "0.95rem", lineHeight: 1.8, maxWidth: 300, textAlign: "center", margin: "0 auto" }}>El nuevo programa de formación para las Skills del Futuro. Diseñada para entrenar a los próximos leaders, builders y founders del mañana.</p>
           </div>
           {[
             { title: "Inmersión", links: ["Currículo", "Mentores", "Admisiones", "Becas"] },
@@ -1083,7 +917,7 @@ export default function Home() {
         </div>
         <div className="footer-bottom" style={{ borderTop: `1px solid ${c.glassBorder}`, paddingTop: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" as const, gap: "1rem", maxWidth: 1200, margin: "0 auto" }}>
 
-          <p style={{ fontSize: "0.9rem" }}>© {new Date().getFullYear()} Leaders of Tomorrow by CBA</p>
+          <p style={{ fontSize: "0.9rem" }}>© {new Date().getFullYear()} The Builders Camp by HiveYoung</p>
           <div style={{ display: "flex", gap: "1.5rem" }}>
             {["Twitter", "LinkedIn", "Instagram", "Spotify"].map(s => (
               <a key={s} href="#" style={{ color: "rgba(255,255,255,0.9)", textDecoration: "none", fontSize: "0.9rem", fontWeight: 600 }}>{s}</a>

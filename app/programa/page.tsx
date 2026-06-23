@@ -366,7 +366,7 @@ export default function ProgramaPage() {
           left: 0,
           width: "100%",
           height: "120vh",
-          backgroundImage: "linear-gradient(rgba(10, 10, 18, 0.4), rgba(10, 10, 18, 0.55)), url('/city.png')",
+          backgroundImage: "linear-gradient(rgba(10, 10, 18, 0.4), rgba(10, 10, 18, 0.55)), url('/city.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center top",
           zIndex: -2,

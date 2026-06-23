@@ -467,7 +467,7 @@ export default function PodcastPage() {
 
   return (
     <div ref={container} style={{
-      backgroundImage: "url('/plane.png')",
+      backgroundImage: "url('/plane.webp')",
       backgroundSize: "cover",
       backgroundPosition: "center",
       backgroundAttachment: "fixed",

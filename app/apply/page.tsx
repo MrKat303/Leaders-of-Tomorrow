@@ -331,7 +331,7 @@ export default function ApplyPage() {
           left: 0,
           width: "100%",
           height: "100%",
-          backgroundImage: "linear-gradient(rgba(26, 18, 8, 0.4), rgba(26, 18, 8, 0.65)), url('/beach.png')",
+          backgroundImage: "linear-gradient(rgba(26, 18, 8, 0.4), rgba(26, 18, 8, 0.65)), url('/beach.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           zIndex: -2,
