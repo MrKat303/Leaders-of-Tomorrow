@@ -537,71 +537,39 @@ export default function ProgramaPage() {
                   key={index}
                   className="timeline-card timeline-card-divider"
                   style={{
-                    background: "transparent",
-                    backdropFilter: "blur(24px)",
-                    WebkitBackdropFilter: "blur(24px)",
-                    border: "2px dashed rgba(255, 255, 255, 0.5)",
-                    borderRadius: "20px",
-                    padding: "1rem 2.2rem",
+                    background: "rgba(255,255,255,0.03)",
+                    borderRadius: "16px",
+                    padding: "0.9rem 2.2rem",
                     display: "grid",
                     gridTemplateColumns: "110px 1fr",
                     gap: "1.5rem",
                     alignItems: "center",
                     position: "relative",
                     zIndex: 1,
-                    transition: "all 0.3s ease",
-                    boxShadow: "none",
-                    transform: "translateZ(0)",
-                    WebkitBackfaceVisibility: "hidden",
-                    backfaceVisibility: "hidden",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.8)";
-                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.5)";
-                    e.currentTarget.style.background = "transparent";
                   }}
                 >
                   {/* Time Indicator */}
                   <span 
                     style={{
                       fontFamily: "var(--font-sans)",
-                      fontSize: "0.95rem",
-                      fontWeight: 700,
-                      color: "rgba(255,255,255,0.5)",
+                      fontSize: "0.85rem",
+                      fontWeight: 600,
+                      color: "rgba(255,255,255,0.35)",
                     }}
                   >
                     {item.time}
                   </span>
 
                   {/* Activity */}
-                  <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                    <div 
-                      style={{
-                        width: "32px",
-                        height: "32px",
-                        borderRadius: "10px",
-                        backgroundColor: "rgba(255,255,255,0.04)",
-                        border: "1px solid rgba(255,255,255,0.08)",
-                        color: "rgba(255,255,255,0.4)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexShrink: 0
-                      }}
-                    >
-                      {getIcon(item.type)}
-                    </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.8rem" }}>
+                    <span style={{ fontSize: "1.1rem" }}>{getIcon(item.type)}</span>
                     <span 
                       style={{
-                        fontSize: "0.9rem",
-                        color: "rgba(255,255,255,0.6)",
-                        fontWeight: 600,
-                        textTransform: "uppercase",
-                        letterSpacing: "0.05em",
-                        fontFamily: "var(--font-primary)"
+                        fontSize: "0.85rem",
+                        color: "rgba(255,255,255,0.4)",
+                        fontWeight: 500,
+                        letterSpacing: "0.03em",
+                        fontFamily: "var(--font-sans)"
                       }}
                     >
                       {item.activity}
@@ -616,29 +584,25 @@ export default function ProgramaPage() {
                 key={index}
                 className="timeline-card"
                 style={{
-                  background: "transparent",
-                  backdropFilter: "blur(32px)",
-                  WebkitBackdropFilter: "blur(32px)",
-                  border: "2px solid #ffffff",
-                  borderRadius: "24px",
-                  padding: "1.8rem 2.2rem",
+                  background: "rgba(255,255,255,0.04)",
+                  borderRadius: "20px",
+                  padding: "1.6rem 2rem",
                   display: "grid",
                   gridTemplateColumns: "110px 1fr",
                   gap: "1.5rem",
                   alignItems: "center",
                   position: "relative",
                   zIndex: 1,
-                  transition: "all 0.35s cubic-bezier(0.23, 1, 0.32, 1)",
-                  boxShadow: "none",
+                  transition: "background 0.25s ease",
                   transform: "translateZ(0)",
                   WebkitBackfaceVisibility: "hidden",
                   backfaceVisibility: "hidden",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(255, 255, 255, 0.05)";
+                  e.currentTarget.style.background = "rgba(255,255,255,0.07)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.background = "rgba(255,255,255,0.04)";
                 }}
               >
                 {/* Subtle highlight glow */}
@@ -825,7 +789,7 @@ export default function ProgramaPage() {
         </div>
         <div className="footer-bottom" style={{ borderTop: `1px solid rgba(255, 255, 255, 0.15)`, paddingTop: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem", maxWidth: 1200, margin: "0 auto" }}>
 
-          <p style={{ fontSize: "0.9rem" }}>© {new Date().getFullYear()} Leaders of Tomorrow by CBA</p>
+          <p style={{ fontSize: "0.9rem" }}>© {new Date().getFullYear()} The Builders Camp by Hiveyoung</p>
           <div style={{ display: "flex", gap: "1.5rem" }}>
             {["Twitter", "LinkedIn", "Instagram", "Spotify"].map(s => (
               <a key={s} href="#" style={{ color: "rgba(255,255,255,0.9)", textDecoration: "none", fontSize: "0.9rem", fontWeight: 600 }}>{s}</a>
