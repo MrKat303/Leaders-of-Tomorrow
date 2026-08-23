@@ -440,7 +440,333 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ── Small phones ────────────────────────────────────────────── */
+.hero-intro-line {
+  display: block;
+  white-space: nowrap;
+}
+
+.skill-card {
+  min-height: 58px;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 12px;
+  color: #fff;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-primary);
+  font-size: clamp(0.95rem, 1.25vw, 1.15rem);
+  line-height: 1.08;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.program-scroll {
+  width: 100%;
+  overflow-x: auto;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 18px;
+  background: transparent;
+  box-shadow: none;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+}
+
+.faq-plane {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  right: -22%;
+  width: clamp(310px, 35vw, 440px);
+  height: auto;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.faq-balloon {
+  position: absolute;
+  z-index: 2;
+  top: 3.5rem;
+  left: -7%;
+  width: clamp(120px, 14vw, 175px);
+  height: auto;
+  opacity: 0.82;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.program-card {
+  position: relative;
+  padding: clamp(0.65rem, 1.2vw, 1rem);
+  padding-bottom: 5rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 28px;
+  overflow-anchor: none;
+  background: #5a189a;
+  box-shadow: none;
+}
+
+.program-card-content {
+  max-height: 390px;
+  overflow: hidden;
+  transition: max-height 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.program-toggle {
+  position: absolute;
+  left: 50%;
+  bottom: 1.25rem;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.program-toggle:checked ~ .program-card-content {
+  max-height: 1200px;
+}
+
+.program-expand-button {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 1.15rem;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-width: 230px;
+  padding: 0.8rem 1.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 999px;
+  background: rgba(61, 20, 112, 0.88);
+  color: #fff;
+  font-family: var(--font-primary);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.program-label-open {
+  display: none;
+}
+
+.program-toggle:checked ~ .program-expand-button .program-label-closed {
+  display: none;
+}
+
+.program-toggle:checked ~ .program-expand-button .program-label-open {
+  display: inline;
+}
+
+.program-toggle:checked ~ .program-expand-button svg {
+  transform: rotate(180deg);
+}
+
+.program-expand-button svg {
+  transition: transform 0.3s ease;
+}
+
+.program-expand-button:hover {
+  background: rgba(92, 31, 158, 0.96);
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.program-toggle:focus-visible ~ .program-expand-button {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.cta-bg {
+  background-attachment: scroll;
+  will-change: transform, opacity;
+}
+
+.program-grid {
+  min-width: 980px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.program-day {
+  min-width: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.program-day:last-child {
+  border-right: 0;
+}
+
+.program-day-header {
+  min-height: 72px;
+  padding: 0.75rem 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.055);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.program-day-header div {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.program-day-header span {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+}
+
+.program-day-header strong {
+  color: #fff;
+  font-size: 1.3rem;
+}
+
+.program-day-header p {
+  color: #e0aaff;
+  font-family: var(--font-primary);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+}
+
+.program-events {
+  display: grid;
+  grid-auto-rows: minmax(58px, auto);
+  gap: 0;
+  padding: 0;
+}
+
+.program-event {
+  min-height: 58px;
+  padding: 0.55rem 0.7rem;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-left: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.program-event:last-child {
+  border-bottom: 0;
+}
+
+.program-event span {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: rgba(255, 255, 255, 0.56);
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.64rem;
+  font-weight: 700;
+}
+
+.program-event h3 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(0.7rem, 0.85vw, 0.86rem);
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.program-event-accent,
+.program-event-standard,
+.program-event-lab,
+.program-event-checkpoint,
+.program-event-break {
+  background: transparent;
+}
+
+.program-scroll:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.75);
+  outline-offset: 5px;
+}
+
+@media (max-width: 760px) {
+  .hero-intro-line {
+    white-space: normal;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .week-program-section {
+    min-height: auto !important;
+  }
+
+  .program-grid {
+    min-width: 900px;
+  }
+
+  .faq-plane {
+    top: 0.25rem;
+    right: -5%;
+    width: 190px;
+    opacity: 1;
+  }
+
+  .faq-balloon {
+    top: 7.25rem;
+    left: -1.5rem;
+    width: 78px;
+    opacity: 0.68;
+  }
+
+  .faq-section {
+    padding: 2.75rem 0.75rem 1.25rem !important;
+  }
+
+  .faq-container {
+    padding: 1rem 0.5rem 0 !important;
+  }
+
+  .faq-header {
+    margin-bottom: 1.25rem !important;
+  }
+
+  .faq-item {
+    margin-bottom: 0.65rem !important;
+  }
+
+  .cta-section {
+    min-height: 400px !important;
+    padding: 1.25rem 0.75rem !important;
+  }
+
+  .cta-section-inner {
+    padding: 1rem 0.75rem !important;
+  }
+
+  .cta-bg {
+    background-attachment: scroll;
+    background-position: center bottom !important;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.55) 9%, #000 22%) !important;
+    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.55) 9%, #000 22%) !important;
+  }
+}
+
 @media (max-width: 480px) {
+  .skills-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .skill-card {
+    min-height: 58px !important;
+  }
+
+  .hero-meta {
+    flex-direction: column !important;
+    gap: 0.8rem !important;
+  }
+
   .hero-partners {
     grid-template-columns: 1fr !important;
     gap: 1.75rem !important;
