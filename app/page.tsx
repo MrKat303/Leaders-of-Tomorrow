@@ -32,61 +32,9 @@ const c = {
   bgLight: "transparent",
 };
 
-interface Mentor {
-  name: string;
-  role: string;
-  description: string;
-  linkedin: string;
-  initials: string;
-  image: string;
-  details: string;
-  tags: string[];
-  gradient: string;
-}
-
-const MENTORS: Mentor[] = [
-  {
-    name: "Alejandra Mustakis",
-    role: "Empresaria / Emprendedora",
-    description: "Reconocida empresaria y emprendedora chilena, impulsora del ecosistema de innovación y emprendimiento en Latinoamérica.",
-    linkedin: "https://linkedin.com",
-    initials: "AM",
-    image: "/mentors/alejandra-mustakis.jpg",
-    details: "Alejandra Mustakis es una referente del ecosistema emprendedor latinoamericano. Ha fundado múltiples empresas, lidera iniciativas de impacto social y es una voz influyente en innovación y liderazgo en la región.",
-    tags: ["Emprendimiento", "Innovación", "Liderazgo"],
-    gradient: "linear-gradient(135deg, #7b2cbf 0%, #c77dff 100%)"
-  },
-  {
-    name: "Juliana Ospina",
-    role: "Líder Estratégica",
-    description: "Líder estratégica con amplia experiencia en gobernanza corporativa y desarrollo de talento joven.",
-    linkedin: "https://linkedin.com",
-    initials: "JO",
-    image: "/mentors/juliana-ospina.jpg",
-    details: "Juliana Ospina aporta una visión estratégica y de gobernanza al programa. Se enfoca en impulsar el talento joven y conectar a la próxima generación con oportunidades de alto impacto.",
-    tags: ["Estrategia", "Gobernanza", "Liderazgo"],
-    gradient: "linear-gradient(135deg, #5a189a 0%, #9d4edd 100%)"
-  },
-  {
-    name: "Michelle Schnitzer",
-    role: "Emprendedora · CEO de Bondup",
-    description: "Fundadora y CEO de Bondup. Emprendedora con visión de producto y pasión por construir soluciones que conectan personas.",
-    linkedin: "https://linkedin.com",
-    initials: "MS",
-    image: "/mentors/michelle-schnitzer.jpg",
-    details: "Michelle Schnitzer es la fundadora y CEO de Bondup, una plataforma que conecta personas a través de experiencias. Con un enfoque en producto y comunidad, aporta una perspectiva fresca y práctica al ecosistema emprendedor.",
-    tags: ["CEO", "Startup", "Producto"],
-    gradient: "linear-gradient(135deg, #9d4edd 0%, #c77dff 100%)"
-  }
-];
-
 export default function Home() {
   const container = useRef<HTMLDivElement>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [selectedMentor, setSelectedMentor] = useState<Mentor | null>(null);
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const [hoveredLinkedin, setHoveredLinkedin] = useState<number | null>(null);
-  const [hoveredMore, setHoveredMore] = useState<number | null>(null);
 
   const faqs = [
     { q: "¿Qué es Leaders of Tomorrow?", a: "Es un bootcamp intensivo de innovación, emprendimiento y tecnología de 5 días, creado por CBA BOARD y coproducido por HiveYoung. Está diseñado para preparar a la próxima generación de builders, founders y agentes de cambio con herramientas reales del ecosistema emprendedor." },
@@ -175,20 +123,6 @@ export default function Home() {
       ease: "power4.out",
       scrollTrigger: {
         trigger: ".testimonials-grid",
-        start: "top 85%",
-      },
-    });
-
-    // ── Mentor cards stagger ──
-    gsap.from(".mentor-card-wrapper", {
-      opacity: 0,
-      y: 60,
-      rotation: -1,
-      stagger: 0.12,
-      duration: 1.2,
-      ease: "power4.out",
-      scrollTrigger: {
-        trigger: ".mentors-grid",
         start: "top 85%",
       },
     });
@@ -421,7 +355,7 @@ export default function Home() {
             <span className="hero-title-line" style={{ display: "block" }}>Conviértete en el líder</span>
           </span>
           <span style={{ display: "block", overflow: "hidden", marginTop: "-0.05em" }}>
-            <span className="hero-title-line" style={{ display: "inline-block", background: "rgba(255,255,255,0.18)", borderRadius: "24px", padding: "0 0.4em" }}>del mañana</span>
+            <span className="hero-title-line" style={{ display: "inline-block" }}>del mañana</span>
           </span>
         </h1>
 
@@ -455,12 +389,25 @@ export default function Home() {
         </div>
 
         {/* Logos marquee style */}
-        <div className="hero-logos" style={{ marginTop: "3rem", opacity: 0.8 }}>
-          <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase" as const, letterSpacing: "0.15em", marginBottom: "1rem" }}>Organizado por</p>
-          <div style={{ display: "flex", justifyContent: "center", gap: "clamp(2rem, 5vw, 4rem)", flexWrap: "wrap" as const, alignItems: "center" }}>
-            <a href="https://hiveyoung.org/" target="_blank" rel="noopener noreferrer">
-              <img src="/hero/logos/hiveyoung.svg" alt="Hiveyoung Logo" style={{ height: "38px", objectFit: "contain", opacity: 0.9 }} />
-            </a>
+        <div className="hero-logos hero-partners" style={{ marginTop: "3rem", opacity: 0.9, display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", alignItems: "start", gap: "clamp(2rem, 5vw, 4rem)", width: "min(100%, 570px)" }}>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase" as const, letterSpacing: "0.15em", marginBottom: "1rem" }}>Organizado por</p>
+            <div style={{ minHeight: "52px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <a href="https://hiveyoung.org/" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center" }}>
+                <img src="/hero/logos/hiveyoung.svg" alt="Hiveyoung Logo" style={{ height: "38px", objectFit: "contain", opacity: 0.9 }} />
+              </a>
+            </div>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase" as const, letterSpacing: "0.15em", marginBottom: "1rem" }}>Con el apoyo de</p>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1.5rem", minHeight: "52px" }}>
+              <img
+                src="https://kit-digital-uc-prod.s3.amazonaws.com/assets/escudos/logo-uc-06.svg"
+                alt="Pontificia Universidad Católica de Chile"
+                style={{ width: "155px", height: "52px", objectFit: "contain", objectPosition: "center" }}
+              />
+              <img src="/hero/logos/MCDONALDS.svg" alt="McDonald's" style={{ width: "58px", height: "42px", objectFit: "contain", objectPosition: "center" }} />
+            </div>
           </div>
         </div>
       </section>
@@ -603,170 +550,6 @@ export default function Home() {
       </section>
 
 
-      {/* ═══════════════════ MENTORES ═══════════════════ */}
-      <section id="mentores" style={{ padding: "clamp(3rem, 6vw, 6rem) 0 clamp(1rem, 2vw, 2rem)", background: c.cream }}>
-        <div className="section-container">
-          <div style={{ overflow: "hidden", marginBottom: "1rem" }}>
-            <p className="section-heading" style={{ color: c.orange, fontWeight: 800, fontSize: "0.9rem", letterSpacing: "0.15em", textTransform: "uppercase", textAlign: "center" }}>
-              Aprende de los mejores
-            </p>
-          </div>
-          <div style={{ overflow: "hidden", margin: "0 auto 4.5rem", maxWidth: 700 }}>
-            <h2 className="section-heading" style={{ fontSize: "clamp(2.2rem, 5vw, 3.5rem)", textAlign: "center", lineHeight: 1.1 }}>
-              Nuestros Mentores
-            </h2>
-          </div>
-
-          <div className="mentors-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem", maxWidth: "1100px", margin: "0 auto" }}>
-            {MENTORS.map((m, index) => {
-              const isHovered = hoveredCard === index;
-              const isLinkedinHovered = hoveredLinkedin === index;
-
-              return (
-                <div
-                  key={m.name}
-                  className="mentor-card-wrapper"
-                >
-                  <div
-                    className="mentor-card"
-                    onMouseEnter={() => setHoveredCard(index)}
-                    onMouseLeave={() => { setHoveredCard(null); setHoveredLinkedin(null); }}
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      textAlign: "center",
-                      padding: "2rem 1.5rem 1.5rem",
-                      borderRadius: "24px",
-                      background: isHovered ? "rgba(255,255,255,0.1)" : c.glassBg,
-                      backdropFilter: "blur(20px)",
-                      WebkitBackdropFilter: "blur(20px)",
-                      border: `1px solid ${isHovered ? "rgba(224,170,255,0.4)" : c.glassBorder}`,
-                      boxShadow: isHovered ? "0 20px 50px rgba(123,44,191,0.25)" : "0 4px 20px rgba(0,0,0,0.15)",
-                      transform: isHovered ? "translateY(-6px)" : "translateY(0)",
-                      transition: "all 0.35s cubic-bezier(0.23, 1, 0.32, 1)",
-                      cursor: "default",
-                      height: "100%",
-                    }}
-                  >
-                    {/* Photo */}
-                    <div style={{
-                      width: "100px",
-                      height: "100px",
-                      borderRadius: "50%",
-                      overflow: "hidden",
-                      marginBottom: "1.2rem",
-                      border: isHovered ? "3px solid rgba(199,125,255,0.6)" : "3px solid rgba(255,255,255,0.12)",
-                      boxShadow: isHovered ? "0 8px 24px rgba(123,44,191,0.35)" : "0 4px 16px rgba(0,0,0,0.3)",
-                      transition: "all 0.35s ease",
-                      transform: isHovered ? "scale(1.06)" : "scale(1)",
-                      flexShrink: 0,
-                    }}>
-                      <img
-                        src={m.image}
-                        alt={m.name}
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "cover",
-                        }}
-                      />
-                    </div>
-
-                    {/* Name */}
-                    <h3 style={{
-                      fontSize: "1.1rem",
-                      fontWeight: "normal",
-                      color: c.white,
-                      fontFamily: "var(--font-primary)",
-                      textTransform: "uppercase",
-                      marginBottom: "0.35rem",
-                      lineHeight: 1.2,
-                    }}>
-                      {m.name}
-                    </h3>
-
-                    {/* Role */}
-                    <p style={{
-                      fontSize: "0.8rem",
-                      color: c.orange,
-                      fontWeight: 600,
-                      fontFamily: "var(--font-sans)",
-                      marginBottom: "0.8rem",
-                      lineHeight: 1.4,
-                    }}>
-                      {m.role}
-                    </p>
-
-                    {/* Description */}
-                    <p style={{
-                      fontSize: "0.85rem",
-                      color: "rgba(255,255,255,0.6)",
-                      fontFamily: "var(--font-sans)",
-                      lineHeight: 1.6,
-                      marginBottom: "1.2rem",
-                      flex: 1,
-                    }}>
-                      {m.description}
-                    </p>
-
-                    {/* Tags */}
-                    <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap", justifyContent: "center", marginBottom: "1rem" }}>
-                      {m.tags.map((tag) => (
-                        <span key={tag} style={{
-                          fontSize: "0.65rem",
-                          fontFamily: "var(--font-sans)",
-                          fontWeight: 700,
-                          textTransform: "uppercase",
-                          letterSpacing: "0.05em",
-                          background: "rgba(123,44,191,0.15)",
-                          color: c.orange,
-                          border: "1px solid rgba(199,125,255,0.15)",
-                          padding: "0.3rem 0.7rem",
-                          borderRadius: "99px",
-                        }}>
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* LinkedIn */}
-                    <a
-                      href={m.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`LinkedIn de ${m.name}`}
-                      onMouseEnter={() => setHoveredLinkedin(index)}
-                      onMouseLeave={() => setHoveredLinkedin(null)}
-                      style={{
-                        width: "36px",
-                        height: "36px",
-                        borderRadius: "10px",
-                        background: isLinkedinHovered ? "#0077b5" : "rgba(255,255,255,0.08)",
-                        border: `1px solid ${isLinkedinHovered ? "#0077b5" : "rgba(255,255,255,0.15)"}`,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        color: c.white,
-                        transition: "all 0.25s ease",
-                        transform: isLinkedinHovered ? "scale(1.1)" : "scale(1)",
-                      }}
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-
-        </div>
-      </section>
-
-
       {/* ═══════════════════ FAQ ═══════════════════ */}
       <section id="faq" className="faq-section" style={{ padding: "clamp(3rem, 6vw, 6rem) 1rem 0.5rem", background: c.cream }}>
         <div className="faq-container" style={{
@@ -891,7 +674,7 @@ export default function Home() {
             <p style={{ fontSize: "0.95rem", lineHeight: 1.8, maxWidth: 300, textAlign: "center", margin: "0 auto" }}>El nuevo programa de formación para las Skills del Futuro. Diseñada para entrenar a los próximos leaders, builders y founders del mañana.</p>
           </div>
           {[
-            { title: "Inmersión", links: ["Currículo", "Mentores", "Admisiones", "Becas"] },
+            { title: "Inmersión", links: ["Currículo", "Admisiones", "Becas"] },
             { title: "Red", links: ["Directorio Alumni", "Partner Schools", "Corporate Connect", "Impact Reports"] },
             { title: "Lab", links: ["Blog", "Podcast", "Recursos Abiertos", "Newsletter"] },
           ].map((col) => (
@@ -926,204 +709,6 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* ═══════════════════ MENTOR DETAIL MODAL ═══════════════════ */}
-      {selectedMentor && (
-        <div 
-          onClick={() => setSelectedMentor(null)}
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            zIndex: 2000,
-            backgroundColor: "rgba(26,18,8,0.65)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "1.5rem",
-          }}
-        >
-          <div 
-            onClick={(e) => e.stopPropagation()}
-            className="mentor-modal-content"
-            style={{
-              background: c.white,
-              borderRadius: "32px",
-              width: "100%",
-              maxWidth: "540px",
-              padding: "3rem 2.5rem",
-              boxShadow: "0 30px 90px rgba(26,18,8,0.25)",
-              border: "1px solid rgba(139, 92, 246,0.1)",
-              position: "relative",
-            }}
-          >
-            {/* Close Button */}
-            <button 
-              onClick={() => setSelectedMentor(null)}
-              aria-label="Cerrar modal"
-              style={{
-                position: "absolute",
-                top: "1.5rem",
-                right: "1.5rem",
-                width: "40px",
-                height: "40px",
-                borderRadius: "50%",
-                background: "rgba(26,18,8,0.05)",
-                border: "none",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: c.dark,
-                transition: "all 0.2s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = c.orange;
-                e.currentTarget.style.color = c.white;
-                e.currentTarget.style.transform = "rotate(90deg)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "rgba(26,18,8,0.05)";
-                e.currentTarget.style.color = c.dark;
-                e.currentTarget.style.transform = "rotate(0deg)";
-              }}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
-
-            {/* Modal Body */}
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
-              <div 
-                className="mentor-monogram" 
-                style={{ 
-                  background: selectedMentor.gradient,
-                  width: "90px",
-                  height: "90px",
-                  borderRadius: "50%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: c.white,
-                  fontFamily: "var(--font-primary)",
-                  textTransform: "uppercase",
-                  fontSize: "2.2rem",
-                  fontWeight: "normal",
-                  marginBottom: "1.5rem",
-                  boxShadow: "0 10px 30px rgba(139, 92, 246,0.2)"
-                }}
-              >
-                {selectedMentor.initials}
-              </div>
-
-              <h3 style={{ fontSize: "1.8rem", marginBottom: "0.5rem", fontFamily: "var(--font-primary)", textTransform: "uppercase" }}>{selectedMentor.name}</h3>
-              <p className="mentor-role" style={{ fontSize: "1rem", fontFamily: "var(--font-sans)", fontWeight: 700, color: c.orange, marginBottom: "1rem" }}>{selectedMentor.role}</p>
-              
-              <div className="mentor-tags" style={{ justifyContent: "center", marginBottom: "1.5rem", display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-                {selectedMentor.tags.map((tag) => (
-                  <span 
-                    key={tag} 
-                    className="mentor-tag"
-                    style={{
-                      background: c.orangePale,
-                      color: c.orange,
-                      fontFamily: "var(--font-sans)",
-                      fontSize: "0.75rem",
-                      fontWeight: 700,
-                      padding: "0.35rem 0.8rem",
-                      borderRadius: "99px",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.05em",
-                      border: `1px solid rgba(139, 92, 246, 0.1)`,
-                    }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              <div style={{ 
-                width: "100%", 
-                height: "1px", 
-                background: "rgba(26,18,8,0.08)", 
-                margin: "1.5rem 0" 
-              }} />
-
-              <h4 style={{ 
-                fontSize: "0.85rem", 
-                fontWeight: 800, 
-                color: c.dark, 
-                textTransform: "uppercase", 
-                letterSpacing: "0.08em",
-                alignSelf: "flex-start",
-                marginBottom: "0.75rem"
-              }}>
-                Experiencia y Mentoría
-              </h4>
-              
-              <p style={{ 
-                fontFamily: "Plus Jakarta Sans",
-                fontSize: "1rem", 
-                lineHeight: 1.6, 
-                color: c.muted, 
-                textAlign: "left",
-                marginBottom: "2rem",
-                width: "100%"
-              }}>
-                {selectedMentor.details}
-              </p>
-
-              <div style={{ display: "flex", gap: "1rem", width: "100%" }}>
-                <a 
-                  href={selectedMentor.linkedin} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="btn-primary"
-                  style={{ 
-                    flex: 1, 
-                    justifyContent: "center",
-                    padding: "1rem",
-                    borderRadius: "16px",
-                    fontFamily: "var(--font-primary)",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.05em",
-                    fontSize: "0.85rem",
-                  }}
-                >
-                  LinkedIn
-                </a>
-                
-                <button 
-                  onClick={() => setSelectedMentor(null)}
-                  style={{
-                    flex: 1,
-                    background: "rgba(26,18,8,0.05)",
-                    border: "none",
-                    borderRadius: "16px",
-                    color: c.dark,
-                    fontWeight: 700,
-                    cursor: "pointer",
-                    fontSize: "0.85rem",
-                    fontFamily: "var(--font-primary)",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.05em",
-                    transition: "background 0.2s"
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = "rgba(26,18,8,0.1)"}
-                  onMouseLeave={(e) => e.currentTarget.style.background = "rgba(26,18,8,0.05)"}
-                >
-                  Cerrar
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

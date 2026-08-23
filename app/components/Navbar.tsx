@@ -8,7 +8,6 @@ import { useGSAP } from "@gsap/react";
 
 const NAV_LINKS = [
   { label: "Programa", href: "/programa" },
-  { label: "Mentores", href: "/#mentores" },
   { label: "FAQ", href: "/#faq" },
 ];
 
@@ -165,22 +164,6 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
 
         {/* Right actions */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "0.75rem" }}>
-
-          {/* Desktop Login */}
-          <Link
-            href="/login"
-            className="desktop-cta-login"
-            style={{
-              display: "inline-flex", alignItems: "center",
-              color: "#fff", fontWeight: 400, fontSize: "0.85rem",
-              padding: "0.6rem 1rem", borderRadius: "9999px",
-              textDecoration: "none", transition: "color 0.3s ease",
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = "#c77dff"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = "#fff"; }}
-          >
-            Iniciar Sesión
-          </Link>
 
           {/* Desktop CTA — purple */}
           <Link
@@ -427,34 +410,8 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
             </Link>
           ))}
 
-          {/* CTA — purple & Login */}
+          {/* CTA — purple */}
           <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginTop: "1.5rem" }}>
-            <Link
-              href="/login"
-              className="mobile-link-item"
-              onClick={closeMenu}
-              style={{
-                fontFamily: "var(--font-primary)",
-                textTransform: "uppercase",
-                fontSize: "0.95rem",
-                fontWeight: "normal",
-                letterSpacing: "0.08em",
-                color: "#fff",
-                padding: "1rem 1.5rem",
-                borderRadius: "14px",
-                textDecoration: "none",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                border: "1px solid rgba(255,255,255,0.15)",
-                transition: "background 0.25s ease",
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.1)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
-            >
-              Iniciar Sesión
-            </Link>
-
             <Link
               href="/apply"
               className="mobile-link-item"
@@ -507,7 +464,6 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
         @media (max-width: 768px) {
           .desktop-nav  { display: none !important; }
           .desktop-cta  { display: none !important; }
-          .desktop-cta-login { display: none !important; }
           .hamburger    { display: flex !important; }
           .mobile-spacer { display: block !important; }
         }
