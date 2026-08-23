@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "./components/Navbar";
 import gsap from "gsap";
-import Lenis from "lenis";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useState } from "react";
@@ -37,32 +36,16 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const faqs = [
-    { q: "¿Qué es Leaders of Tomorrow?", a: "Es un bootcamp intensivo de innovación, emprendimiento y tecnología de 5 días, creado por CBA BOARD y coproducido por HiveYoung. Está diseñado para preparar a la próxima generación de builders, founders y agentes de cambio con herramientas reales del ecosistema emprendedor." },
-    { q: "¿Cuándo y dónde se realiza?", a: "El bootcamp se realiza del 14 al 18 de diciembre, presencialmente en la Universidad de los Andes, Santiago, Chile." },
-    { q: "¿Cuántas horas tiene el programa?", a: "Entre 42 y 45 horas de estudio e inmersión durante la semana. El programa corre desde las 9:00 AM hasta la tarde, con módulos, workshops, labs vespertinos y checkpoints a lo largo de cada día." },
-    { q: "¿Cuánto cuesta?", a: "La matrícula es de $60.000 CLP. Este valor cubre el almuerzo diario durante los 5 días del bootcamp y el certificado de participación. El programa es sin fines de lucro." },
-    { q: "¿A quién está dirigido?", a: "A estudiantes de enseñanza media (14 a 18 años) apasionados por el liderazgo, el emprendimiento y la tecnología. No se necesita experiencia previa en programación ni en negocios. Basta con tener motivación, curiosidad y ganas de construir algo real." },
+    { q: "¿Qué es The Builders Camp?", a: "Una experiencia intensiva de cinco días para estudiantes de enseñanza media enfocada en desarrollar habilidades para el futuro a través de desafíos, talleres, empresas, tecnología y trabajo práctico." },
+    { q: "¿Cuándo es?", a: "Del 14 al 18 de diciembre de 2026." },
+    { q: "¿Quién puede postular?", a: "Estudiantes de enseñanza media que cumplan los requisitos de la convocatoria." },
+    { q: "¿Necesito experiencia?", a: "No. The Builders Camp está diseñado precisamente para aprender, descubrir y desarrollar nuevas habilidades durante la experiencia." },
+    { q: "¿Puedo postular con mis amigos?", a: "La postulación es individual. Los equipos se formarán buscando reunir perfiles e intereses diferentes." },
+    { q: "¿Cómo se seleccionan los participantes?", a: "Queremos conocer quién eres más allá de tus notas. Nos interesan especialmente tu motivación, curiosidad, iniciativa, intereses y las ganas que tengas de aprovechar la experiencia." },
+    { q: "¿Tiene costo?", a: "Sí. El programa tiene un costo de $60.000 CLP, con opción de beca para quienes lo necesiten." },
   ];
 
   useGSAP((context, contextSafe) => {
-    // ── Smooth Scroll (Lenis) ──
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
-    });
-
-    lenis.on("scroll", ScrollTrigger.update);
-
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-    gsap.ticker.lagSmoothing(0);
-
     // ── Hero entrance ──
     const heroTl = gsap.timeline({ defaults: { ease: "expo.out" } });
     heroTl
@@ -142,49 +125,25 @@ export default function Home() {
     );
 
     // ── FAQ Entrance & Scroll Effects ──
-    gsap.from(".faq-container", {
-      scale: 0.95,
-      y: 80,
-      opacity: 0,
-      duration: 1.6,
-      ease: "power4.out",
+    gsap.set([".faq-container", ".faq-title", ".faq-subtitle", ".faq-item"], {
+      opacity: 1, y: 0, scale: 1, rotationX: 0,
+    });
+
+    // ── Airplane enters, crosses the FAQ and leaves with the scroll ──
+    gsap.timeline({
       scrollTrigger: {
         trigger: ".faq-section",
-        start: "top 85%",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1,
       }
-    });
-
-    gsap.from(".faq-title", {
-      y: 40,
-      opacity: 0,
-      rotationX: -20,
-      duration: 1.2,
-      ease: "back.out(1.4)",
-      scrollTrigger: {
-        trigger: ".faq-container",
-        start: "top 75%",
-      }
-    });
-
-    gsap.from(".faq-subtitle", {
-      y: 20,
-      opacity: 0,
-      duration: 1,
-      delay: 0.2,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".faq-container",
-        start: "top 75%",
-      }
-    });
-
-    ScrollTrigger.batch(".faq-item", {
-      onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, scale: 1, stagger: 0.12, duration: 1, ease: "back.out(1.2)", overwrite: true }),
-      onLeaveBack: (batch) => gsap.set(batch, { opacity: 0, y: 40, scale: 0.98, overwrite: true }),
-      start: "top 85%",
-    });
-    // Set initial state for batch items
-    gsap.set(".faq-item", { opacity: 0, y: 40, scale: 0.98 });
+    })
+      .fromTo(".faq-plane",
+        { x: () => window.innerWidth * 0.55, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.32, ease: "power2.out" }
+      )
+      .to(".faq-plane", { x: () => -window.innerWidth * 0.15, opacity: 1, duration: 0.34, ease: "none" })
+      .to(".faq-plane", { x: () => -window.innerWidth * 1.15, opacity: 0, duration: 0.34, ease: "power2.in" });
 
     // ── Magnetic Button Effect (from Skill) ──
     const onMouseMove = contextSafe!((e: MouseEvent) => {
@@ -258,8 +217,22 @@ export default function Home() {
       }
     });
 
+    gsap.fromTo(".cta-bg",
+      { opacity: 0, scale: 1.08 },
+      {
+        opacity: 1,
+        scale: 1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".cta-section",
+          start: "top bottom",
+          end: "top 25%",
+          scrub: true,
+        }
+      }
+    );
+
     return () => {
-      lenis.destroy();
       magneticBtns.forEach(btn => {
         btn.removeEventListener("mousemove", onMouseMove);
         btn.removeEventListener("mouseleave", onMouseLeave);
@@ -289,9 +262,10 @@ export default function Home() {
           style={{
             width: "100%",
             height: "100%",
-            backgroundImage: "url('/image.webp')",
+            backgroundImage: "linear-gradient(to bottom, rgba(26, 10, 62, 0.18), rgba(40, 13, 72, 0.38)), url('/sky-transition.png')",
             backgroundSize: "cover",
             backgroundPosition: "center 0%",
+            backgroundRepeat: "no-repeat",
             willChange: "background-position",
           }}
         />
@@ -333,7 +307,7 @@ export default function Home() {
           minHeight: "100vh",
           background: "transparent",
           display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-          padding: "6rem 1.25rem 3rem", textAlign: "center", position: "relative", overflow: "hidden",
+          padding: "5.5rem 1.25rem 2rem", textAlign: "center", position: "relative", overflow: "hidden",
         }}
       >
 
@@ -347,49 +321,73 @@ export default function Home() {
         <img src="/hero/hero4.svg" alt="" style={{ position: "absolute", bottom: "15%", right: "8%", width: "clamp(70px, 10vw, 140px)", zIndex: 1, animation: "float 9s ease-in-out infinite 0.5s", pointerEvents: "none" }} className="hero-svg" />
 
         <h1 style={{
-          fontSize: "clamp(2rem, 6vw, 4rem)", fontWeight: 400, color: c.white,
-          lineHeight: 1, maxWidth: 1100, marginBottom: "1.5rem", letterSpacing: "-0.04em",
+          fontSize: "clamp(1.85rem, 4.4vw, 3.25rem)", fontWeight: 400, color: c.white,
+          lineHeight: 0.98, maxWidth: 900, marginBottom: "1.25rem", letterSpacing: "-0.035em",
           position: "relative", zIndex: 2
         }}>
           <span style={{ display: "block", overflow: "hidden" }}>
-            <span className="hero-title-line" style={{ display: "block" }}>Conviértete en el líder</span>
+            <span className="hero-title-line" style={{ display: "block" }}>Conviértete en</span>
           </span>
-          <span style={{ display: "block", overflow: "hidden", marginTop: "-0.05em" }}>
-            <span className="hero-title-line" style={{ display: "inline-block" }}>del mañana</span>
+          <span style={{ display: "block", overflow: "hidden" }}>
+            <span className="hero-title-line" style={{ display: "block" }}>el líder del mañana</span>
           </span>
         </h1>
 
-        <div style={{ overflow: "hidden", marginBottom: "2rem" }}>
+        <div style={{ overflow: "hidden", marginBottom: "1.1rem", position: "relative", zIndex: 2 }}>
           <p className="hero-sub" style={{
-            fontSize: "clamp(1.1rem, 2.5vw, 1.35rem)", color: "rgba(255,255,255,0.92)",
-            maxWidth: 640, lineHeight: 1.6, fontWeight: 500,
+            fontSize: "clamp(0.88rem, 1.45vw, 1.05rem)", color: "rgba(255,255,255,0.95)",
+            maxWidth: 850, lineHeight: 1.45,
           }}>
-            Un programa intensivo diseñado para jóvenes que buscan transformar su potencial en impacto real. Liderazgo, visión y acción.
+            <span className="hero-intro-line">Una experiencia intensiva para jóvenes de enseñanza media, diseñada para desarrollar</span>
+            <strong className="hero-intro-line" style={{ color: c.white, fontWeight: 800 }}>las habilidades que van a definir el futuro.</strong>
           </p>
         </div>
 
-        <div className="hero-cta-wrap" style={{ display: "flex", gap: "1rem", flexWrap: "wrap" as const, justifyContent: "center", width: "100%", maxWidth: "500px" }}>
+        <div className="hero-meta" style={{
+          display: "flex", alignItems: "center", justifyContent: "center", gap: "clamp(1.5rem, 4vw, 3rem)",
+          width: "100%", marginBottom: "1.1rem", position: "relative", zIndex: 2,
+          color: c.white, fontSize: "clamp(0.78rem, 1.2vw, 0.92rem)", fontWeight: 800,
+          textTransform: "uppercase", letterSpacing: "0.02em",
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M8 2v4M16 2v4M3 10h18" />
+              <rect x="3" y="4" width="18" height="18" rx="2" />
+            </svg>
+            <span>14 — 18 diciembre 2026</span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+              <circle cx="12" cy="10" r="2.5" />
+            </svg>
+            <span>Santiago, Región Metropolitana</span>
+          </div>
+        </div>
+
+        <div className="hero-sub" style={{
+          width: "100%", maxWidth: 720, color: "rgba(255,255,255,0.92)",
+          fontSize: "clamp(0.86rem, 1.3vw, 0.98rem)", lineHeight: 1.55,
+          marginBottom: "1.25rem", position: "relative", zIndex: 2,
+        }}>
+          <p>
+            Durante cinco días, aprenderás junto a líderes y empresas, enfrentarás desafíos reales y llevarás tus habilidades a la práctica junto a otros jóvenes.
+          </p>
+        </div>
+
+        <div className="hero-cta-wrap" style={{ display: "flex", justifyContent: "center", width: "100%", maxWidth: "500px" }}>
           <Link href="/apply" style={{ 
             background: "#7b2cbf", color: c.white, fontWeight: 800, fontSize: "1.05rem", 
-            padding: "1rem 2.5rem", borderRadius: 9999, textDecoration: "none", 
+            padding: "0.85rem 2.2rem", borderRadius: 9999, textDecoration: "none",
             boxShadow: "0 12px 40px rgba(123,44,191,0.4)", display: "inline-flex", alignItems: "center", gap: "0.5rem" 
           }}>
-            Quiero aplicar
+            Postula ahora
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </Link>
-          <Link href="/programa" style={{
-            display: "inline-flex", alignItems: "center", gap: "0.5rem",
-            background: "rgba(255,255,255,0.1)", backdropFilter: "blur(12px)",
-            border: "1px solid rgba(255,255,255,0.2)", color: c.white,
-            fontWeight: 700, fontSize: "1.05rem", padding: "1rem 2.5rem",
-            borderRadius: 9999, textDecoration: "none", transition: "background 0.3s ease"
-          }}>
-            Ver programa
           </Link>
         </div>
 
         {/* Logos marquee style */}
-        <div className="hero-logos hero-partners" style={{ marginTop: "3rem", opacity: 0.9, display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", alignItems: "start", gap: "clamp(2rem, 5vw, 4rem)", width: "min(100%, 570px)" }}>
+        <div className="hero-logos hero-partners" style={{ marginTop: "1.5rem", opacity: 0.9, display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", alignItems: "start", gap: "clamp(2rem, 5vw, 4rem)", width: "min(100%, 570px)" }}>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase" as const, letterSpacing: "0.15em", marginBottom: "1rem" }}>Organizado por</p>
             <div style={{ minHeight: "52px", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -412,165 +410,246 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════ PROGRAM OVERVIEW ═══════════════════ */}
-      <section id="programa" style={{ padding: "clamp(4rem, 8vw, 8rem) 0", background: c.cream }}>
-        <div className="section-container" style={{ maxWidth: "1250px" }}>
-          <div style={{ marginBottom: "clamp(2.5rem, 5vw, 5rem)" }}>
-            <h2 className="section-heading" style={{ fontSize: "clamp(2.5rem, 5vw, 3.5rem)", lineHeight: 1.1, marginBottom: "2rem" }}>
-              Cómo Funciona el Programa
+      {/* ═══════════════════ SKILLS ═══════════════════ */}
+      <section id="habilidades" style={{ padding: "clamp(4rem, 8vw, 7rem) 1.25rem", background: c.cream }}>
+        <div style={{ width: "100%", maxWidth: 1180, margin: "0 auto" }}>
+          <div style={{ maxWidth: 1050, margin: "0 auto clamp(2.5rem, 5vw, 4.5rem)", textAlign: "center" }}>
+            <p className="hero-sub" style={{
+              color: "rgba(255,255,255,0.72)", fontSize: "clamp(0.95rem, 1.4vw, 1.15rem)",
+              lineHeight: 1.5, marginBottom: "0.75rem",
+            }}>
+              El mundo está cambiando más rápido que nunca y necesita
+            </p>
+            <h2 className="section-heading" style={{
+              fontSize: "clamp(2rem, 4.6vw, 4.25rem)", lineHeight: 1.02,
+              letterSpacing: "-0.035em", marginBottom: "1rem",
+            }}>
+              Personas preparadas para él.
             </h2>
-            <p style={{ fontSize: "1.2rem", color: c.muted, lineHeight: 1.6, maxWidth: "800px", opacity: 0.8 }}>
-              Bootcamp de innovación, emprendimiento y tecnología diseñado para la próxima generación de builders, founders y agentes de cambio.
+            <p style={{
+              color: c.white, fontFamily: "var(--font-primary)", textTransform: "uppercase",
+              fontSize: "clamp(1.1rem, 2.2vw, 1.8rem)", lineHeight: 1.2,
+            }}>
+              Lo que aprendes hoy puede cambiar lo que hagas mañana.
             </p>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))", gap: "clamp(2rem, 4vw, 4rem)", marginBottom: "clamp(3rem, 6vw, 6rem)" }}>
-            <div>
-              <h3 style={{ fontSize: "1.4rem", fontWeight: 800, marginBottom: "1.2rem", color: c.orange, textTransform: "uppercase" }}>Metodología</h3>
-              <p style={{ color: c.muted, lineHeight: 1.7, fontSize: "1.05rem" }}>
-                Leaders of Tomorrow está diseñado bajo una metodología práctica y orientada a ejecución real. 
-                Los módulos combinan contenidos de innovación, emprendimiento y tecnología con construcción práctica.
-              </p>
-            </div>
-            <div>
-              <h3 style={{ fontSize: "1.4rem", fontWeight: 800, marginBottom: "1.2rem", color: c.orange, textTransform: "uppercase" }}>Módulos</h3>
-              <p style={{ color: c.muted, lineHeight: 1.7, fontSize: "1.05rem" }}>
-                A medida que avanzan las sesiones, los equipos aplican inmediatamente lo aprendido en su proyecto mediante entregables, validaciones e iteraciones constantes.
-              </p>
-            </div>
-          </div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: "1.5rem" }}>
+          <div className="skills-grid" style={{
+            display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+            gap: "0.55rem",
+          }}>
             {[
-              {
-                title: "Workshops",
-                desc: "Los workshops son talleres y espacios liderados por empresas, startups, founders y expertos del ecosistema. Están diseñados para acercar a los participantes al mundo real de innovación y tecnología mediante casos reales, dinámicas prácticas, construcción en vivo y conversaciones directas con líderes de industria.",
-                icon: (
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={c.orange} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A5 5 0 0 0 8 8c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5"/>
-                    <path d="M9 18h6"/>
-                    <path d="M10 22h4"/>
-                  </svg>
-                )
-              },
-              {
-                title: "Checkpoints",
-                desc: "Los checkpoints son instancias de revisión estratégica y mentoría donde cada equipo presenta sus avances y recibe feedback personalizado de CEOs, founders, comunidad CBA, etc. El objetivo es ayudar a los equipos a validar decisiones, mejorar su solución e iterar rápidamente.",
-                icon: (
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={c.orange} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
-                    <line x1="4" y1="22" x2="4" y2="15"/>
-                  </svg>
-                )
-              },
-              {
-                title: "Labs Vespertinos",
-                desc: "Los labs vespertinos son espacios de acompañamiento tecnológico diseñados para preparar y acelerar el desarrollo de los equipos. Se realizarán dos labs antes del bootcamp y un lab adicional durante la semana del programa, enfocados en mejorar el avance tecnológico de cada proyecto.",
-                icon: (
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={c.orange} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                    <line x1="8" y1="21" x2="16" y2="21"/>
-                    <line x1="12" y1="17" x2="12" y2="21"/>
-                  </svg>
-                )
-              }
-            ].map((item) => (
-              <div key={item.title} style={{ 
-                background: c.glassBg, 
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
-                padding: "2rem 1.5rem", 
-                borderRadius: "32px", 
-                border: `1px solid ${c.glassBorder}`,
-                display: "flex",
-                flexDirection: "column",
-                gap: "1.5rem",
-                height: "100%",
-                transition: "transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-10px)";
-                e.currentTarget.style.boxShadow = "0 20px 40px rgba(123,44,191,0.15)";
-                e.currentTarget.style.borderColor = "rgba(199,125,255,0.3)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "none";
-                e.currentTarget.style.borderColor = c.glassBorder;
-              }}
-              >
-                <div style={{ width: "64px", height: "64px", borderRadius: "16px", background: "rgba(123, 44, 191, 0.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  {item.icon}
-                </div>
-                <div>
-                  <h4 style={{ fontSize: "1.4rem", fontWeight: 800, marginBottom: "1rem", textTransform: "uppercase" }}>{item.title}</h4>
-                  <p style={{ color: c.muted, lineHeight: 1.7, fontSize: "1rem", margin: 0 }}>{item.desc}</p>
-                </div>
+              "Emprendimiento",
+              "Liderazgo",
+              "IA y tecnología",
+              "Comunicación",
+              "Pensamiento crítico",
+              "Colaboración",
+              "Adaptabilidad",
+              "Ejecución",
+            ].map((skill) => (
+              <div key={skill} className="skill-card">
+                {skill}
               </div>
             ))}
           </div>
-          {/* CTA Button */}
-          <div style={{ textAlign: "center", marginTop: "3rem" }}>
-            <Link
-              href="/programa"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.6rem",
-                background: "transparent",
-                color: "#ffffff",
-                fontWeight: 900,
-                fontSize: "1.05rem",
-                padding: "1rem 2.5rem",
-                borderRadius: 9999,
-                textDecoration: "none",
-                border: "2px solid #ffffff",
-                boxShadow: "none",
-                transition: "all 0.3s cubic-bezier(0.23,1,0.32,1)",
-                fontFamily: "var(--font-primary)",
-                textTransform: "uppercase",
-                letterSpacing: "0.05em",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-3px)";
-                e.currentTarget.style.background = "rgba(255,255,255,0.1)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.background = "transparent";
+        </div>
+      </section>
+
+      {/* ═══════════════════ WEEK PROGRAM ═══════════════════ */}
+      <section id="programa" className="week-program-section" style={{
+        minHeight: "100svh", padding: "clamp(4rem, 7vw, 6rem) 1.25rem",
+        display: "flex", alignItems: "center", background: c.cream,
+      }}>
+        <div style={{ width: "100%", maxWidth: 1480, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", maxWidth: 850, margin: "0 auto clamp(2rem, 4vw, 3.5rem)" }}>
+            <h2 className="section-heading" style={{
+              fontSize: "clamp(2.2rem, 5vw, 4.5rem)", lineHeight: 1,
+              letterSpacing: "-0.035em", marginBottom: "1rem",
+            }}>
+              5 días para ponerte a prueba.
+            </h2>
+            <p className="hero-sub" style={{
+              color: "rgba(255,255,255,0.72)", fontSize: "clamp(0.95rem, 1.4vw, 1.1rem)", lineHeight: 1.6,
+            }}>
+              Cada día suma un nuevo desafío. Vas a descubrir problemas, construir soluciones y convertir una idea en algo real.
+            </p>
+          </div>
+
+          <style>{`
+            .program-toggle {
+              position: absolute !important;
+              left: 50% !important;
+              bottom: 1.25rem !important;
+              width: 1px !important;
+              height: 1px !important;
+              opacity: 0 !important;
+              pointer-events: none !important;
+            }
+            .program-toggle:checked ~ .program-card-content {
+              max-height: 1200px !important;
+            }
+            .program-label-open {
+              display: none !important;
+            }
+            .program-toggle:checked ~ .program-expand-button .program-label-closed {
+              display: none !important;
+            }
+            .program-toggle:checked ~ .program-expand-button .program-label-open {
+              display: inline !important;
+            }
+            .program-toggle:checked ~ .program-expand-button svg {
+              transform: rotate(180deg);
+            }
+          `}</style>
+          <div className="program-card" style={{ background: "#5a189a", boxShadow: "none" }}>
+            <input
+              id="program-toggle"
+              className="program-toggle"
+              type="checkbox"
+              tabIndex={-1}
+              aria-label="Mostrar u ocultar el programa completo"
+            />
+            <div className="program-card-content">
+              <div
+                className="program-scroll"
+                role="region"
+                aria-label="Programa de cinco días"
+                tabIndex={0}
+                style={{ background: "transparent" }}
+              >
+                <div className="program-grid">
+              {[
+                { day: "Lun", date: "14", theme: "Problema", events: [
+                  ["09:00 — 10:00", "Think Like a Founder", "accent"],
+                  ["10:00 — 11:15", "Empathy & Problem", "standard"],
+                  ["11:15 — 11:30", "Break", "break"],
+                  ["11:30 — 12:30", "Problem Hunting Lab", "lab"],
+                  ["12:30 — 13:30", "Definir el Problema", "standard"],
+                  ["13:30 — 14:15", "Almuerzo", "break"],
+                  ["14:15 — 15:30", "Checkpoint", "checkpoint"],
+                  ["15:30 — 16:00", "Mindset y Reflexión", "accent"],
+                ] },
+                { day: "Mar", date: "15", theme: "Solución", events: [
+                  ["09:00 — 10:00", "Customer Discovery", "standard"],
+                  ["10:00 — 11:15", "Ideación", "standard"],
+                  ["11:15 — 11:30", "Break", "break"],
+                  ["11:30 — 12:30", "Validación de la Solución", "lab"],
+                  ["12:30 — 13:30", "Prototipado Rápido", "standard"],
+                  ["13:30 — 14:15", "Almuerzo", "break"],
+                  ["14:15 — 15:30", "AI Prototyping Lab", "lab"],
+                  ["15:30 — 16:30", "Ops y Estructura", "standard"],
+                  ["16:30 — 17:00", "Checkpoint", "checkpoint"],
+                ] },
+                { day: "Mié", date: "16", theme: "Construcción", events: [
+                  ["09:00 — 10:00", "Análisis Estratégico", "standard"],
+                  ["10:00 — 11:15", "Product Build Lab", "lab"],
+                  ["11:15 — 11:30", "Break", "break"],
+                  ["11:30 — 13:30", "AI Product Studio", "lab"],
+                  ["13:30 — 14:15", "Almuerzo", "break"],
+                  ["14:15 — 15:30", "Modelo de Negocio", "standard"],
+                  ["15:30 — 16:30", "Consumer Experience", "standard"],
+                  ["16:30 — 17:00", "Entregables", "checkpoint"],
+                  ["20:00 — 21:00", "Lab Vespertino", "checkpoint"],
+                ] },
+                { day: "Jue", date: "17", theme: "Crecimiento", events: [
+                  ["09:00 — 10:00", "Go-To-Market", "standard"],
+                  ["10:00 — 11:15", "Marketing y Redes", "standard"],
+                  ["11:15 — 11:30", "Break", "break"],
+                  ["11:30 — 12:30", "Meta Pitch", "lab"],
+                  ["12:30 — 13:30", "Buscar Inversión", "lab"],
+                  ["13:30 — 14:15", "Almuerzo", "break"],
+                  ["14:15 — 15:30", "¿Tu Startup Realmente Funciona?", "checkpoint"],
+                  ["15:30 — 16:00", "Mindset y Gestión del Estrés", "accent"],
+                ] },
+                { day: "Vie", date: "18", theme: "Demo Day", events: [
+                  ["09:00 — 10:00", "Ensayos Pitch Final", "accent"],
+                  ["10:00 — 12:30", "Checklist Final / Pre-Demo", "accent"],
+                  ["12:30 — 13:30", "¿Y qué sigue?", "standard"],
+                  ["13:30 — 14:15", "Almuerzo", "break"],
+                  ["14:30 — 15:00", "Mindset y Gestión del Estrés", "accent"],
+                  ["15:00 — 18:00", "Pitch Demos", "lab"],
+                  ["18:00", "Cóctel", "break"],
+                  ["18:00", "Anuncio del Ganador", "checkpoint"],
+                  ["19:00", "Apertura, Autoridades y Charlas", "standard"],
+                ] },
+              ].map((day) => (
+                <article key={day.date} className="program-day">
+                  <header className="program-day-header">
+                    <div><span>{day.day}</span><strong>{day.date}</strong></div>
+                    <p>{day.theme}</p>
+                  </header>
+                  <div className="program-events">
+                    {day.events.map(([time, title, tone]) => (
+                      <div key={title} className={`program-event program-event-${tone}`}>
+                        <span>{time}</span>
+                        <h3>{title}</h3>
+                      </div>
+                    ))}
+                  </div>
+                </article>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <label
+              htmlFor="program-toggle"
+              className="program-expand-button"
+              onClick={() => {
+                const currentScroll = window.scrollY;
+                requestAnimationFrame(() => window.scrollTo({ top: currentScroll, behavior: "auto" }));
+                window.setTimeout(() => window.scrollTo({ top: currentScroll, behavior: "auto" }), 80);
               }}
             >
-              Ver Programa Completo
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7" />
+              <span className="program-label-closed">Ver programa completo</span>
+              <span className="program-label-open">Ocultar programa</span>
+              <svg
+                width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"
+              >
+                <path d="m6 9 6 6 6-6" />
               </svg>
-            </Link>
+            </label>
           </div>
         </div>
       </section>
 
 
       {/* ═══════════════════ FAQ ═══════════════════ */}
-      <section id="faq" className="faq-section" style={{ padding: "clamp(3rem, 6vw, 6rem) 1rem 0.5rem", background: c.cream }}>
+      <section id="faq" className="faq-section" style={{
+        minHeight: "auto", padding: "clamp(3.5rem, 5vw, 5rem) 1rem clamp(1.5rem, 2.5vw, 2.5rem)",
+        background: "transparent",
+        position: "relative", overflow: "hidden",
+      }}>
         <div className="faq-container" style={{
           maxWidth: 1000, margin: "0 auto",
-          background: c.glassBg,
-          backdropFilter: "blur(24px)",
-          WebkitBackdropFilter: "blur(24px)",
-          borderRadius: 48,
-          padding: "6rem 2rem",
-          position: "relative",
-          overflow: "hidden",
+          background: "transparent",
+          borderRadius: 0,
+          padding: "clamp(1.5rem, 3vw, 2.5rem) 2rem 0.5rem",
+          position: "relative", zIndex: 1,
+          overflow: "visible",
           color: c.white,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          border: `1px solid ${c.glassBorder}`,
-          boxShadow: "0 40px 100px rgba(123, 44, 191, 0.15)"
+          border: "none",
+          boxShadow: "none"
         }}>
+          <img
+            src="/faq-balloon.png"
+            alt=""
+            aria-hidden="true"
+            className="faq-balloon"
+          />
+          <img
+            src="/program-plane.png"
+            alt=""
+            aria-hidden="true"
+            className="faq-plane"
+          />
           
-          <div className="faq-header" style={{ textAlign: "center", marginBottom: "4rem", maxWidth: "600px" }}>
-            <h2 className="faq-title" style={{ fontSize: "clamp(4rem, 12vw, 7rem)", margin: 0, lineHeight: 1, letterSpacing: "-0.03em" }}>FAQ</h2>
+          <div className="faq-header" style={{ textAlign: "center", marginBottom: "clamp(1.5rem, 3vw, 2.25rem)", maxWidth: "600px" }}>
+            <h2 className="faq-title" style={{ fontSize: "clamp(4.5rem, 12vw, 7.5rem)", margin: 0, lineHeight: 1, letterSpacing: "-0.03em" }}>FAQ</h2>
             <p className="faq-subtitle" style={{ color: "rgba(255,255,255,0.8)", fontWeight: 500, fontSize: "1.1rem", marginTop: "1rem" }}>
               Todo lo que necesitas saber sobre el programa
             </p>
@@ -581,22 +660,24 @@ export default function Home() {
               <div key={index} className="faq-item" style={{ marginBottom: "1rem" }}>
                 <button
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                  aria-expanded={openFaq === index}
+                  aria-controls={`faq-answer-${index}`}
                   style={{
                     width: "100%", textAlign: "left" as const,
-                    background: openFaq === index ? "rgba(255,255,255,0.15)" : "rgba(255,255,255,0.06)",
-                    backdropFilter: "blur(12px)",
-                    border: "1px solid rgba(255,255,255,0.1)",
+                    background: openFaq === index ? "rgba(255,255,255,0.3)" : "rgba(255,255,255,0.2)",
+                    backdropFilter: "blur(16px)",
+                    border: "1px solid rgba(255,255,255,0.2)",
                     borderRadius: 24, padding: "1.5rem 2rem",
                     color: c.white, cursor: "pointer",
                     display: "flex", justifyContent: "space-between", alignItems: "center",
                     transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
                   }}
                   onMouseEnter={(e) => {
-                    if (openFaq !== index) e.currentTarget.style.background = "rgba(255,255,255,0.12)";
+                    if (openFaq !== index) e.currentTarget.style.background = "rgba(255,255,255,0.27)";
                     e.currentTarget.style.transform = "scale(1.01)";
                   }}
                   onMouseLeave={(e) => {
-                    if (openFaq !== index) e.currentTarget.style.background = "rgba(255,255,255,0.06)";
+                    if (openFaq !== index) e.currentTarget.style.background = "rgba(255,255,255,0.2)";
                     e.currentTarget.style.transform = "scale(1)";
                   }}
                 >
@@ -615,7 +696,7 @@ export default function Home() {
                     </svg>
                   </div>
                 </button>
-                <div style={{
+                <div id={`faq-answer-${index}`} style={{
                   maxHeight: openFaq === index ? "300px" : "0",
                   overflow: "hidden", transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
                   padding: openFaq === index ? "0.5rem 2rem 1.5rem" : "0 2rem",
@@ -637,10 +718,25 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ CTA ═══════════════════ */}
-      <section className="cta-section" style={{ padding: "0.5rem 1rem clamp(3rem, 6vw, 6rem)", background: "transparent" }}>
+      <section className="cta-section" style={{
+        minHeight: "clamp(480px, 68svh, 680px)", padding: "clamp(2rem, 4vw, 3.5rem) 1rem",
+        backgroundColor: "transparent", position: "relative", overflow: "hidden",
+        display: "flex", alignItems: "center", justifyContent: "center",
+      }}>
+        <div className="cta-bg" aria-hidden="true" style={{
+          position: "absolute", inset: 0,
+          backgroundImage: "url('/footer-journey.png')", backgroundSize: "cover",
+          backgroundPosition: "center bottom", backgroundRepeat: "no-repeat", backgroundAttachment: "scroll",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.25) 10%, #000 30%)",
+          maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.25) 10%, #000 30%)",
+        }} />
+        <div aria-hidden="true" style={{
+          position: "absolute", inset: 0,
+          background: "linear-gradient(to bottom, transparent 0%, rgba(39, 12, 75, 0.12) 24%, rgba(24, 8, 43, 0.66) 100%)",
+        }} />
         <div className="cta-section-inner" style={{
-          maxWidth: 1100, margin: "0 auto",
-          padding: "clamp(3rem, 6vw, 6rem) clamp(1.25rem, 3vw, 2rem)", textAlign: "center", position: "relative"
+          maxWidth: 1100, margin: "0 auto", zIndex: 1,
+          padding: "clamp(1.5rem, 3vw, 3rem) clamp(1.25rem, 3vw, 2rem)", textAlign: "center", position: "relative"
         }}>
           
           <h2 style={{ fontSize: "clamp(2.4rem, 6vw, 3.8rem)", color: c.white, marginBottom: "1.5rem", fontWeight: 400, lineHeight: 1 }}>
@@ -667,7 +763,11 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════ FOOTER ═══════════════════ */}
-      <footer style={{ background: "#5A189A", color: "rgba(255,255,255,0.9)", padding: "clamp(3rem, 6vw, 6rem) 1.25rem clamp(1.5rem, 3vw, 3rem)", borderTop: `1px solid ${c.glassBorder}` }}>
+      <footer style={{
+        background: "#5A189A", color: "rgba(255,255,255,0.9)",
+        padding: "clamp(3rem, 6vw, 6rem) 1.25rem clamp(1.5rem, 3vw, 3rem)",
+        borderTop: `1px solid ${c.glassBorder}`,
+      }}>
         <div className="footer-grid" style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", gap: "clamp(2rem, 4vw, 4rem)", marginBottom: "clamp(2rem, 4vw, 4rem)" }}>
           <div className="footer-col" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
             <Image src="/logo-white.svg" alt="Logo" width={180} height={50} style={{ height: "auto", marginBottom: "1.5rem", display: "block" }} />

@@ -7,13 +7,14 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 const NAV_LINKS = [
-  { label: "Programa", href: "/programa" },
+  { label: "Programa", href: "/#programa" },
   { label: "FAQ", href: "/#faq" },
 ];
 
 export default function Navbar({ solid = false }: { solid?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(solid);
+  const [isOverProgram, setIsOverProgram] = useState(false);
   const [animating, setAnimating] = useState(false);
   const container = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLElement>(null);
@@ -26,10 +27,20 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
     if (solid) return;
     const handleScroll = () => {
       setIsScrolled(window.scrollY > window.innerHeight * 0.8);
+      const programSection = document.querySelector<HTMLElement>(".week-program-section");
+      if (programSection) {
+        const rect = programSection.getBoundingClientRect();
+        setIsOverProgram(rect.top <= 96 && rect.bottom >= 64);
+      } else {
+        setIsOverProgram(false);
+      }
     };
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [solid]);
+
+  const useGlassNavbar = !solid && isOverProgram;
 
   useGSAP(() => {
     if (solid) return;
@@ -132,14 +143,14 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
         className="nav-inner"
         style={{
           maxWidth: "1140px", margin: "0 auto",
-          backgroundColor: isScrolled ? "#5a189a" : "rgba(255, 255, 255, 0.1)",
+          backgroundColor: useGlassNavbar ? "rgba(255, 255, 255, 0.1)" : isScrolled ? "#5a189a" : "rgba(255, 255, 255, 0.1)",
           backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
-          border: isScrolled ? "1px solid rgba(138,43,226,0.4)" : "1px solid rgba(255,255,255,0.2)",
+          border: useGlassNavbar ? "1px solid rgba(255,255,255,0.24)" : isScrolled ? "1px solid rgba(138,43,226,0.4)" : "1px solid rgba(255,255,255,0.2)",
           borderRadius: "20px", padding: "0 1.5rem", height: "64px",
           display: "grid", gridTemplateColumns: "1fr auto 1fr",
           alignItems: "center", gap: "1rem",
           transition: "background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease",
-          boxShadow: isScrolled ? "0 8px 32px rgba(90,24,154,0.4)" : "none",
+          boxShadow: useGlassNavbar ? "none" : isScrolled ? "0 8px 32px rgba(90,24,154,0.4)" : "none",
         }}
       >
         {/* Left nav */}
@@ -464,7 +475,7 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
         @media (max-width: 768px) {
           .desktop-nav  { display: none !important; }
           .desktop-cta  { display: none !important; }
-          .hamburger    { display: flex !important; }
+          .hamburger    { display: none !important; }
           .mobile-spacer { display: block !important; }
         }
         .nav-link {
