@@ -168,6 +168,9 @@ export default function ApplyPage() {
   const [familySupport, setFamilySupport] = useState("");
   const [attendance, setAttendance] = useState("");
   const [extracurriculares, setExtracurriculares] = useState<string[]>([]);
+  const [formValues, setFormValues] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const cardRef = useRef<HTMLDivElement>(null);
   
   const totalSteps = 4;
@@ -188,6 +191,10 @@ export default function ApplyPage() {
     setAnswers(prev => ({ ...prev, [qId]: value }));
   };
 
+  const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormValues(prev => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
   useGSAP(() => {
     gsap.from(".form-card", {
       y: 40,
@@ -206,6 +213,11 @@ export default function ApplyPage() {
 
   const nextStep = () => {
     if (step >= totalSteps) return;
+
+    if (step === 2 && (!hasLiderado || selectedAreas.length === 0 || !familySupport || !attendance)) {
+      alert("Por favor, completa todas las preguntas obligatorias antes de continuar.");
+      return;
+    }
     
     // Quick validation for step 3
     if (step === 3) {
@@ -242,13 +254,89 @@ export default function ApplyPage() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (step < totalSteps) {
       nextStep();
       return;
     }
-    setSubmitted(true);
+
+    const challengeEntries = [
+      "entry.1258104398", "entry.2011180882", "entry.85410485",
+      "entry.1154651905", "entry.1954333023", "entry.1840982094",
+      "entry.389948038", "entry.1642628590", "entry.893426593",
+      "entry.1410565911", "entry.72940813"
+    ];
+    const challengeChoices = [
+      ["Hago su parte yo.", "Lo confronto frente al equipo.", "Hablo con él en privado y acordamos una tarea concreta.", "Lo reporto inmediatamente."],
+      ["Apoyo a quien tenga más razón.", "Propongo exponer argumentos y decidir con criterios claros.", "Evito el conflicto.", "Llamo a un adulto para que resuelva."],
+      ["Reparto tareas y exijo que se cumplan.", "Converso para entender qué le importa a cada integrante.", "Hago todo yo.", "Propongo votar un nuevo líder."],
+      ["Explico los errores del equipo.", "Asumo la responsabilidad y explico qué mejoraría.", "Culpo a las circunstancias.", "Evito la reunión."],
+      ["Elijo siempre la segura.", "Elijo siempre la innovadora.", "Analizo los criterios y recomiendo según el contexto.", "No doy mi opinión."],
+      ["Lo oculto.", "Presento la propuesta sin cambios.", "Informo al equipo y buscamos nuestra diferencia.", "Empezamos todo desde cero."],
+      ["Busco otra idea desde cero.", "Analizo qué falló y ajusto esa parte.", "Sigo únicamente el consejo de otros.", "Insisto sin cambiarla."],
+      ["Lo ignoro.", "Lo confronto frente a todos.", "Le pregunto en privado cómo está.", "Pido al tutor que intervenga."],
+      ["Me defiendo inmediatamente.", "Me quedo callado y afectado.", "Escucho y pregunto cómo mejorar.", "Acepto todo sin cuestionarlo."],
+      ["Sigo sin decir nada.", "Pido ayuda o delego.", "Me desconecto del proyecto.", "Culpo a otros."],
+      ["Repito mi argumento con más fuerza.", "Entiendo su postura y busco puntos en común.", "Escucho, pero no considero cambiar mi postura.", "Cedo para evitar el conflicto."]
+    ];
+    const courseLabels: Record<string, string> = { "1": "1ro Medio", "2": "2do Medio", "3": "3ro Medio", "4": "4to Medio" };
+    const attendanceLabels = [
+      "Sí, podría asistir sin inconvenientes.",
+      "Sí, pero necesitaría apoyo para transporte y/o alojamiento.",
+      "Tal vez, depende de mi situación en ese momento.",
+      "No podría asistir presencialmente."
+    ];
+    const websiteAttendance = [
+      "Sí, podría asistir sin inconvenientes.",
+      "Sí, podría asistir, pero necesitaría apoyo para transporte y/o alojamiento.",
+      "Tal vez, depende de mi situación en ese momento.",
+      "No podría asistir presencialmente."
+    ];
+
+    const payload = new URLSearchParams({
+      "entry.925029811": formValues.name || "",
+      "entry.110091287": formValues.age || "",
+      "entry.835305152": formValues.school || "",
+      "entry.1661750505": courseLabels[formValues.course] || "",
+      "entry.1234810771": formValues.region || "",
+      "entry.1750316403": formValues.comuna || "",
+      "entry.1591252637": formValues.email || "",
+      "entry.1938497111": formValues.phone || "",
+      "entry.2022898191": formValues.gender || "",
+      "entry.1363239132": formValues.tiempo_libre || "",
+      "entry.589482520": hasLiderado,
+      "entry.133956557": formValues.actividades_desc || "",
+      "entry.1809938391": familySupport,
+      "entry.409709723": attendanceLabels[websiteAttendance.indexOf(attendance)] || "",
+      "entry.1526197600": formValues.ref_1 || "",
+      "entry.1723851986": formValues.ref_2 || "",
+      "entry.1641430645": formValues.ref_3 || "",
+      "entry.1807435063": "Acepto que mis datos sean utilizados exclusivamente para analizar mi postulación a The Builders Camp. No serán compartidos con terceros ni descargados por ningún motivo."
+    });
+
+    extracurriculares.forEach(value => payload.append("entry.1376439101", value));
+    selectedAreas.forEach(value => payload.append("entry.1266806866", value));
+    step3Questions.forEach((question, index) => {
+      const selectedIndex = question.options.indexOf(answers[question.id]);
+      if (selectedIndex >= 0) payload.set(challengeEntries[index], challengeChoices[index][selectedIndex]);
+    });
+
+    setIsSubmitting(true);
+    setSubmitError("");
+    try {
+      const response = await fetch("/api/apply", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: payload.toString(),
+      });
+      if (!response.ok) throw new Error("Google Forms rechazó el envío");
+      setSubmitted(true);
+    } catch {
+      setSubmitError("No pudimos enviar tu postulación. Revisa tu conexión e inténtalo nuevamente.");
+      setIsSubmitting(false);
+      return;
+    }
     gsap.to(".form-card", {
       scale: 0.98,
       opacity: 0,
@@ -383,7 +471,7 @@ export default function ApplyPage() {
                     <h2 style={{ fontSize: "2rem", color: c.white, marginBottom: "1.5rem", fontWeight: 600 }}>Antes de comenzar</h2>
                     
                     <div style={{ display: "flex", flexDirection: "column", gap: "1.2rem", color: "rgba(255,255,255,0.85)", fontSize: "1.05rem", lineHeight: 1.6, maxWidth: "550px", margin: "0 auto" }}>
-                      <p>Este cuestionario es parte del proceso de selección del programa <strong>Leaders of Tomorrow</strong>, enfocado en IA y emprendimiento para jóvenes.</p>
+                      <p>Este cuestionario es parte del proceso de selección del programa <strong>The Builders Camp</strong>, enfocado en IA y emprendimiento para jóvenes.</p>
                       <p>No hay respuestas correctas ni incorrectas. Queremos conocerte tal como eres: tu forma de pensar, tus intereses y cómo enfrentas los desafíos.</p>
                       <p>Los postulantes seleccionados serán contactados directamente por WhatsApp con los próximos pasos.</p>
                     </div>
@@ -404,22 +492,22 @@ export default function ApplyPage() {
                     <div className="apply-grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                       <div>
                         <label htmlFor="name" style={labelStyle}>Nombre Completo *</label>
-                        <input type="text" id="name" required placeholder="Tu nombre" style={inputStyle} onFocus={handleFocus} onBlur={handleBlur} />
+                        <input type="text" id="name" required value={formValues.name || ""} onChange={handleFieldChange} placeholder="Tu nombre" style={inputStyle} onFocus={handleFocus} onBlur={handleBlur} />
                       </div>
                       <div>
                         <label htmlFor="age" style={labelStyle}>Edad *</label>
-                        <input type="number" id="age" required placeholder="Ej: 16" style={inputStyle} onFocus={handleFocus} onBlur={handleBlur} />
+                        <input type="number" id="age" required value={formValues.age || ""} onChange={handleFieldChange} placeholder="Ej: 16" style={inputStyle} onFocus={handleFocus} onBlur={handleBlur} />
                       </div>
                     </div>
                     
                     <div className="apply-grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                       <div>
                         <label htmlFor="school" style={labelStyle}>Colegio *</label>
-                        <input type="text" id="school" required placeholder="Tu colegio" style={inputStyle} onFocus={handleFocus} onBlur={handleBlur} />
+                        <input type="text" id="school" required value={formValues.school || ""} onChange={handleFieldChange} placeholder="Tu colegio" style={inputStyle} onFocus={handleFocus} onBlur={handleBlur} />
                       </div>
                       <div>
                         <label htmlFor="course" style={labelStyle}>Curso *</label>
-                        <select id="course" required style={selectStyle} onFocus={handleFocus} onBlur={handleBlur}>
+                        <select id="course" required value={formValues.course || ""} onChange={handleFieldChange} style={selectStyle} onFocus={handleFocus} onBlur={handleBlur}>
                           <option value="" style={{ color: "black" }}>Selecciona</option>
                           <option value="1" style={{ color: "black" }}>1ro Medio</option>
                           <option value="2" style={{ color: "black" }}>2do Medio</option>
@@ -432,7 +520,7 @@ export default function ApplyPage() {
                     <div className="apply-grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                       <div>
                         <label htmlFor="region" style={labelStyle}>Región *</label>
-                        <select id="region" required style={selectStyle} onFocus={handleFocus} onBlur={handleBlur}>
+                        <select id="region" required value={formValues.region || ""} onChange={handleFieldChange} style={selectStyle} onFocus={handleFocus} onBlur={handleBlur}>
                           <option value="" style={{ color: "black" }}>Selecciona</option>
                           <option value="Arica y Parinacota" style={{ color: "black" }}>Arica y Parinacota</option>
                           <option value="Tarapacá" style={{ color: "black" }}>Tarapacá</option>
@@ -454,24 +542,24 @@ export default function ApplyPage() {
                       </div>
                       <div>
                         <label htmlFor="comuna" style={labelStyle}>Comuna *</label>
-                        <input type="text" id="comuna" required placeholder="Ej: Providencia" autoComplete="address-level2" style={inputStyle} onFocus={handleFocus} onBlur={handleBlur} />
+                        <input type="text" id="comuna" required value={formValues.comuna || ""} onChange={handleFieldChange} placeholder="Ej: Providencia" autoComplete="address-level2" style={inputStyle} onFocus={handleFocus} onBlur={handleBlur} />
                       </div>
                     </div>
 
                     <div className="apply-grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                       <div>
                         <label htmlFor="email" style={labelStyle}>Correo *</label>
-                        <input type="email" id="email" required placeholder="tu@email.com" autoComplete="email" style={inputStyle} onFocus={handleFocus} onBlur={handleBlur} />
+                        <input type="email" id="email" required value={formValues.email || ""} onChange={handleFieldChange} placeholder="tu@email.com" autoComplete="email" style={inputStyle} onFocus={handleFocus} onBlur={handleBlur} />
                       </div>
                       <div>
                         <label htmlFor="phone" style={labelStyle}>Teléfono *</label>
-                        <input type="tel" id="phone" required placeholder="+56 9..." autoComplete="tel" style={inputStyle} onFocus={handleFocus} onBlur={handleBlur} />
+                        <input type="tel" id="phone" required value={formValues.phone || ""} onChange={handleFieldChange} placeholder="+56 9..." autoComplete="tel" style={inputStyle} onFocus={handleFocus} onBlur={handleBlur} />
                       </div>
                     </div>
 
                     <div>
                       <label htmlFor="gender" style={labelStyle}>Género (opcional)</label>
-                      <select id="gender" style={selectStyle} onFocus={handleFocus} onBlur={handleBlur}>
+                      <select id="gender" value={formValues.gender || ""} onChange={handleFieldChange} style={selectStyle} onFocus={handleFocus} onBlur={handleBlur}>
                         <option value="" style={{ color: "black" }}>Selecciona</option>
                         <option value="Femenino" style={{ color: "black" }}>Femenino</option>
                         <option value="Masculino" style={{ color: "black" }}>Masculino</option>
@@ -488,7 +576,7 @@ export default function ApplyPage() {
                   <div style={{ display: "grid", gap: "2rem" }}>
                     <div>
                       <label htmlFor="tiempo_libre" style={labelStyle}>¿Qué te gusta hacer en tu tiempo libre? *</label>
-                      <textarea id="tiempo_libre" required rows={3} placeholder="Cuéntanos sobre tus pasatiempos..." style={{ ...inputStyle, resize: "vertical" }} onFocus={handleFocus} onBlur={handleBlur}></textarea>
+                      <textarea id="tiempo_libre" required value={formValues.tiempo_libre || ""} onChange={handleFieldChange} rows={3} placeholder="Cuéntanos sobre tus pasatiempos..." style={{ ...inputStyle, resize: "vertical" }} onFocus={handleFocus} onBlur={handleBlur}></textarea>
                     </div>
                     
                     <div>
@@ -503,7 +591,7 @@ export default function ApplyPage() {
                     {hasLiderado === "Sí" && (
                       <div>
                         <label htmlFor="actividades_desc" style={labelStyle}>Si respondiste que sí, cuéntanos brevemente qué hiciste (opcional)</label>
-                        <textarea id="actividades_desc" rows={3} placeholder="Ej: Participé en un voluntariado, armé un club de debate..." style={{ ...inputStyle, resize: "vertical" }} onFocus={handleFocus} onBlur={handleBlur}></textarea>
+                        <textarea id="actividades_desc" value={formValues.actividades_desc || ""} onChange={handleFieldChange} rows={3} placeholder="Ej: Participé en un voluntariado, armé un club de debate..." style={{ ...inputStyle, resize: "vertical" }} onFocus={handleFocus} onBlur={handleBlur}></textarea>
                       </div>
                     )}
 
@@ -604,19 +692,43 @@ export default function ApplyPage() {
                 {step === 4 && (
                   <div style={{ display: "grid", gap: "2rem" }}>
                     <div>
-                      <label htmlFor="ref_1" style={labelStyle}>¿Por qué quieres ser parte de Leaders of Tomorrow? Cuéntanos en tus propias palabras. *</label>
-                      <textarea id="ref_1" required rows={4} placeholder="Tu motivación..." style={{ ...inputStyle, resize: "vertical" }} onFocus={handleFocus} onBlur={handleBlur}></textarea>
+                      <label htmlFor="ref_1" style={labelStyle}>¿Por qué quieres ser parte de The Builders Camp? Cuéntanos en tus propias palabras. *</label>
+                      <textarea id="ref_1" required value={formValues.ref_1 || ""} onChange={handleFieldChange} rows={4} placeholder="Tu motivación..." style={{ ...inputStyle, resize: "vertical" }} onFocus={handleFocus} onBlur={handleBlur}></textarea>
                     </div>
 
                     <div>
                       <label htmlFor="ref_2" style={labelStyle}>¿Qué opinas sobre el rol de la inteligencia artificial en la sociedad? ¿Te genera entusiasmo, preocupación, o ambas cosas a la vez? *</label>
-                      <textarea id="ref_2" required rows={4} placeholder="Escribe tu opinión honesta..." style={{ ...inputStyle, resize: "vertical" }} onFocus={handleFocus} onBlur={handleBlur}></textarea>
+                      <textarea id="ref_2" required value={formValues.ref_2 || ""} onChange={handleFieldChange} rows={4} placeholder="Escribe tu opinión honesta..." style={{ ...inputStyle, resize: "vertical" }} onFocus={handleFocus} onBlur={handleBlur}></textarea>
                     </div>
 
                     <div>
                       <label htmlFor="ref_3" style={labelStyle}>¿Qué significa ser un buen líder? ¿Conoces a alguien (real o ficticio) que lo represente? ¿Por qué? *</label>
-                      <textarea id="ref_3" required rows={4} placeholder="Describe tu visión de liderazgo..." style={{ ...inputStyle, resize: "vertical" }} onFocus={handleFocus} onBlur={handleBlur}></textarea>
+                      <textarea id="ref_3" required value={formValues.ref_3 || ""} onChange={handleFieldChange} rows={4} placeholder="Describe tu visión de liderazgo..." style={{ ...inputStyle, resize: "vertical" }} onFocus={handleFocus} onBlur={handleBlur}></textarea>
                     </div>
+
+                    <label style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: "0.85rem",
+                      padding: "1.1rem 1.2rem",
+                      borderRadius: "14px",
+                      border: "1px solid rgba(255,255,255,0.15)",
+                      background: "rgba(0,0,0,0.25)",
+                      color: "rgba(255,255,255,0.9)",
+                      fontSize: "0.9rem",
+                      lineHeight: 1.55,
+                      cursor: "pointer"
+                    }}>
+                      <input
+                        type="checkbox"
+                        name="dataConsent"
+                        required
+                        style={{ accentColor: c.orange, width: "18px", height: "18px", marginTop: "2px", flexShrink: 0 }}
+                      />
+                      <span>
+                        Acepto que mis datos sean enviados y utilizados exclusivamente para analizar mi postulación a la convocatoria de The Builders Camp. Mis datos no serán compartidos con terceros ni descargados por ningún motivo. *
+                      </span>
+                    </label>
                   </div>
                 )}
 
@@ -633,14 +745,21 @@ export default function ApplyPage() {
                       </button>
                     )}
                     
-                    <button type="submit" style={{ 
+                    <button type="submit" disabled={isSubmitting} style={{ 
                       flex: step > 1 ? 2 : 1, background: c.orange, color: "white", padding: "1.1rem", 
                       borderRadius: "14px", border: "none", fontWeight: 800, cursor: "pointer",
-                      boxShadow: "0 4px 15px rgba(139, 92, 246, 0.4)", transition: "all 0.2s", width: "100%"
+                      boxShadow: "0 4px 15px rgba(139, 92, 246, 0.4)", transition: "all 0.2s", width: "100%",
+                      opacity: isSubmitting ? 0.65 : 1
                     }} onMouseEnter={e => e.currentTarget.style.transform = "translateY(-2px)"} onMouseLeave={e => e.currentTarget.style.transform = "translateY(0)"}>
-                      {step < totalSteps ? "Continuar" : "Finalizar postulación"}
+                      {step < totalSteps ? "Continuar" : isSubmitting ? "Enviando..." : "Finalizar postulación"}
                     </button>
                   </div>
+                )}
+
+                {submitError && (
+                  <p role="alert" style={{ color: "#fecaca", fontSize: "0.9rem", textAlign: "center", marginTop: "1rem" }}>
+                    {submitError}
+                  </p>
                 )}
                 
               </div>

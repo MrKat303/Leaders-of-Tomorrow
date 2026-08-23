@@ -441,6 +441,11 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ── Small phones ────────────────────────────────────────────── */
 @media (max-width: 480px) {
+  .hero-partners {
+    grid-template-columns: 1fr !important;
+    gap: 1.75rem !important;
+  }
+
   .nav-inner {
     height: 50px !important;
     padding: 0 0.6rem !important;

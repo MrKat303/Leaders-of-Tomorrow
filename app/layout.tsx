@@ -15,9 +15,11 @@ export default function RootLayout({
   return (
     <html lang="es" className="h-full">
       <head>
-        {/* Preload critical background images for instant display */}
+        {/* Keep the original backgrounds, but ask the browser for them immediately. */}
         <link rel="preload" href="/hero/hero.webp" as="image" fetchPriority="high" />
         <link rel="preload" href="/image.webp" as="image" fetchPriority="high" />
+        <link rel="preload" href="/city.webp" as="image" fetchPriority="high" />
+        <link rel="preload" href="/beach.webp" as="image" fetchPriority="high" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
