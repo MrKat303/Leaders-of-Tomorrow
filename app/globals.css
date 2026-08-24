@@ -495,6 +495,19 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0.82;
   mix-blend-mode: screen;
   pointer-events: none;
+  transform-origin: 50% 85%;
+  animation: balloonFloat 5.5s ease-in-out infinite;
+}
+
+@keyframes balloonFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-1.5deg); }
+  50% { transform: translate3d(6px, -12px, 0) rotate(1.5deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-balloon {
+    animation: none;
+  }
 }
 
 .program-card {
@@ -541,9 +554,9 @@ h1, h2, h3, h4, h5, h6 {
   gap: 0.6rem;
   min-width: 230px;
   padding: 0.8rem 1.4rem;
-  border: 1px solid rgba(255, 255, 255, 0.78);
+  border: 1px solid #7b2cbf;
   border-radius: 999px;
-  background: rgba(61, 20, 112, 0.88);
+  background: #7b2cbf;
   color: #fff;
   font-family: var(--font-primary);
   font-size: 0.82rem;
@@ -574,8 +587,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .program-expand-button:hover {
-  background: rgba(92, 31, 158, 0.96);
+  background: #7b2cbf;
   transform: translateX(-50%) translateY(-2px);
+}
+
+.cta-apply-static {
+  font-family: var(--font-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transform: none !important;
 }
 
 .program-toggle:focus-visible ~ .program-expand-button {
@@ -721,7 +741,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .faq-section {
-    padding: 2.75rem 0.75rem 1.25rem !important;
+    padding: 2.75rem 0.75rem 0 !important;
   }
 
   .faq-container {
@@ -738,7 +758,7 @@ h1, h2, h3, h4, h5, h6 {
 
   .cta-section {
     min-height: 400px !important;
-    padding: 1.25rem 0.75rem !important;
+    padding: 0 0.75rem 1.25rem !important;
   }
 
   .cta-section-inner {
