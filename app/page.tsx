@@ -321,7 +321,7 @@ export default function Home() {
         <img src="/hero/hero4.svg" alt="" style={{ position: "absolute", bottom: "15%", right: "8%", width: "clamp(70px, 10vw, 140px)", zIndex: 1, animation: "float 9s ease-in-out infinite 0.5s", pointerEvents: "none" }} className="hero-svg" />
 
         <h1 style={{
-          fontSize: "clamp(1.85rem, 4.4vw, 3.25rem)", fontWeight: 400, color: c.white,
+          fontSize: "clamp(2.1rem, 5vw, 3.75rem)", fontWeight: 400, color: c.white,
           lineHeight: 0.98, maxWidth: 900, marginBottom: "1.25rem", letterSpacing: "-0.035em",
           position: "relative", zIndex: 2
         }}>
@@ -329,7 +329,7 @@ export default function Home() {
             <span className="hero-title-line" style={{ display: "block" }}>Conviértete en</span>
           </span>
           <span style={{ display: "block", overflow: "hidden" }}>
-            <span className="hero-title-line" style={{ display: "block" }}>el líder del mañana</span>
+            <span className="hero-title-line" style={{ display: "block" }}>el Builder del Mañana</span>
           </span>
         </h1>
 
@@ -338,8 +338,7 @@ export default function Home() {
             fontSize: "clamp(0.88rem, 1.45vw, 1.05rem)", color: "rgba(255,255,255,0.95)",
             maxWidth: 850, lineHeight: 1.45,
           }}>
-            <span className="hero-intro-line">Una experiencia intensiva para jóvenes de enseñanza media, diseñada para desarrollar</span>
-            <strong className="hero-intro-line" style={{ color: c.white, fontWeight: 800 }}>las habilidades que van a definir el futuro.</strong>
+            Una experiencia intensiva para jóvenes de enseñanza media, diseñada para desarrollar las habilidades del futuro a través de desafíos reales, líderes y empresas, y prepararte para ser parte de la generación que construirá lo que viene.
           </p>
         </div>
 
@@ -363,16 +362,6 @@ export default function Home() {
             </svg>
             <span>Santiago, Región Metropolitana</span>
           </div>
-        </div>
-
-        <div className="hero-sub" style={{
-          width: "100%", maxWidth: 720, color: "rgba(255,255,255,0.92)",
-          fontSize: "clamp(0.86rem, 1.3vw, 0.98rem)", lineHeight: 1.55,
-          marginBottom: "1.25rem", position: "relative", zIndex: 2,
-        }}>
-          <p>
-            Durante cinco días, aprenderás junto a líderes y empresas, enfrentarás desafíos reales y llevarás tus habilidades a la práctica junto a otros jóvenes.
-          </p>
         </div>
 
         <div className="hero-cta-wrap" style={{ display: "flex", justifyContent: "center", width: "100%", maxWidth: "500px" }}>
@@ -617,7 +606,7 @@ export default function Home() {
 
       {/* ═══════════════════ FAQ ═══════════════════ */}
       <section id="faq" className="faq-section" style={{
-        minHeight: "auto", padding: "clamp(3.5rem, 5vw, 5rem) 1rem clamp(1.5rem, 2.5vw, 2.5rem)",
+        minHeight: "auto", padding: "clamp(3.5rem, 5vw, 5rem) 1rem 0",
         background: "transparent",
         position: "relative", overflow: "hidden",
       }}>
@@ -719,7 +708,7 @@ export default function Home() {
 
       {/* ═══════════════════ CTA ═══════════════════ */}
       <section className="cta-section" style={{
-        minHeight: "clamp(480px, 68svh, 680px)", padding: "clamp(2rem, 4vw, 3.5rem) 1rem",
+        minHeight: "clamp(480px, 68svh, 680px)", padding: "0 1rem clamp(2rem, 4vw, 3.5rem)",
         backgroundColor: "transparent", position: "relative", overflow: "hidden",
         display: "flex", alignItems: "center", justifyContent: "center",
       }}>
@@ -745,16 +734,10 @@ export default function Home() {
           <p style={{ color: "rgba(255,255,255,0.9)", fontSize: "1.25rem", maxWidth: 600, margin: "0 auto 3rem", lineHeight: 1.6, fontWeight: 500 }}>
             No esperes a que el futuro suceda. Créalo. Postulaciones abiertas para el próximo semestre.
           </p>
-          <Link href="/apply" className="magnetic-btn" style={{
+          <Link href="/apply" className="cta-apply-static" style={{
             background: "transparent", color: "#ffffff", fontWeight: 900, fontSize: "1.1rem",
             padding: "1.2rem 3rem", borderRadius: 9999, textDecoration: "none", border: "2px solid #ffffff",
-            boxShadow: "none", display: "inline-flex", alignItems: "center", gap: "0.6rem", transition: "all 0.3s ease"
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "rgba(255,255,255,0.1)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "transparent";
+            boxShadow: "none", display: "inline-flex", alignItems: "center", gap: "0.6rem"
           }}>
             Aplicar ahora
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
