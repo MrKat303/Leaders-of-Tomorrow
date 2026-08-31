@@ -131,6 +131,7 @@ footer .footer-bottom a {
 .partner-label {
   font-family: var(--font-sans) !important;
   font-weight: 700 !important;
+  white-space: nowrap;
 }
 
 footer .footer-description,
@@ -147,6 +148,41 @@ body footer .footer-col .footer-section-title {
 .skills-intro {
   font-family: var(--font-sans) !important;
   font-weight: 400 !important;
+}
+
+.hero-apply-button {
+  font-family: var(--font-primary) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hero-program-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: none;
+}
+
+.hero-program-button:hover,
+.hero-program-button:focus-visible,
+.hero-program-button:active,
+.hero-program-button:visited {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.72);
+  color: #fff;
 }
 
 /* Schedule typography: Poppins throughout, with Gebuk for each day's theme. */
@@ -1013,13 +1049,7 @@ body footer .footer-col .footer-section-title {
   }
 
   .how-it-works-steps::before {
-    top: 0;
-    bottom: 0;
-    left: 28px;
-    right: auto;
-    width: 1px;
-    height: auto;
-    background: rgba(199, 125, 255, 0.65);
+    display: none;
   }
 
   .how-it-works-step {
@@ -1027,6 +1057,17 @@ body footer .footer-col .footer-section-title {
     min-height: 145px;
     padding: 0 0 2.25rem 82px;
     text-align: left;
+  }
+
+  .how-it-works-step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: 58px;
+    bottom: 0;
+    left: 28px;
+    width: 1px;
+    background: rgba(199, 125, 255, 0.65);
   }
 
   .how-it-works-step > span {
@@ -1042,6 +1083,12 @@ body footer .footer-col .footer-section-title {
     white-space: normal;
   }
 
+  .hero-apply-button,
+  .hero-program-button {
+    padding: 0.72rem 1.25rem !important;
+    font-size: 0.78rem !important;
+  }
+
   .application-steps {
     grid-template-columns: 1fr;
   }
@@ -1051,12 +1098,17 @@ body footer .footer-col .footer-section-title {
   }
 
   .how-it-works-section {
-    padding: 2.5rem 1rem;
+    padding: 2.5rem 1rem 0.75rem;
   }
 
   .how-it-works-step {
     min-height: 135px;
     padding-left: 74px;
+  }
+
+  .how-it-works-step:last-child {
+    min-height: 0;
+    padding-bottom: 0;
   }
 
   .hero-partners {
@@ -1066,6 +1118,12 @@ body footer .footer-col .footer-section-title {
 
   .hero-partners-support {
     grid-column: 1 / -1;
+  }
+
+  .partner-label {
+    font-size: 0.67rem !important;
+    letter-spacing: 0.08em !important;
+    white-space: nowrap;
   }
 
   .skills-grid {
@@ -1117,7 +1175,7 @@ body footer .footer-col .footer-section-title {
   }
 
   .faq-section {
-    padding: 1.75rem 0.75rem 0 !important;
+    padding: 0.5rem 0.75rem 0 !important;
   }
 
   .faq-container {
@@ -1139,6 +1197,13 @@ body footer .footer-col .footer-section-title {
 
   .cta-section-inner {
     padding: 1rem 0.75rem !important;
+  }
+
+  .cta-description {
+    max-width: 320px !important;
+    margin-bottom: 1.4rem !important;
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
   }
 
   .cta-apply-static {

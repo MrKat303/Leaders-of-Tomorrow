@@ -150,9 +150,33 @@ export default function Home() {
       }
     );
 
-    // ── FAQ Entrance & Scroll Effects ──
-    gsap.set([".faq-container", ".faq-title", ".faq-subtitle", ".faq-item"], {
-      opacity: 1, y: 0, scale: 1, rotationX: 0,
+    // ── FAQ entrance on desktop only ──
+    const faqMedia = gsap.matchMedia();
+    faqMedia.add("(min-width: 769px) and (prefers-reduced-motion: no-preference)", () => {
+      const faqTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".faq-section",
+          start: "top 92%",
+          end: "bottom 12%",
+          scrub: 1,
+        },
+      });
+
+      faqTimeline
+        .from(".faq-item", {
+          opacity: 0,
+          y: 38,
+          duration: 0.7,
+          stagger: 0.12,
+          ease: "power3.out",
+        })
+        .to(".faq-item", {
+          opacity: 0,
+          y: -30,
+          duration: 0.7,
+          stagger: 0.1,
+          ease: "power2.in",
+        }, "+=0.8");
     });
 
     // ── Airplane enters, crosses the FAQ and leaves with the scroll ──
@@ -229,6 +253,7 @@ export default function Home() {
     });
 
     return () => {
+      faqMedia.revert();
       skillsMarquee?.removeEventListener("mouseenter", pauseSkills);
       skillsMarquee?.removeEventListener("mouseleave", resumeSkills);
       magneticBtns.forEach(btn => {
@@ -335,14 +360,14 @@ export default function Home() {
             fontSize: "clamp(0.88rem, 1.45vw, 1.05rem)", color: "rgba(255,255,255,0.95)",
             maxWidth: 850, lineHeight: 1.45,
           }}>
-            Una experiencia intensiva para jóvenes de enseñanza media, diseñada para desarrollar las habilidades del futuro a través de desafíos reales, líderes y empresas, y prepararte para ser parte de la generación que construirá lo que viene.
+            Un bootcamp intensivo de 5 días para desarrollar las habilidades que están definiendo el futuro.
           </p>
         </div>
 
         <div className="hero-meta" style={{
           display: "flex", alignItems: "center", justifyContent: "center", gap: "clamp(1.5rem, 4vw, 3rem)",
           width: "100%", marginBottom: "1.1rem", position: "relative", zIndex: 2,
-          color: c.white, fontSize: "clamp(0.78rem, 1.2vw, 0.92rem)", fontWeight: 500,
+          color: c.white, fontSize: "clamp(0.78rem, 1.2vw, 0.92rem)", fontWeight: 700,
           textTransform: "uppercase", letterSpacing: "0.02em",
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
@@ -361,14 +386,20 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="hero-cta-wrap" style={{ display: "flex", justifyContent: "center", width: "100%", maxWidth: "500px" }}>
-          <Link href="/apply" style={{ 
-            background: "#7b2cbf", color: c.white, fontWeight: 800, fontSize: "1.05rem", 
+        <div className="hero-cta-wrap" style={{ display: "flex", justifyContent: "center", width: "100%", maxWidth: "500px", gap: "0.75rem", flexWrap: "wrap" }}>
+          <Link href="/apply" className="hero-apply-button" style={{ 
+            background: "#7b2cbf", color: c.white, fontWeight: 700, fontSize: "1.05rem", 
             padding: "0.85rem 2.2rem", borderRadius: 9999, textDecoration: "none",
             boxShadow: "0 12px 40px rgba(123,44,191,0.4)", display: "inline-flex", alignItems: "center", gap: "0.5rem" 
           }}>
             Postula ahora
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </Link>
+          <Link href="#programa" className="hero-program-button">
+            Ver programa
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="m6 9 6 6 6-6" />
+            </svg>
           </Link>
         </div>
 
@@ -814,7 +845,7 @@ export default function Home() {
           <h2 style={{ fontSize: "clamp(2.4rem, 6vw, 3.8rem)", color: c.white, marginBottom: "1.5rem", fontWeight: 400, lineHeight: 1 }}>
             Tu lugar está aquí.
           </h2>
-          <p style={{ color: "rgba(255,255,255,0.9)", fontSize: "1.25rem", maxWidth: 600, margin: "0 auto 3rem", lineHeight: 1.6, fontWeight: 500 }}>
+          <p className="cta-description" style={{ color: "rgba(255,255,255,0.9)", fontSize: "1.25rem", maxWidth: 600, margin: "0 auto 3rem", lineHeight: 1.6, fontWeight: 500 }}>
             Postula a The Builders Camp y sé parte de una generación que quiere aprender, crear y construir.
           </p>
           <Link href="/apply" className="cta-apply-static" style={{
