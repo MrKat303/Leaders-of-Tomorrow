@@ -1,5 +1,24 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
+
+const poppins = localFont({
+  src: [
+    { path: "./fonts/poppins-400.ttf", weight: "400", style: "normal" },
+    { path: "./fonts/poppins-500.ttf", weight: "500", style: "normal" },
+    { path: "./fonts/poppins-700.ttf", weight: "700", style: "normal" },
+  ],
+  variable: "--font-poppins",
+  display: "swap",
+});
+
+const cenura = localFont({
+  src: "./fonts/cenura.otf",
+  variable: "--font-cenura",
+  display: "swap",
+  weight: "400",
+  style: "normal",
+});
 
 export const metadata: Metadata = {
   title: "Leaders of Tomorrow by CBA · Bootcamp de Liderazgo",
@@ -13,23 +32,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="h-full">
+    <html lang="es" className={`h-full ${poppins.variable} ${cenura.variable}`}>
       <head>
         {/* Keep the original backgrounds, but ask the browser for them immediately. */}
         <link rel="preload" href="/hero/hero.webp" as="image" fetchPriority="high" />
         <link rel="preload" href="/image.webp" as="image" fetchPriority="high" />
         <link rel="preload" href="/city.webp" as="image" fetchPriority="high" />
         <link rel="preload" href="/beach.webp" as="image" fetchPriority="high" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
-          rel="stylesheet"
-        />
       </head>
       <body
         suppressHydrationWarning

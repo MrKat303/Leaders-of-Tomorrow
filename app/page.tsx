@@ -31,6 +31,17 @@ const c = {
   bgLight: "transparent",
 };
 
+const builderSkills = [
+  "Emprendimiento",
+  "Liderazgo",
+  "IA y tecnología",
+  "Comunicación",
+  "Pensamiento crítico",
+  "Colaboración",
+  "Adaptabilidad",
+  "Ejecución",
+];
+
 export default function Home() {
   const container = useRef<HTMLDivElement>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -39,10 +50,10 @@ export default function Home() {
     { q: "¿Qué es The Builders Camp?", a: "Una experiencia intensiva de cinco días para estudiantes de enseñanza media enfocada en desarrollar habilidades para el futuro a través de desafíos, talleres, empresas, tecnología y trabajo práctico." },
     { q: "¿Cuándo es?", a: "Del 14 al 18 de diciembre de 2026." },
     { q: "¿Quién puede postular?", a: "Estudiantes de enseñanza media que cumplan los requisitos de la convocatoria." },
+    { q: "¿Tiene costo?", a: "Sí. El programa tiene un costo de $60.000 CLP, con opción de beca para quienes lo necesiten." },
     { q: "¿Necesito experiencia?", a: "No. The Builders Camp está diseñado precisamente para aprender, descubrir y desarrollar nuevas habilidades durante la experiencia." },
     { q: "¿Puedo postular con mis amigos?", a: "La postulación es individual. Los equipos se formarán buscando reunir perfiles e intereses diferentes." },
     { q: "¿Cómo se seleccionan los participantes?", a: "Queremos conocer quién eres más allá de tus notas. Nos interesan especialmente tu motivación, curiosidad, iniciativa, intereses y las ganas que tengas de aprovechar la experiencia." },
-    { q: "¿Tiene costo?", a: "Sí. El programa tiene un costo de $60.000 CLP, con opción de beca para quienes lo necesiten." },
   ];
 
   useGSAP((context, contextSafe) => {
@@ -79,6 +90,21 @@ export default function Home() {
       onLeaveBack: (batch) => gsap.set(batch, { opacity: 0, y: 50, scale: 0.95, overwrite: true }),
       start: "top 85%",
     });
+
+    // ── Infinite skills marquee ──
+    const skillsMarquee = container.current?.querySelector<HTMLElement>(".skills-marquee");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const skillsTween = reduceMotion ? null : gsap.to(".skills-marquee-track", {
+      xPercent: -50,
+      duration: 24,
+      ease: "none",
+      repeat: -1,
+    });
+
+    const pauseSkills = () => skillsTween?.pause();
+    const resumeSkills = () => skillsTween?.resume();
+    skillsMarquee?.addEventListener("mouseenter", pauseSkills);
+    skillsMarquee?.addEventListener("mouseleave", resumeSkills);
 
 
 
@@ -190,21 +216,6 @@ export default function Home() {
       }
     });
 
-    // ── Parallax Footer Push ──
-    gsap.to(".parallax-bg-container", {
-      y: () => {
-        const footer = document.querySelector('footer');
-        return footer ? -footer.offsetHeight : 0;
-      },
-      ease: "none",
-      scrollTrigger: {
-        trigger: "footer",
-        start: "top bottom",
-        end: "bottom bottom",
-        scrub: true,
-      }
-    });
-
     // ── Hero Background Fade Transition ──
     gsap.to(".hero-bg", {
       opacity: 0,
@@ -217,22 +228,9 @@ export default function Home() {
       }
     });
 
-    gsap.fromTo(".cta-bg",
-      { opacity: 0, scale: 1.08 },
-      {
-        opacity: 1,
-        scale: 1,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".cta-section",
-          start: "top bottom",
-          end: "top 25%",
-          scrub: true,
-        }
-      }
-    );
-
     return () => {
+      skillsMarquee?.removeEventListener("mouseenter", pauseSkills);
+      skillsMarquee?.removeEventListener("mouseleave", resumeSkills);
       magneticBtns.forEach(btn => {
         btn.removeEventListener("mousemove", onMouseMove);
         btn.removeEventListener("mouseleave", onMouseLeave);
@@ -254,7 +252,6 @@ export default function Home() {
           overflow: "hidden",
           zIndex: -2,
           pointerEvents: "none",
-          willChange: "transform"
         }}
       >
         <div 
@@ -345,7 +342,7 @@ export default function Home() {
         <div className="hero-meta" style={{
           display: "flex", alignItems: "center", justifyContent: "center", gap: "clamp(1.5rem, 4vw, 3rem)",
           width: "100%", marginBottom: "1.1rem", position: "relative", zIndex: 2,
-          color: c.white, fontSize: "clamp(0.78rem, 1.2vw, 0.92rem)", fontWeight: 800,
+          color: c.white, fontSize: "clamp(0.78rem, 1.2vw, 0.92rem)", fontWeight: 500,
           textTransform: "uppercase", letterSpacing: "0.02em",
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
@@ -360,7 +357,7 @@ export default function Home() {
               <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
               <circle cx="12" cy="10" r="2.5" />
             </svg>
-            <span>Santiago, Región Metropolitana</span>
+            <span>Pontificia Universidad Católica, Santiago, RM</span>
           </div>
         </div>
 
@@ -376,9 +373,9 @@ export default function Home() {
         </div>
 
         {/* Logos marquee style */}
-        <div className="hero-logos hero-partners" style={{ marginTop: "1.5rem", opacity: 0.9, display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", alignItems: "start", gap: "clamp(2rem, 5vw, 4rem)", width: "min(100%, 570px)" }}>
+        <div className="hero-logos hero-partners" style={{ marginTop: "1.5rem", opacity: 0.9, display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", alignItems: "start", gap: "clamp(1.5rem, 4vw, 3rem)", width: "min(100%, 860px)" }}>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase" as const, letterSpacing: "0.15em", marginBottom: "1rem" }}>Organizado por</p>
+            <p className="partner-label" style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.8rem", fontWeight: 500, textTransform: "uppercase" as const, letterSpacing: "0.15em", marginBottom: "1rem" }}>Organizado por</p>
             <div style={{ minHeight: "52px", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <a href="https://hiveyoung.org/" target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center" }}>
                 <img src="/hero/logos/hiveyoung.svg" alt="Hiveyoung Logo" style={{ height: "38px", objectFit: "contain", opacity: 0.9 }} />
@@ -386,25 +383,32 @@ export default function Home() {
             </div>
           </div>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase" as const, letterSpacing: "0.15em", marginBottom: "1rem" }}>Con el apoyo de</p>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1.5rem", minHeight: "52px" }}>
+            <p className="partner-label" style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.8rem", fontWeight: 500, textTransform: "uppercase" as const, letterSpacing: "0.15em", marginBottom: "1rem" }}>Partner académico</p>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "52px" }}>
               <img
                 src="https://kit-digital-uc-prod.s3.amazonaws.com/assets/escudos/logo-uc-06.svg"
                 alt="Pontificia Universidad Católica de Chile"
-                style={{ width: "155px", height: "52px", objectFit: "contain", objectPosition: "center" }}
+                style={{ width: "132px", height: "44px", objectFit: "contain", objectPosition: "center" }}
               />
-              <img src="/hero/logos/MCDONALDS.svg" alt="McDonald's" style={{ width: "58px", height: "42px", objectFit: "contain", objectPosition: "center" }} />
+            </div>
+          </div>
+          <div className="hero-partners-support" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <p className="partner-label" style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.8rem", fontWeight: 500, textTransform: "uppercase" as const, letterSpacing: "0.15em", marginBottom: "1rem" }}>Con el apoyo de</p>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.8rem", minHeight: "52px" }}>
+              <img src="/hero/logos/MCDONALDS.svg" alt="McDonald's" style={{ width: "52px", height: "36px", objectFit: "contain", objectPosition: "center" }} />
+              <img src="/hero/logos/partner-logo.png" alt="Lipigas" style={{ width: "58px", height: "40px", objectFit: "contain", objectPosition: "center" }} />
+              <img src="/hero/logos/if-chile-logo.png" alt="IF Chile" style={{ width: "52px", height: "40px", objectFit: "contain", objectPosition: "center", transform: "scale(1.75)" }} />
             </div>
           </div>
         </div>
       </section>
 
       {/* ═══════════════════ SKILLS ═══════════════════ */}
-      <section id="habilidades" style={{ padding: "clamp(4rem, 8vw, 7rem) 1.25rem", background: c.cream }}>
+      <section id="habilidades" style={{ padding: "clamp(4rem, 8vw, 7rem) 1.25rem clamp(1.5rem, 3vw, 2.5rem)", background: c.cream }}>
         <div style={{ width: "100%", maxWidth: 1180, margin: "0 auto" }}>
           <div style={{ maxWidth: 1050, margin: "0 auto clamp(2.5rem, 5vw, 4.5rem)", textAlign: "center" }}>
-            <p className="hero-sub" style={{
-              color: "rgba(255,255,255,0.72)", fontSize: "clamp(0.95rem, 1.4vw, 1.15rem)",
+            <p className="hero-sub skills-intro" style={{
+              color: "rgba(255,255,255,0.72)", fontSize: "clamp(1.15rem, 1.8vw, 1.45rem)",
               lineHeight: 1.5, marginBottom: "0.75rem",
             }}>
               El mundo está cambiando más rápido que nunca y necesita
@@ -415,7 +419,7 @@ export default function Home() {
             }}>
               Personas preparadas para él.
             </h2>
-            <p style={{
+            <p className="skills-closing-copy" style={{
               color: c.white, fontFamily: "var(--font-primary)", textTransform: "uppercase",
               fontSize: "clamp(1.1rem, 2.2vw, 1.8rem)", lineHeight: 1.2,
             }}>
@@ -423,45 +427,83 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="skills-grid" style={{
-            display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
-            gap: "0.55rem",
-          }}>
-            {[
-              "Emprendimiento",
-              "Liderazgo",
-              "IA y tecnología",
-              "Comunicación",
-              "Pensamiento crítico",
-              "Colaboración",
-              "Adaptabilidad",
-              "Ejecución",
-            ].map((skill) => (
-              <div key={skill} className="skill-card">
-                {skill}
-              </div>
-            ))}
+          <div className="skills-marquee" role="region" aria-label="Habilidades que aprenderás">
+            <div className="skills-marquee-track">
+              {[0, 1].map((copyIndex) => (
+                <div key={copyIndex} className="skills-marquee-group" aria-hidden={copyIndex === 1}>
+                  {builderSkills.map((skill) => (
+                    <div key={`${copyIndex}-${skill}`} className="skill-card">
+                      <span aria-hidden="true">✦</span>
+                      {skill}
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════ APPLICATION PROCESS ═══════════════════ */}
+      <section className="application-process-section">
+        <div className="application-process-inner">
+          <div className="application-how">
+            <p className="application-eyebrow">Paso a paso</p>
+            <h2 className="section-heading">¿Cómo postulo?</h2>
+            <div className="application-steps">
+              {[
+                {
+                  number: "01",
+                  title: "Postula",
+                  description: "Debes ser estudiante de enseñanza media. Cuéntanos quién eres, qué te mueve y por qué quieres ser parte.",
+                },
+                {
+                  number: "02",
+                  title: "Selección",
+                  description: "Revisaremos cada postulación para seleccionar a los 50 jóvenes que formarán parte de esta edición, buscando reunir distintos perfiles, intereses y talentos.",
+                },
+                {
+                  number: "03",
+                  title: "Bienvenido a The Builders Camp",
+                  description: "Si eres seleccionado, recibirás toda la información para comenzar la experiencia. Comprométete a asistir los cinco días, conoce gente nueva y prepárate para aprender, construir y disfrutar.",
+                },
+              ].map((step) => (
+                <article key={step.number} className="application-step">
+                  <span>{step.number}</span>
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
+                  {step.number === "01" && (
+                    <Link href="/apply" className="application-step-link">
+                      Postula aquí
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  )}
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* ═══════════════════ WEEK PROGRAM ═══════════════════ */}
       <section id="programa" className="week-program-section" style={{
-        minHeight: "100svh", padding: "clamp(4rem, 7vw, 6rem) 1.25rem",
+        minHeight: "auto", padding: "clamp(2.25rem, 4vw, 3.5rem) 1.25rem",
         display: "flex", alignItems: "center", background: c.cream,
       }}>
         <div style={{ width: "100%", maxWidth: 1480, margin: "0 auto" }}>
           <div style={{ textAlign: "center", maxWidth: 850, margin: "0 auto clamp(2rem, 4vw, 3.5rem)" }}>
-            <h2 className="section-heading" style={{
+            <h2 className="schedule-heading" style={{
               fontSize: "clamp(2.2rem, 5vw, 4.5rem)", lineHeight: 1,
               letterSpacing: "-0.035em", marginBottom: "1rem",
             }}>
               5 días para ponerte a prueba.
             </h2>
-            <p className="hero-sub" style={{
+            <p className="schedule-subtitle" style={{
               color: "rgba(255,255,255,0.72)", fontSize: "clamp(0.95rem, 1.4vw, 1.1rem)", lineHeight: 1.6,
             }}>
-              Cada día suma un nuevo desafío. Vas a descubrir problemas, construir soluciones y convertir una idea en algo real.
+              Cinco días para aprender de expertos, trabajar en equipo y convertir ideas en algo real.
             </p>
           </div>
 
@@ -510,57 +552,56 @@ export default function Home() {
                 <div className="program-grid">
               {[
                 { day: "Lun", date: "14", theme: "Problema", events: [
-                  ["09:00 — 10:00", "Think Like a Founder", "accent"],
+                  ["09:00 — 09:30", "Think Like a Founder", "accent"],
+                  ["09:30 — 10:00", "Icebreak", "accent"],
                   ["10:00 — 11:15", "Empathy & Problem", "standard"],
                   ["11:15 — 11:30", "Break", "break"],
                   ["11:30 — 12:30", "Problem Hunting Lab", "lab"],
                   ["12:30 — 13:30", "Definir el Problema", "standard"],
                   ["13:30 — 14:15", "Almuerzo", "break"],
-                  ["14:15 — 15:30", "Checkpoint", "checkpoint"],
-                  ["15:30 — 16:00", "Mindset y Reflexión", "accent"],
+                  ["14:15 — 16:00", "Builder Stories", "accent"],
+                  ["16:00 — 17:15", "Chekpoint 1", "checkpoint"],
+                  ["17:15 — 17:20", "Entregables", "checkpoint"],
                 ] },
                 { day: "Mar", date: "15", theme: "Solución", events: [
                   ["09:00 — 10:00", "Customer Discovery", "standard"],
                   ["10:00 — 11:15", "Ideación", "standard"],
                   ["11:15 — 11:30", "Break", "break"],
                   ["11:30 — 12:30", "Validación de la Solución", "lab"],
-                  ["12:30 — 13:30", "Prototipado Rápido", "standard"],
+                  ["12:30 — 13:30", "People & Culture", "standard"],
                   ["13:30 — 14:15", "Almuerzo", "break"],
-                  ["14:15 — 15:30", "AI Prototyping Lab", "lab"],
-                  ["15:30 — 16:30", "Ops y Estructura", "standard"],
-                  ["16:30 — 17:00", "Checkpoint", "checkpoint"],
+                  ["14:15 — 15:15", "From A to B", "standard"],
+                  ["15:15 — 16:30", "Lab", "lab"],
+                  ["16:30 — 17:30", "Chekpoint 1", "checkpoint"],
+                  ["17:30 — 17:40", "Entregables", "checkpoint"],
                 ] },
                 { day: "Mié", date: "16", theme: "Construcción", events: [
                   ["09:00 — 10:00", "Análisis Estratégico", "standard"],
                   ["10:00 — 11:15", "Product Build Lab", "lab"],
                   ["11:15 — 11:30", "Break", "break"],
-                  ["11:30 — 13:30", "AI Product Studio", "lab"],
+                  ["11:30 — 13:30", "Product Studio", "lab"],
                   ["13:30 — 14:15", "Almuerzo", "break"],
-                  ["14:15 — 15:30", "Modelo de Negocio", "standard"],
-                  ["15:30 — 16:30", "Consumer Experience", "standard"],
-                  ["16:30 — 17:00", "Entregables", "checkpoint"],
-                  ["20:00 — 21:00", "Lab Vespertino", "checkpoint"],
+                  ["14:15 — 15:15", "Know Your Numbers", "standard"],
+                  ["15:15 — 16:15", "Consumer Experience", "standard"],
+                  ["16:16 — 17:30", "Entregables y Mindset", "checkpoint"],
                 ] },
                 { day: "Jue", date: "17", theme: "Crecimiento", events: [
                   ["09:00 — 10:00", "Go-To-Market", "standard"],
-                  ["10:00 — 11:15", "Marketing y Redes", "standard"],
+                  ["10:00 — 11:15", "Be Your Brand", "standard"],
                   ["11:15 — 11:30", "Break", "break"],
-                  ["11:30 — 12:30", "Meta Pitch", "lab"],
-                  ["12:30 — 13:30", "Buscar Inversión", "lab"],
+                  ["11:30 — 12:30", "Pitch It!", "lab"],
+                  ["12:30 — 13:30", "Venture Capital", "lab"],
                   ["13:30 — 14:15", "Almuerzo", "break"],
-                  ["14:15 — 15:30", "¿Tu Startup Realmente Funciona?", "checkpoint"],
-                  ["15:30 — 16:00", "Mindset y Gestión del Estrés", "accent"],
+                  ["14:15 — 15:15", "Win the Attention", "standard"],
+                  ["15:15 — 16:15", "Building What's Next", "accent"],
+                  ["16:15 — 17:00", "Mindset y Entregables", "checkpoint"],
                 ] },
                 { day: "Vie", date: "18", theme: "Demo Day", events: [
-                  ["09:00 — 10:00", "Ensayos Pitch Final", "accent"],
-                  ["10:00 — 12:30", "Checklist Final / Pre-Demo", "accent"],
-                  ["12:30 — 13:30", "¿Y qué sigue?", "standard"],
+                  ["10:00 — 12:30", "Open Doors", "accent"],
                   ["13:30 — 14:15", "Almuerzo", "break"],
-                  ["14:30 — 15:00", "Mindset y Gestión del Estrés", "accent"],
-                  ["15:00 — 18:00", "Pitch Demos", "lab"],
-                  ["18:00", "Cóctel", "break"],
-                  ["18:00", "Anuncio del Ganador", "checkpoint"],
-                  ["19:00", "Apertura, Autoridades y Charlas", "standard"],
+                  ["14:15 — 16:00", "Checklist Final Pre-Demo", "accent"],
+                  ["16:00 — 16:30", "Palabras", "standard"],
+                  ["16:30 — 18:00", "Demo", "lab"],
                 ] },
               ].map((day) => (
                 <article key={day.date} className="program-day">
@@ -603,10 +644,52 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ═══════════════════ HOW IT WORKS ═══════════════════ */}
+      <section className="how-it-works-section" aria-labelledby="how-it-works-title">
+        <div className="how-it-works-inner">
+          <h2 id="how-it-works-title">¿Cómo funciona?</h2>
+          <div className="how-it-works-steps">
+            {[
+              {
+                number: "01",
+                title: "Forma tu equipo",
+                description: "Trabaja junto a otros Builders con distintos intereses y habilidades.",
+              },
+              {
+                number: "02",
+                title: "Encuentra un desafío",
+                description: "Identifica una problemática real que valga la pena resolver.",
+              },
+              {
+                number: "03",
+                title: "Aprende y aplica",
+                description: "Cada módulo entrega herramientas que aplicarás directamente en tu proyecto.",
+              },
+              {
+                number: "04",
+                title: "Construye",
+                description: "Transforma lo aprendido en una solución y desarrolla un prototipo.",
+              },
+              {
+                number: "05",
+                title: "Demo Day",
+                description: "Presenta tu proyecto frente a un jurado y demuestra todo lo que construiste.",
+              },
+            ].map((step) => (
+              <article className="how-it-works-step" key={step.number}>
+                <span>{step.number}</span>
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
 
       {/* ═══════════════════ FAQ ═══════════════════ */}
       <section id="faq" className="faq-section" style={{
-        minHeight: "auto", padding: "clamp(3.5rem, 5vw, 5rem) 1rem 0",
+        minHeight: "auto", padding: "clamp(2rem, 3vw, 3rem) 1rem 0",
         background: "transparent",
         position: "relative", overflow: "hidden",
       }}>
@@ -670,7 +753,7 @@ export default function Home() {
                     e.currentTarget.style.transform = "scale(1)";
                   }}
                 >
-                  <span style={{ fontSize: "1.1rem", fontWeight: 700, maxWidth: "85%", lineHeight: 1.4 }}>{faq.q}</span>
+                  <span style={{ fontSize: "1.1rem", fontWeight: 500, maxWidth: "85%", lineHeight: 1.4 }}>{faq.q}</span>
                   <div style={{
                     width: 36, height: 36, borderRadius: "50%", flexShrink: 0,
                     background: openFaq === index ? c.orange : "rgba(255,255,255,0.1)",
@@ -694,7 +777,7 @@ export default function Home() {
                   <p style={{
                     fontSize: "1rem", lineHeight: 1.6, 
                     color: "rgba(255,255,255,0.85)", marginTop: "1rem",
-                    fontFamily: "'Plus Jakarta Sans', sans-serif",
+                    fontFamily: "var(--font-sans)",
                     textTransform: "none"
                   }}>
                     {faq.a}
@@ -716,8 +799,8 @@ export default function Home() {
           position: "absolute", inset: 0,
           backgroundImage: "url('/footer-journey.png')", backgroundSize: "cover",
           backgroundPosition: "center bottom", backgroundRepeat: "no-repeat", backgroundAttachment: "scroll",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.25) 10%, #000 30%)",
-          maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.25) 10%, #000 30%)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.65) 9%, #000 22%)",
+          maskImage: "linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.65) 9%, #000 22%)",
         }} />
         <div aria-hidden="true" style={{
           position: "absolute", inset: 0,
@@ -729,10 +812,10 @@ export default function Home() {
         }}>
           
           <h2 style={{ fontSize: "clamp(2.4rem, 6vw, 3.8rem)", color: c.white, marginBottom: "1.5rem", fontWeight: 400, lineHeight: 1 }}>
-            Tu viaje comienza aquí
+            Tu lugar está aquí.
           </h2>
           <p style={{ color: "rgba(255,255,255,0.9)", fontSize: "1.25rem", maxWidth: 600, margin: "0 auto 3rem", lineHeight: 1.6, fontWeight: 500 }}>
-            No esperes a que el futuro suceda. Créalo. Postulaciones abiertas para el próximo semestre.
+            Postula a The Builders Camp y sé parte de una generación que quiere aprender, crear y construir.
           </p>
           <Link href="/apply" className="cta-apply-static" style={{
             background: "transparent", color: "#ffffff", fontWeight: 900, fontSize: "1.1rem",
@@ -754,7 +837,7 @@ export default function Home() {
         <div className="footer-grid" style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", gap: "clamp(2rem, 4vw, 4rem)", marginBottom: "clamp(2rem, 4vw, 4rem)" }}>
           <div className="footer-col" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
             <Image src="/logo-white.svg" alt="Logo" width={180} height={50} style={{ height: "auto", marginBottom: "1.5rem", display: "block" }} />
-            <p style={{ fontSize: "0.95rem", lineHeight: 1.8, maxWidth: 300, textAlign: "center", margin: "0 auto" }}>El nuevo programa de formación para las Skills del Futuro. Diseñada para entrenar a los próximos leaders, builders y founders del mañana.</p>
+            <p className="footer-description" style={{ fontSize: "0.95rem", lineHeight: 1.8, maxWidth: 300, textAlign: "center", margin: "0 auto" }}>El nuevo programa de formación para las Skills del Futuro. Diseñada para entrenar a los próximos leaders, builders y founders del mañana.</p>
           </div>
           {[
             { title: "Inmersión", links: ["Currículo", "Admisiones", "Becas"] },
@@ -762,7 +845,7 @@ export default function Home() {
             { title: "Lab", links: ["Blog", "Podcast", "Recursos Abiertos", "Newsletter"] },
           ].map((col) => (
             <div key={col.title} className="footer-col" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
-              <p style={{ fontWeight: 800, color: c.white, marginBottom: "1.8rem", fontSize: "1rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", textAlign: "center", width: "100%" }}>{col.title}</p>
+              <p className="footer-section-title" style={{ fontWeight: 400, color: c.white, marginBottom: "1.8rem", fontSize: "1rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", textAlign: "center", width: "100%" }}>{col.title}</p>
               {col.links.map((link) => {
                 const isPodcast = link === "Podcast";
                 const LinkComponent = isPodcast ? Link : "a";
@@ -783,7 +866,7 @@ export default function Home() {
         </div>
         <div className="footer-bottom" style={{ borderTop: `1px solid ${c.glassBorder}`, paddingTop: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" as const, gap: "1rem", maxWidth: 1200, margin: "0 auto" }}>
 
-          <p style={{ fontSize: "0.9rem" }}>© {new Date().getFullYear()} The Builders Camp by HiveYoung</p>
+          <p className="footer-copyright" style={{ fontSize: "0.9rem" }}>© {new Date().getFullYear()} The Builders Camp by HiveYoung</p>
           <div style={{ display: "flex", gap: "1.5rem" }}>
             {["Twitter", "LinkedIn", "Instagram", "Spotify"].map(s => (
               <a key={s} href="#" style={{ color: "rgba(255,255,255,0.9)", textDecoration: "none", fontSize: "0.9rem", fontWeight: 600 }}>{s}</a>
