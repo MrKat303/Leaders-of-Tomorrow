@@ -98,7 +98,7 @@ const step3Questions = [
   },
   {
     id: "q6",
-    q: "Tu equipo lleva semanas trabajando en una solución. A último momento descubres que ya existe algo muy similar. ¿Qué decides?",
+    q: "Tu equipo lleva días trabajando en una solución. A último momento descubres que ya existe algo muy similar. ¿Qué decides?",
     options: [
       "A. Ocultarlo para no desmoralizar al equipo.",
       "B. Presentarlo igual, el esfuerzo igual vale.",
@@ -124,16 +124,6 @@ const step3Questions = [
       "B. Le digo frente a todos que está afectando al equipo.",
       "C. En un momento tranquilo le pregunto cómo está, sin drama.",
       "D. Le pido al tutor que intervenga."
-    ]
-  },
-  {
-    id: "q9",
-    q: "Recibes una crítica fuerte a tu trabajo frente a todo el grupo. ¿Cómo reaccionas?",
-    options: [
-      "A. Me defiendo inmediatamente explicando mis razones.",
-      "B. Me quedo callado/a y me siento mal por un buen rato.",
-      "C. Escucho, pregunto qué mejoraría específicamente y lo tomo como aprendizaje.",
-      "D. Acepto todo sin cuestionarlo aunque no esté de acuerdo."
     ]
   },
   {
@@ -167,13 +157,15 @@ export default function ApplyPage() {
   const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
   const [familySupport, setFamilySupport] = useState("");
   const [attendance, setAttendance] = useState("");
+  const [paymentCapacity, setPaymentCapacity] = useState("");
+  const [selectedTraits, setSelectedTraits] = useState<string[]>([]);
   const [extracurriculares, setExtracurriculares] = useState<string[]>([]);
   const [formValues, setFormValues] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const cardRef = useRef<HTMLDivElement>(null);
   
-  const totalSteps = 4;
+  const totalSteps = 5;
 
   const toggleArea = (area: string) => {
     setSelectedAreas(prev => 
@@ -184,6 +176,16 @@ export default function ApplyPage() {
   const toggleExtra = (item: string) => {
     setExtracurriculares(prev =>
       prev.includes(item) ? prev.filter(a => a !== item) : [...prev, item]
+    );
+  };
+
+  const toggleTrait = (trait: string) => {
+    setSelectedTraits((current) =>
+      current.includes(trait)
+        ? current.filter((item) => item !== trait)
+        : current.length < 3
+          ? [...current, trait]
+          : current
     );
   };
 
@@ -218,9 +220,14 @@ export default function ApplyPage() {
       alert("Por favor, completa todas las preguntas obligatorias antes de continuar.");
       return;
     }
+
+    if (step === 3 && selectedTraits.length === 0) {
+      alert("Por favor, completa todas las preguntas obligatorias antes de continuar.");
+      return;
+    }
     
-    // Quick validation for step 3
-    if (step === 3) {
+    // Quick validation for the challenge section
+    if (step === 4) {
       const unanswered = step3Questions.some(q => !answers[q.id]);
       if (unanswered) {
         alert("Por favor, responde todas las preguntas antes de continuar.");
@@ -264,8 +271,8 @@ export default function ApplyPage() {
     const challengeEntries = [
       "entry.1258104398", "entry.2011180882", "entry.85410485",
       "entry.1154651905", "entry.1954333023", "entry.1840982094",
-      "entry.389948038", "entry.1642628590", "entry.893426593",
-      "entry.1410565911", "entry.72940813"
+      "entry.389948038", "entry.1642628590", "entry.1410565911",
+      "entry.72940813"
     ];
     const challengeChoices = [
       ["Hago su parte yo.", "Lo confronto frente al equipo.", "Hablo con él en privado y acordamos una tarea concreta.", "Lo reporto inmediatamente."],
@@ -276,7 +283,6 @@ export default function ApplyPage() {
       ["Lo oculto.", "Presento la propuesta sin cambios.", "Informo al equipo y buscamos nuestra diferencia.", "Empezamos todo desde cero."],
       ["Busco otra idea desde cero.", "Analizo qué falló y ajusto esa parte.", "Sigo únicamente el consejo de otros.", "Insisto sin cambiarla."],
       ["Lo ignoro.", "Lo confronto frente a todos.", "Le pregunto en privado cómo está.", "Pido al tutor que intervenga."],
-      ["Me defiendo inmediatamente.", "Me quedo callado y afectado.", "Escucho y pregunto cómo mejorar.", "Acepto todo sin cuestionarlo."],
       ["Sigo sin decir nada.", "Pido ayuda o delego.", "Me desconecto del proyecto.", "Culpo a otros."],
       ["Repito mi argumento con más fuerza.", "Entiendo su postura y busco puntos en común.", "Escucho, pero no considero cambiar mi postura.", "Cedo para evitar el conflicto."]
     ];
@@ -284,15 +290,24 @@ export default function ApplyPage() {
     const attendanceLabels = [
       "Sí, podría asistir sin inconvenientes.",
       "Sí, pero necesitaría apoyo para transporte y/o alojamiento.",
-      "Tal vez, depende de mi situación en ese momento.",
-      "No podría asistir presencialmente."
+      "Tal vez, depende de mi situación en ese momento."
     ];
     const websiteAttendance = [
       "Sí, podría asistir sin inconvenientes.",
       "Sí, podría asistir, pero necesitaría apoyo para transporte y/o alojamiento.",
-      "Tal vez, depende de mi situación en ese momento.",
-      "No podría asistir presencialmente."
+      "Tal vez, depende de mi situación en ese momento."
     ];
+
+    const supplementalAnswers = [
+      formValues.actividades_desc?.trim(),
+      `Qué piensa estudiar: ${formValues.future_studies || ""}`,
+      `Problema que resolvería en su entorno: ${formValues.community_problem || ""}`,
+      `Palabras con las que se identifica: ${selectedTraits.map((trait) => trait === "Otro" ? `Otro: ${formValues.trait_other || ""}` : trait).join(", ")}`,
+      `Rol que toma en un equipo: ${formValues.team_role || ""}`,
+      `Para mí, ser un Builder significa: ${formValues.builder_meaning || ""}`,
+      `Persona que admira y por qué: ${formValues.admired_person || ""}`,
+      `Capacidad de pago del programa: ${paymentCapacity}`,
+    ].filter(Boolean).join("\n\n");
 
     const payload = new URLSearchParams({
       "entry.925029811": formValues.name || "",
@@ -306,12 +321,11 @@ export default function ApplyPage() {
       "entry.2022898191": formValues.gender || "",
       "entry.1363239132": formValues.tiempo_libre || "",
       "entry.589482520": hasLiderado,
-      "entry.133956557": formValues.actividades_desc || "",
+      "entry.133956557": supplementalAnswers,
       "entry.1809938391": familySupport,
       "entry.409709723": attendanceLabels[websiteAttendance.indexOf(attendance)] || "",
       "entry.1526197600": formValues.ref_1 || "",
       "entry.1723851986": formValues.ref_2 || "",
-      "entry.1641430645": formValues.ref_3 || "",
       "entry.1807435063": "Acepto que mis datos sean utilizados exclusivamente para analizar mi postulación a The Builders Camp. No serán compartidos con terceros ni descargados por ningún motivo."
     });
 
@@ -403,8 +417,9 @@ export default function ApplyPage() {
   const stepTitles = [
     "1. Datos personales",
     "2. Intereses, experiencia y disponibilidad",
-    "3. Situaciones de desafío",
-    "4. Reflexión"
+    "3. Tu mirada como Builder",
+    "4. Situaciones de desafío",
+    "5. Reflexión"
   ];
 
   return (
@@ -471,7 +486,7 @@ export default function ApplyPage() {
                     <h2 style={{ fontSize: "2rem", color: c.white, marginBottom: "1.5rem", fontWeight: 600 }}>Antes de comenzar</h2>
                     
                     <div style={{ display: "flex", flexDirection: "column", gap: "1.2rem", color: "rgba(255,255,255,0.85)", fontSize: "1.05rem", lineHeight: 1.6, maxWidth: "550px", margin: "0 auto" }}>
-                      <p>Este cuestionario es parte del proceso de selección del programa <strong>The Builders Camp</strong>, enfocado en IA y emprendimiento para jóvenes.</p>
+                      <p>Este cuestionario es parte del proceso de selección del programa <strong>The Builders Camp</strong>.</p>
                       <p>No hay respuestas correctas ni incorrectas. Queremos conocerte tal como eres: tu forma de pensar, tus intereses y cómo enfrentas los desafíos.</p>
                       <p>Los postulantes seleccionados serán contactados directamente por WhatsApp con los próximos pasos.</p>
                     </div>
@@ -553,7 +568,27 @@ export default function ApplyPage() {
                       </div>
                       <div>
                         <label htmlFor="phone" style={labelStyle}>Teléfono *</label>
-                        <input type="tel" id="phone" required value={formValues.phone || ""} onChange={handleFieldChange} placeholder="+56 9..." autoComplete="tel" style={inputStyle} onFocus={handleFocus} onBlur={handleBlur} />
+                        <input
+                          type="tel"
+                          id="phone"
+                          required
+                          pattern="(?:\+569|9)[0-9]{8}"
+                          minLength={9}
+                          maxLength={12}
+                          value={formValues.phone || ""}
+                          onChange={handleFieldChange}
+                          placeholder="+56912345678 o 912345678"
+                          title="Ingresa el teléfono como +56912345678 o 912345678, sin espacios."
+                          aria-describedby="phone-help"
+                          autoComplete="tel"
+                          inputMode="tel"
+                          style={inputStyle}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        />
+                        <p id="phone-help" style={{ margin: "0.45rem 0 0", color: "rgba(255,255,255,0.58)", fontSize: "0.78rem", lineHeight: 1.4 }}>
+                          Formato: +56912345678 o 912345678, sin espacios.
+                        </p>
                       </div>
                     </div>
 
@@ -621,6 +656,21 @@ export default function ApplyPage() {
                     </div>
 
                     <div>
+                      <label htmlFor="future_studies" style={labelStyle}>¿Qué carrera, área o profesión piensas estudiar después de terminar el colegio? *</label>
+                      <textarea
+                        id="future_studies"
+                        required
+                        value={formValues.future_studies || ""}
+                        onChange={handleFieldChange}
+                        rows={3}
+                        placeholder="Cuéntanos qué te interesa estudiar. Si aún no lo sabes, también puedes decirlo."
+                        style={{ ...inputStyle, resize: "vertical" }}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                      />
+                    </div>
+
+                    <div>
                       <label style={labelStyle}>¿Tienes el apoyo de tu familia o tutor/a para participar en el programa? *</label>
                       <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem", marginTop: "0.5rem" }}>
                         {[
@@ -642,8 +692,7 @@ export default function ApplyPage() {
                         {[
                           "Sí, podría asistir sin inconvenientes.",
                           "Sí, podría asistir, pero necesitaría apoyo para transporte y/o alojamiento.",
-                          "Tal vez, depende de mi situación en ese momento.",
-                          "No podría asistir presencialmente."
+                          "Tal vez, depende de mi situación en ese momento."
                         ].map(opt => (
                           <label key={opt} onClick={() => setAttendance(opt)} style={{ display: "flex", alignItems: "center", gap: "0.6rem", cursor: "pointer", padding: "0.7rem 1rem", background: attendance === opt ? "rgba(139, 92, 246, 0.2)" : "rgba(0,0,0,0.2)", borderRadius: "10px", border: attendance === opt ? "1px solid rgba(139, 92, 246, 0.5)" : "1px solid transparent", transition: "all 0.2s", color: "rgba(255,255,255,0.9)", fontSize: "0.9rem" }}>
                             <input type="radio" name="attendance" value={opt} checked={attendance === opt} readOnly style={{ accentColor: c.orange, width: "16px", height: "16px", flexShrink: 0 }} />
@@ -655,8 +704,60 @@ export default function ApplyPage() {
                   </div>
                 )}
 
-                {/* STEP 3: SITUACIONES DE DESAFIO */}
+                {/* STEP 3: TU MIRADA COMO BUILDER */}
                 {step === 3 && (
+                    <section style={{ display: "grid", gap: "1.8rem" }}>
+
+                      <div>
+                        <label htmlFor="community_problem" style={labelStyle}>Si pudieras resolver un problema de tu colegio, comunidad o entorno, ¿cuál elegirías y por qué? *</label>
+                        <textarea id="community_problem" required value={formValues.community_problem || ""} onChange={handleFieldChange} rows={3} placeholder="Describe el problema y por qué te importa..." style={{ ...inputStyle, resize: "vertical" }} onFocus={handleFocus} onBlur={handleBlur} />
+                      </div>
+
+                      <div>
+                        <label style={labelStyle}>¿Con cuál de estas palabras te identificas más? Elige hasta 3. *</label>
+                        <div className="apply-grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.7rem", marginTop: "0.5rem" }}>
+                          {["Curioso/a", "Creativo/a", "Analítico/a", "Líder", "Comunicador/a", "Inquieto/a", "Emprendedor/a", "Tecnológico/a", "Optimista", "Empático/a", "Soñador/a", "Otro"].map((trait) => (
+                            <label key={trait} onClick={() => toggleTrait(trait)} style={{ display: "flex", alignItems: "center", gap: "0.6rem", cursor: selectedTraits.includes(trait) || selectedTraits.length < 3 ? "pointer" : "not-allowed", padding: "0.7rem 0.9rem", background: selectedTraits.includes(trait) ? "rgba(139, 92, 246, 0.2)" : "rgba(0,0,0,0.2)", borderRadius: "10px", border: selectedTraits.includes(trait) ? "1px solid rgba(139, 92, 246, 0.5)" : "1px solid transparent", color: "rgba(255,255,255,0.9)", fontSize: "0.9rem", opacity: !selectedTraits.includes(trait) && selectedTraits.length >= 3 ? 0.45 : 1 }}>
+                              <input type="checkbox" checked={selectedTraits.includes(trait)} readOnly style={{ accentColor: c.orange, width: "16px", height: "16px", flexShrink: 0 }} />
+                              {trait}
+                            </label>
+                          ))}
+                        </div>
+                        {selectedTraits.includes("Otro") && (
+                          <input
+                            type="text"
+                            id="trait_other"
+                            required
+                            value={formValues.trait_other || ""}
+                            onChange={handleFieldChange}
+                            placeholder="Especifica otra palabra"
+                            style={{ ...inputStyle, marginTop: "0.75rem" }}
+                            onFocus={handleFocus}
+                            onBlur={handleBlur}
+                          />
+                        )}
+                        {selectedTraits.length >= 3 && <p style={{ color: "rgba(255,200,100,0.8)", fontSize: "0.8rem", marginTop: "0.5rem" }}>Máximo 3 palabras seleccionadas.</p>}
+                      </div>
+
+                      <div>
+                        <label htmlFor="team_role" style={labelStyle}>En un equipo, ¿qué rol tiendes a tomar? *</label>
+                        <textarea id="team_role" required value={formValues.team_role || ""} onChange={handleFieldChange} rows={3} placeholder="Cuéntanos qué rol sueles asumir y cómo aportas al equipo..." style={{ ...inputStyle, resize: "vertical" }} onFocus={handleFocus} onBlur={handleBlur} />
+                      </div>
+
+                      <div>
+                        <label htmlFor="builder_meaning" style={labelStyle}>Completa la frase: “Para mí, ser un Builder significa…” *</label>
+                        <textarea id="builder_meaning" required value={formValues.builder_meaning || ""} onChange={handleFieldChange} rows={2} placeholder="Completa la frase..." style={{ ...inputStyle, resize: "vertical" }} onFocus={handleFocus} onBlur={handleBlur} />
+                      </div>
+
+                      <div>
+                        <label htmlFor="admired_person" style={labelStyle}>¿Qué persona admiras y por qué? *</label>
+                        <textarea id="admired_person" required value={formValues.admired_person || ""} onChange={handleFieldChange} rows={3} placeholder="Puede ser una persona real o ficticia..." style={{ ...inputStyle, resize: "vertical" }} onFocus={handleFocus} onBlur={handleBlur} />
+                      </div>
+                    </section>
+                )}
+
+                {/* STEP 4: SITUACIONES DE DESAFIO */}
+                {step === 4 && (
                   <div style={{ display: "grid", gap: "2.5rem" }}>
                     {step3Questions.map((q, idx) => (
                       <div key={q.id} style={{ background: "rgba(255,255,255,0.03)", padding: "1.5rem", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.05)" }}>
@@ -688,8 +789,8 @@ export default function ApplyPage() {
                   </div>
                 )}
 
-                {/* STEP 4: REFLEXION */}
-                {step === 4 && (
+                {/* STEP 5: REFLEXION */}
+                {step === 5 && (
                   <div style={{ display: "grid", gap: "2rem" }}>
                     <div>
                       <label htmlFor="ref_1" style={labelStyle}>¿Por qué quieres ser parte de The Builders Camp? Cuéntanos en tus propias palabras. *</label>
@@ -702,8 +803,27 @@ export default function ApplyPage() {
                     </div>
 
                     <div>
-                      <label htmlFor="ref_3" style={labelStyle}>¿Qué significa ser un buen líder? ¿Conoces a alguien (real o ficticio) que lo represente? ¿Por qué? *</label>
-                      <textarea id="ref_3" required value={formValues.ref_3 || ""} onChange={handleFieldChange} rows={4} placeholder="Describe tu visión de liderazgo..." style={{ ...inputStyle, resize: "vertical" }} onFocus={handleFocus} onBlur={handleBlur}></textarea>
+                      <label style={labelStyle}>The Builders Camp tiene un costo de $60.000 para cubrir gastos asociados al programa. ¿Cuál de estas opciones describe mejor tu situación? *</label>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem", marginTop: "0.5rem" }}>
+                        {[
+                          "Sí, puedo pagar el costo total de $60.000.",
+                          "Podría pagar una parte del costo.",
+                          "No podría pagarlo y necesitaría apoyo o una beca.",
+                        ].map((option) => (
+                          <label key={option} style={{ display: "flex", alignItems: "flex-start", gap: "0.7rem", cursor: "pointer", padding: "0.8rem 1rem", background: paymentCapacity === option ? "rgba(139, 92, 246, 0.2)" : "rgba(0,0,0,0.2)", borderRadius: "10px", border: paymentCapacity === option ? "1px solid rgba(139, 92, 246, 0.5)" : "1px solid transparent", transition: "all 0.2s", color: "rgba(255,255,255,0.9)", fontSize: "0.9rem", lineHeight: 1.45 }}>
+                            <input
+                              type="radio"
+                              name="paymentCapacity"
+                              value={option}
+                              required
+                              checked={paymentCapacity === option}
+                              onChange={(event) => setPaymentCapacity(event.target.value)}
+                              style={{ accentColor: c.orange, width: "17px", height: "17px", marginTop: "2px", flexShrink: 0 }}
+                            />
+                            {option}
+                          </label>
+                        ))}
+                      </div>
                     </div>
 
                     <label style={{

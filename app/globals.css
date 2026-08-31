@@ -157,6 +157,10 @@ body footer .footer-col .footer-section-title {
   text-transform: uppercase;
 }
 
+.hero-meta-icon {
+  flex-shrink: 0;
+}
+
 .hero-program-button {
   display: inline-flex;
   align-items: center;
@@ -1085,8 +1089,24 @@ body footer .footer-col .footer-section-title {
 
   .hero-apply-button,
   .hero-program-button {
-    padding: 0.72rem 1.25rem !important;
-    font-size: 0.78rem !important;
+    flex: 0 1 auto;
+    min-width: 0;
+    padding: 0.68rem 0.85rem !important;
+    gap: 0.35rem !important;
+    font-size: 0.7rem !important;
+    white-space: nowrap;
+  }
+
+  .hero-cta-wrap {
+    flex-wrap: nowrap !important;
+    gap: 0.5rem !important;
+    max-width: 100% !important;
+  }
+
+  .hero-cta-wrap svg {
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
   }
 
   .application-steps {
@@ -1232,6 +1252,23 @@ body footer .footer-col .footer-section-title {
   .hero-meta {
     flex-direction: column !important;
     gap: 0.8rem !important;
+  }
+
+  .hero-meta-item {
+    width: 100%;
+    justify-content: center;
+    gap: 0.5rem !important;
+  }
+
+  .hero-meta-icon {
+    flex: 0 0 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .hero-meta-item span {
+    min-width: 0;
+    text-align: left;
   }
 
   .nav-inner {
