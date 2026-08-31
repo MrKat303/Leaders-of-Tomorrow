@@ -29,8 +29,9 @@ const mobileStyles = `
       font-size: 0.9rem !important;
     }
     .apply-nav-btn {
-      padding: 0.9rem !important;
-      font-size: 0.95rem !important;
+      padding: 0.72rem 1rem !important;
+      font-size: 0.88rem !important;
+      min-width: 0 !important;
     }
   }
 `;
@@ -48,102 +49,62 @@ const c = {
 const step3Questions = [
   {
     id: "q1",
-    q: "Un integrante del equipo hace lo mínimo posible. Cuando le asignan tareas, las entrega incompletas o tarde. El resto del equipo está cargando con más trabajo. ¿Qué haces?",
+    q: "Tienes una idea que te entusiasma mucho, pero cuando se la muestras a otras personas, no genera la reacción que esperabas. ¿Qué haces?",
     options: [
-      "A. Hago su parte yo para que el proyecto no sufra.",
-      "B. Lo confronto frente al equipo para que todos vean el problema.",
-      "C. Hablo con él en privado, entiendo qué le pasa y acordamos una tarea concreta que pueda cumplir.",
-      "D. Lo reporto al facilitador de inmediato."
+      "Intento explicarla de otra manera antes de cambiarla.",
+      "Les pregunto qué no les convence e intento entender sus razones.",
+      "Pruebo una versión pequeña de la idea para ver cómo funciona en la práctica.",
+      "La dejo por un momento y exploro otras alternativas."
     ]
   },
   {
     id: "q2",
-    q: "Dos integrantes del equipo tienen visiones opuestas y el conflicto está paralizando el proyecto. ¿Qué haces?",
+    q: "Están avanzando en un proyecto y una persona del equipo propone cambiar una parte importante cuando ya queda poco tiempo. Su argumento te parece interesante. ¿Qué harías?",
     options: [
-      "A. Apoyo a quien tenga más razón y listo.",
-      "B. Propongo que expongan sus argumentos y el equipo decida con criterios claros.",
-      "C. Evito el conflicto y cambio el tema.",
-      "D. Llamo a un adulto para que resuelva."
+      "Mantendría el plan original porque cambiar ahora puede poner en riesgo el resultado.",
+      "Le pediría que explique qué ganaríamos con el cambio antes de decidir.",
+      "Probaría rápidamente el cambio en una parte pequeña del proyecto.",
+      "Apoyaría el cambio si creo que puede mejorar significativamente el resultado."
     ]
   },
   {
     id: "q3",
-    q: "Te eligen líder de un proyecto grupal pero nadie quería ese rol. El equipo está desmotivado. ¿Cómo empiezas?",
+    q: "Te asignan una tarea importante para el proyecto y, después de empezar, te das cuenta de que no sabes bien cómo resolverla. ¿Qué haces primero?",
     options: [
-      "A. Reparto tareas y exijo que se cumplan.",
-      "B. Organizo una conversación para entender qué le importa a cada uno y conectarlo con el proyecto.",
-      "C. Hago todo yo para asegurarme de que salga bien.",
-      "D. Propongo votar un nuevo líder."
+      "Investigo por mi cuenta hasta encontrar una forma de avanzar.",
+      "Le pregunto a alguien que tenga más experiencia.",
+      "Pruebo distintas formas de resolverla y aprendo a partir de los resultados.",
+      "Se lo comunico al equipo para decidir juntos cómo abordarla."
     ]
   },
   {
     id: "q4",
-    q: "El proyecto que liderabas fracasó. El equipo está desanimado y el tutor pide explicaciones. ¿Qué dices?",
+    q: "Tu equipo debe presentar frente a muchas personas. Quien iba a exponer se pone muy nervioso/a minutos antes y dice que no sabe si podrá hacerlo. ¿Qué haces?",
     options: [
-      "A. Explico qué errores cometió el equipo.",
-      "B. Asumo la responsabilidad, explico qué salió mal y qué haría diferente.",
-      "C. Digo que las circunstancias no permitieron un buen resultado.",
-      "D. Evito la reunión."
+      "Me ofrezco a presentar en su lugar para asegurar que el equipo pueda continuar.",
+      "Le propongo presentar juntos y dividirnos las partes.",
+      "Intento tranquilizarlo/a y mantener el plan original.",
+      "Reorganizo rápidamente la presentación entre varias personas del equipo."
     ]
   },
   {
     id: "q5",
-    q: "Tu equipo tiene dos propuestas para resolver el mismo problema. Una es más innovadora pero riesgosa; la otra es más segura pero menos original. ¿Qué recomiendas?",
+    q: "Una persona de tu equipo propone muchas ideas y habla gran parte del tiempo. Sus aportes son buenos, pero notas que los demás casi no están participando. ¿Qué haces?",
     options: [
-      "A. La segura, siempre es mejor no arriesgarse.",
-      "B. La innovadora, sin riesgo no hay recompensa.",
-      "C. Analizo qué criterios importan más en este contexto y recomiendo según eso, explicando el razonamiento.",
-      "D. Dejo que el equipo decida sin dar mi opinión."
+      "No intervengo mientras sus ideas sigan ayudando al proyecto.",
+      "Intento abrir la conversación preguntando directamente qué piensan los demás.",
+      "Hablo después con esa persona y le comento lo que estoy observando.",
+      "Propongo una dinámica donde todos tengan un espacio para plantear ideas."
     ]
   },
   {
     id: "q6",
-    q: "Tu equipo lleva días trabajando en una solución. A último momento descubres que ya existe algo muy similar. ¿Qué decides?",
+    q: "Después de trabajar varias horas en una idea, un mentor les dice que el problema que están resolviendo probablemente no es tan relevante como creen. ¿Qué haces?",
     options: [
-      "A. Ocultarlo para no desmoralizar al equipo.",
-      "B. Presentarlo igual, el esfuerzo igual vale.",
-      "C. Informar al equipo, analizar qué tiene de diferente tu propuesta y destacar eso.",
-      "D. Empezar todo de cero."
-    ]
-  },
-  {
-    id: "q7",
-    q: "Tu idea inicial no funcionó como esperabas. ¿Cómo reaccionas?",
-    options: [
-      "A. Me desanimo y busco otra idea desde cero.",
-      "B. Analizo qué falló específicamente y ajusto esa parte.",
-      "C. Pregunto a otros qué harían y sigo su consejo.",
-      "D. Insisto con la misma idea porque creo que es buena."
-    ]
-  },
-  {
-    id: "q8",
-    q: "Un compañero llega al trabajo grupal muy mal humorado y contesta cortante. Esto afecta el ambiente del equipo. ¿Qué haces?",
-    options: [
-      "A. Lo ignoro y sigo trabajando.",
-      "B. Le digo frente a todos que está afectando al equipo.",
-      "C. En un momento tranquilo le pregunto cómo está, sin drama.",
-      "D. Le pido al tutor que intervenga."
-    ]
-  },
-  {
-    id: "q10",
-    q: "Estás bajo mucha presión y sientes que no puedes con todo. ¿Qué haces?",
-    options: [
-      "A. Sigo adelante sin decirle nada a nadie.",
-      "B. Pido ayuda o delego alguna tarea, reconociendo mis límites.",
-      "C. Me desconecto del proyecto hasta sentirme mejor.",
-      "D. Culpo a otros por la carga excesiva."
-    ]
-  },
-  {
-    id: "q11",
-    q: "Debes convencer a alguien que no está de acuerdo contigo. ¿Qué estrategia usas?",
-    options: [
-      "A. Repito mi argumento con más fuerza hasta que entienda.",
-      "B. Primero entiendo su punto de vista, luego busco puntos en común y desde ahí construyo.",
-      "C. Lo dejo hablar, pero no cambio mi postura.",
-      "D. Cedo para evitar el conflicto."
+      "Le pregunto qué observó para llegar a esa conclusión.",
+      "Defiendo la idea explicando la evidencia que tenemos.",
+      "Busco más información antes de decidir si debemos cambiar.",
+      "Propongo explorar rápidamente otro problema para compararlo con el actual."
     ]
   }
 ];
@@ -159,7 +120,6 @@ export default function ApplyPage() {
   const [attendance, setAttendance] = useState("");
   const [paymentCapacity, setPaymentCapacity] = useState("");
   const [selectedTraits, setSelectedTraits] = useState<string[]>([]);
-  const [extracurriculares, setExtracurriculares] = useState<string[]>([]);
   const [formValues, setFormValues] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -170,12 +130,6 @@ export default function ApplyPage() {
   const toggleArea = (area: string) => {
     setSelectedAreas(prev => 
       prev.includes(area) ? prev.filter(a => a !== area) : prev.length < 2 ? [...prev, area] : prev
-    );
-  };
-
-  const toggleExtra = (item: string) => {
-    setExtracurriculares(prev =>
-      prev.includes(item) ? prev.filter(a => a !== item) : [...prev, item]
     );
   };
 
@@ -216,7 +170,7 @@ export default function ApplyPage() {
   const nextStep = () => {
     if (step >= totalSteps) return;
 
-    if (step === 2 && (!hasLiderado || selectedAreas.length === 0 || !familySupport || !attendance)) {
+    if (step === 2 && (!hasLiderado || selectedAreas.length === 0 || !familySupport || !paymentCapacity || !attendance)) {
       alert("Por favor, completa todas las preguntas obligatorias antes de continuar.");
       return;
     }
@@ -290,23 +244,40 @@ export default function ApplyPage() {
     const attendanceLabels = [
       "Sí, podría asistir sin inconvenientes.",
       "Sí, pero necesitaría apoyo para transporte y/o alojamiento.",
+      "Tal vez, depende de mi situación en ese momento.",
       "Tal vez, depende de mi situación en ese momento."
     ];
     const websiteAttendance = [
-      "Sí, podría asistir sin inconvenientes.",
-      "Sí, podría asistir, pero necesitaría apoyo para transporte y/o alojamiento.",
-      "Tal vez, depende de mi situación en ese momento."
+      "Sí, podría participar durante los cinco días sin inconvenientes.",
+      "Sí, pero necesitaría apoyo para transporte y/o alojamiento.",
+      "Probablemente sí, aunque todavía debo confirmar algunos detalles.",
+      "No estoy seguro/a por el momento."
+    ];
+    const familyLabels = [
+      "Sí, tienen todo el apoyo",
+      "Sí, aunque aún no les he contado los detalles",
+      "Aún no sé, debo conversarlo con ellos",
+      "Aún no sé, debo conversarlo con ellos"
+    ];
+    const websiteFamilySupport = [
+      "Sí, y apoya mi participación.",
+      "Sí, pero todavía tenemos que conversar algunos detalles.",
+      "Aún no les he contado sobre mi postulación.",
+      "Prefiero conversarlo con ellos si avanzo en el proceso."
     ];
 
     const supplementalAnswers = [
       formValues.actividades_desc?.trim(),
-      `Qué piensa estudiar: ${formValues.future_studies || ""}`,
+      `Área, tema o profesión que le interesa explorar: ${formValues.future_interest || ""}`,
+      `Tema que podría investigar o aprender durante horas: ${formValues.curiosity_topic || ""}`,
       `Problema que resolvería en su entorno: ${formValues.community_problem || ""}`,
       `Palabras con las que se identifica: ${selectedTraits.map((trait) => trait === "Otro" ? `Otro: ${formValues.trait_other || ""}` : trait).join(", ")}`,
       `Rol que toma en un equipo: ${formValues.team_role || ""}`,
-      `Para mí, ser un Builder significa: ${formValues.builder_meaning || ""}`,
       `Persona que admira y por qué: ${formValues.admired_person || ""}`,
       `Capacidad de pago del programa: ${paymentCapacity}`,
+      ...step3Questions.map((question, index) =>
+        `Situación de desafío ${index + 1}: ${question.q}\nRespuesta: ${answers[question.id] || ""}`
+      ),
     ].filter(Boolean).join("\n\n");
 
     const payload = new URLSearchParams({
@@ -322,14 +293,13 @@ export default function ApplyPage() {
       "entry.1363239132": formValues.tiempo_libre || "",
       "entry.589482520": hasLiderado,
       "entry.133956557": supplementalAnswers,
-      "entry.1809938391": familySupport,
+      "entry.1809938391": familyLabels[websiteFamilySupport.indexOf(familySupport)] || "",
       "entry.409709723": attendanceLabels[websiteAttendance.indexOf(attendance)] || "",
       "entry.1526197600": formValues.ref_1 || "",
       "entry.1723851986": formValues.ref_2 || "",
       "entry.1807435063": "Acepto que mis datos sean utilizados exclusivamente para analizar mi postulación a The Builders Camp. No serán compartidos con terceros ni descargados por ningún motivo."
     });
 
-    extracurriculares.forEach(value => payload.append("entry.1376439101", value));
     selectedAreas.forEach(value => payload.append("entry.1266806866", value));
     step3Questions.forEach((question, index) => {
       const selectedIndex = question.options.indexOf(answers[question.id]);
@@ -417,8 +387,8 @@ export default function ApplyPage() {
   const stepTitles = [
     "1. Datos personales",
     "2. Intereses, experiencia y disponibilidad",
-    "3. Tu mirada como Builder",
-    "4. Situaciones de desafío",
+    "3. Tu lado Builder",
+    "4. Cómo tomas decisiones",
     "5. Reflexión"
   ];
 
@@ -631,39 +601,30 @@ export default function ApplyPage() {
                     )}
 
                     <div>
-                      <label style={labelStyle}>¿Qué actividades extracurriculares realizas?</label>
-                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.7rem", marginTop: "0.5rem" }}>
-                        {["Voluntariado", "Emprendimiento", "Deportes", "Debate", "Ciencias", "Arte", "Centros de estudiantes", "Otro"].map(act => (
-                          <label key={act} onClick={() => toggleExtra(act)} style={{ display: "flex", alignItems: "center", gap: "0.6rem", cursor: "pointer", padding: "0.65rem 0.9rem", background: extracurriculares.includes(act) ? "rgba(139, 92, 246, 0.2)" : "rgba(0,0,0,0.2)", borderRadius: "10px", border: extracurriculares.includes(act) ? "1px solid rgba(139, 92, 246, 0.5)" : "1px solid transparent", transition: "all 0.2s", color: "rgba(255,255,255,0.9)", fontSize: "0.9rem" }}>
-                            <input type="checkbox" checked={extracurriculares.includes(act)} readOnly style={{ accentColor: c.orange, width: "16px", height: "16px", flexShrink: 0 }} />
-                            {act}
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
                       <label style={labelStyle}>¿Cuál de estas áreas te interesa más explorar durante el bootcamp? Elige hasta 2. *</label>
                       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.7rem", marginTop: "0.5rem" }}>
                         {["Inteligencia artificial", "Emprendimiento e innovación", "Diseño de soluciones sociales", "Liderazgo y habilidades blandas", "Programación o desarrollo", "Comunicación y presentación de ideas", "No estoy seguro/a aún"].map(area => (
-                          <label key={area} onClick={() => toggleArea(area)} style={{ display: "flex", alignItems: "center", gap: "0.6rem", cursor: selectedAreas.includes(area) || selectedAreas.length < 2 ? "pointer" : "not-allowed", padding: "0.65rem 0.9rem", background: selectedAreas.includes(area) ? "rgba(139, 92, 246, 0.2)" : "rgba(0,0,0,0.2)", borderRadius: "10px", border: selectedAreas.includes(area) ? "1px solid rgba(139, 92, 246, 0.5)" : "1px solid transparent", transition: "all 0.2s", color: "rgba(255,255,255,0.9)", fontSize: "0.9rem", opacity: !selectedAreas.includes(area) && selectedAreas.length >= 2 ? 0.4 : 1 }}>
-                            <input type="checkbox" checked={selectedAreas.includes(area)} readOnly style={{ accentColor: c.orange, width: "16px", height: "16px", flexShrink: 0 }} />
+                          <button type="button" key={area} aria-pressed={selectedAreas.includes(area)} onClick={() => toggleArea(area)} style={{ display: "flex", alignItems: "center", textAlign: "left", width: "100%", gap: "0.6rem", cursor: selectedAreas.includes(area) || selectedAreas.length < 2 ? "pointer" : "not-allowed", padding: "0.65rem 0.9rem", background: selectedAreas.includes(area) ? "rgba(139, 92, 246, 0.2)" : "rgba(0,0,0,0.2)", borderRadius: "10px", border: selectedAreas.includes(area) ? "1px solid rgba(139, 92, 246, 0.5)" : "1px solid transparent", transition: "all 0.2s", color: "rgba(255,255,255,0.9)", fontFamily: "inherit", fontSize: "0.9rem", opacity: !selectedAreas.includes(area) && selectedAreas.length >= 2 ? 0.4 : 1 }}>
+                            <input type="checkbox" checked={selectedAreas.includes(area)} readOnly tabIndex={-1} aria-hidden="true" style={{ accentColor: c.orange, width: "16px", height: "16px", flexShrink: 0, pointerEvents: "none" }} />
                             {area}
-                          </label>
+                          </button>
                         ))}
                       </div>
                       {selectedAreas.length >= 2 && <p style={{ color: "rgba(255,200,100,0.8)", fontSize: "0.8rem", marginTop: "0.5rem" }}>Máximo 2 áreas seleccionadas.</p>}
                     </div>
 
                     <div>
-                      <label htmlFor="future_studies" style={labelStyle}>¿Qué carrera, área o profesión piensas estudiar después de terminar el colegio? *</label>
+                      <label htmlFor="future_interest" style={labelStyle}>¿Hay algún área, tema o profesión que hoy te interese explorar en el futuro? *</label>
+                      <p style={{ margin: "-0.15rem 0 0.65rem", color: "rgba(255,255,255,0.62)", fontSize: "0.84rem", lineHeight: 1.45 }}>
+                        No necesitas tenerlo decidido.
+                      </p>
                       <textarea
-                        id="future_studies"
+                        id="future_interest"
                         required
-                        value={formValues.future_studies || ""}
+                        value={formValues.future_interest || ""}
                         onChange={handleFieldChange}
                         rows={3}
-                        placeholder="Cuéntanos qué te interesa estudiar. Si aún no lo sabes, también puedes decirlo."
+                        placeholder="Cuéntanos qué te gustaría explorar..."
                         style={{ ...inputStyle, resize: "vertical" }}
                         onFocus={handleFocus}
                         onBlur={handleBlur}
@@ -671,12 +632,28 @@ export default function ApplyPage() {
                     </div>
 
                     <div>
-                      <label style={labelStyle}>¿Tienes el apoyo de tu familia o tutor/a para participar en el programa? *</label>
+                      <label htmlFor="curiosity_topic" style={labelStyle}>¿Qué tema podría tenerte horas investigando, conversando o aprendiendo sin que nadie te lo pidiera? ¿Por qué? *</label>
+                      <textarea
+                        id="curiosity_topic"
+                        required
+                        value={formValues.curiosity_topic || ""}
+                        onChange={handleFieldChange}
+                        rows={3}
+                        placeholder="Cuéntanos qué tema despierta tu curiosidad y por qué..."
+                        style={{ ...inputStyle, resize: "vertical" }}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
+                      />
+                    </div>
+
+                    <div>
+                      <label style={labelStyle}>¿Tu familia o adulto responsable sabe que estás postulando a The Builders Camp? *</label>
                       <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem", marginTop: "0.5rem" }}>
                         {[
-                          "Sí, tienen todo el apoyo",
-                          "Sí, aunque aún no les he contado los detalles",
-                          "Aún no sé, debo conversarlo con ellos"
+                          "Sí, y apoya mi participación.",
+                          "Sí, pero todavía tenemos que conversar algunos detalles.",
+                          "Aún no les he contado sobre mi postulación.",
+                          "Prefiero conversarlo con ellos si avanzo en el proceso."
                         ].map(opt => (
                           <label key={opt} onClick={() => setFamilySupport(opt)} style={{ display: "flex", alignItems: "center", gap: "0.6rem", cursor: "pointer", padding: "0.7rem 1rem", background: familySupport === opt ? "rgba(139, 92, 246, 0.2)" : "rgba(0,0,0,0.2)", borderRadius: "10px", border: familySupport === opt ? "1px solid rgba(139, 92, 246, 0.5)" : "1px solid transparent", transition: "all 0.2s", color: "rgba(255,255,255,0.9)", fontSize: "0.9rem" }}>
                             <input type="radio" name="family" value={opt} checked={familySupport === opt} readOnly style={{ accentColor: c.orange, width: "16px", height: "16px", flexShrink: 0 }} />
@@ -687,12 +664,13 @@ export default function ApplyPage() {
                     </div>
 
                     <div>
-                      <label style={labelStyle}>El Bootcamp se realizará presencialmente en Santiago durante una semana completa. En caso de ser seleccionado/a, ¿qué tan posible sería tu asistencia? *</label>
+                      <label style={labelStyle}>The Builders Camp se realizará presencialmente en Santiago del 14 al 18 de diciembre. En caso de ser seleccionado/a, ¿podrías participar durante los cinco días? *</label>
                       <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem", marginTop: "0.5rem" }}>
                         {[
-                          "Sí, podría asistir sin inconvenientes.",
-                          "Sí, podría asistir, pero necesitaría apoyo para transporte y/o alojamiento.",
-                          "Tal vez, depende de mi situación en ese momento."
+                          "Sí, podría participar durante los cinco días sin inconvenientes.",
+                          "Sí, pero necesitaría apoyo para transporte y/o alojamiento.",
+                          "Probablemente sí, aunque todavía debo confirmar algunos detalles.",
+                          "No estoy seguro/a por el momento."
                         ].map(opt => (
                           <label key={opt} onClick={() => setAttendance(opt)} style={{ display: "flex", alignItems: "center", gap: "0.6rem", cursor: "pointer", padding: "0.7rem 1rem", background: attendance === opt ? "rgba(139, 92, 246, 0.2)" : "rgba(0,0,0,0.2)", borderRadius: "10px", border: attendance === opt ? "1px solid rgba(139, 92, 246, 0.5)" : "1px solid transparent", transition: "all 0.2s", color: "rgba(255,255,255,0.9)", fontSize: "0.9rem" }}>
                             <input type="radio" name="attendance" value={opt} checked={attendance === opt} readOnly style={{ accentColor: c.orange, width: "16px", height: "16px", flexShrink: 0 }} />
@@ -701,10 +679,36 @@ export default function ApplyPage() {
                         ))}
                       </div>
                     </div>
+
+                    <div>
+                      <label style={labelStyle}>The Builders Camp tiene un costo de participación de $60.000. En caso de ser seleccionado/a, ¿cuál de estas opciones describe mejor tu situación? *</label>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem", marginTop: "0.5rem" }}>
+                        {[
+                          "Podría cubrir el costo total de $60.000.",
+                          "Podría cubrir una parte del costo.",
+                          "Necesitaría una beca para poder participar.",
+                        ].map((option) => (
+                          <label key={option} style={{ display: "flex", alignItems: "flex-start", gap: "0.7rem", cursor: "pointer", padding: "0.8rem 1rem", background: paymentCapacity === option ? "rgba(139, 92, 246, 0.2)" : "rgba(0,0,0,0.2)", borderRadius: "10px", border: paymentCapacity === option ? "1px solid rgba(139, 92, 246, 0.5)" : "1px solid transparent", transition: "all 0.2s", color: "rgba(255,255,255,0.9)", fontSize: "0.9rem", lineHeight: 1.45 }}>
+                            <input
+                              type="radio"
+                              name="paymentCapacity"
+                              value={option}
+                              checked={paymentCapacity === option}
+                              onChange={(event) => setPaymentCapacity(event.target.value)}
+                              style={{ accentColor: c.orange, width: "17px", height: "17px", marginTop: "2px", flexShrink: 0 }}
+                            />
+                            {option}
+                          </label>
+                        ))}
+                      </div>
+                      <p style={{ margin: "0.75rem 0 0", color: "rgba(255,255,255,0.62)", fontSize: "0.82rem", lineHeight: 1.5 }}>
+                        Tu respuesta no influirá en el proceso de selección. Esta información nos permitirá conocer las necesidades de apoyo de quienes postulan.
+                      </p>
+                    </div>
                   </div>
                 )}
 
-                {/* STEP 3: TU MIRADA COMO BUILDER */}
+                {/* STEP 3: TU LADO BUILDER */}
                 {step === 3 && (
                     <section style={{ display: "grid", gap: "1.8rem" }}>
 
@@ -717,10 +721,10 @@ export default function ApplyPage() {
                         <label style={labelStyle}>¿Con cuál de estas palabras te identificas más? Elige hasta 3. *</label>
                         <div className="apply-grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.7rem", marginTop: "0.5rem" }}>
                           {["Curioso/a", "Creativo/a", "Analítico/a", "Líder", "Comunicador/a", "Inquieto/a", "Emprendedor/a", "Tecnológico/a", "Optimista", "Empático/a", "Soñador/a", "Otro"].map((trait) => (
-                            <label key={trait} onClick={() => toggleTrait(trait)} style={{ display: "flex", alignItems: "center", gap: "0.6rem", cursor: selectedTraits.includes(trait) || selectedTraits.length < 3 ? "pointer" : "not-allowed", padding: "0.7rem 0.9rem", background: selectedTraits.includes(trait) ? "rgba(139, 92, 246, 0.2)" : "rgba(0,0,0,0.2)", borderRadius: "10px", border: selectedTraits.includes(trait) ? "1px solid rgba(139, 92, 246, 0.5)" : "1px solid transparent", color: "rgba(255,255,255,0.9)", fontSize: "0.9rem", opacity: !selectedTraits.includes(trait) && selectedTraits.length >= 3 ? 0.45 : 1 }}>
-                              <input type="checkbox" checked={selectedTraits.includes(trait)} readOnly style={{ accentColor: c.orange, width: "16px", height: "16px", flexShrink: 0 }} />
+                            <button type="button" key={trait} aria-pressed={selectedTraits.includes(trait)} onClick={() => toggleTrait(trait)} style={{ display: "flex", alignItems: "center", textAlign: "left", width: "100%", gap: "0.6rem", cursor: selectedTraits.includes(trait) || selectedTraits.length < 3 ? "pointer" : "not-allowed", padding: "0.7rem 0.9rem", background: selectedTraits.includes(trait) ? "rgba(139, 92, 246, 0.2)" : "rgba(0,0,0,0.2)", borderRadius: "10px", border: selectedTraits.includes(trait) ? "1px solid rgba(139, 92, 246, 0.5)" : "1px solid transparent", color: "rgba(255,255,255,0.9)", fontFamily: "inherit", fontSize: "0.9rem", opacity: !selectedTraits.includes(trait) && selectedTraits.length >= 3 ? 0.45 : 1 }}>
+                              <input type="checkbox" checked={selectedTraits.includes(trait)} readOnly tabIndex={-1} aria-hidden="true" style={{ accentColor: c.orange, width: "16px", height: "16px", flexShrink: 0, pointerEvents: "none" }} />
                               {trait}
-                            </label>
+                            </button>
                           ))}
                         </div>
                         {selectedTraits.includes("Otro") && (
@@ -742,11 +746,6 @@ export default function ApplyPage() {
                       <div>
                         <label htmlFor="team_role" style={labelStyle}>En un equipo, ¿qué rol tiendes a tomar? *</label>
                         <textarea id="team_role" required value={formValues.team_role || ""} onChange={handleFieldChange} rows={3} placeholder="Cuéntanos qué rol sueles asumir y cómo aportas al equipo..." style={{ ...inputStyle, resize: "vertical" }} onFocus={handleFocus} onBlur={handleBlur} />
-                      </div>
-
-                      <div>
-                        <label htmlFor="builder_meaning" style={labelStyle}>Completa la frase: “Para mí, ser un Builder significa…” *</label>
-                        <textarea id="builder_meaning" required value={formValues.builder_meaning || ""} onChange={handleFieldChange} rows={2} placeholder="Completa la frase..." style={{ ...inputStyle, resize: "vertical" }} onFocus={handleFocus} onBlur={handleBlur} />
                       </div>
 
                       <div>
@@ -802,30 +801,6 @@ export default function ApplyPage() {
                       <textarea id="ref_2" required value={formValues.ref_2 || ""} onChange={handleFieldChange} rows={4} placeholder="Escribe tu opinión honesta..." style={{ ...inputStyle, resize: "vertical" }} onFocus={handleFocus} onBlur={handleBlur}></textarea>
                     </div>
 
-                    <div>
-                      <label style={labelStyle}>The Builders Camp tiene un costo de $60.000 para cubrir gastos asociados al programa. ¿Cuál de estas opciones describe mejor tu situación? *</label>
-                      <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem", marginTop: "0.5rem" }}>
-                        {[
-                          "Sí, puedo pagar el costo total de $60.000.",
-                          "Podría pagar una parte del costo.",
-                          "No podría pagarlo y necesitaría apoyo o una beca.",
-                        ].map((option) => (
-                          <label key={option} style={{ display: "flex", alignItems: "flex-start", gap: "0.7rem", cursor: "pointer", padding: "0.8rem 1rem", background: paymentCapacity === option ? "rgba(139, 92, 246, 0.2)" : "rgba(0,0,0,0.2)", borderRadius: "10px", border: paymentCapacity === option ? "1px solid rgba(139, 92, 246, 0.5)" : "1px solid transparent", transition: "all 0.2s", color: "rgba(255,255,255,0.9)", fontSize: "0.9rem", lineHeight: 1.45 }}>
-                            <input
-                              type="radio"
-                              name="paymentCapacity"
-                              value={option}
-                              required
-                              checked={paymentCapacity === option}
-                              onChange={(event) => setPaymentCapacity(event.target.value)}
-                              style={{ accentColor: c.orange, width: "17px", height: "17px", marginTop: "2px", flexShrink: 0 }}
-                            />
-                            {option}
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-
                     <label style={{
                       display: "flex",
                       alignItems: "flex-start",
@@ -854,10 +829,10 @@ export default function ApplyPage() {
 
                 {/* Navigation Buttons */}
                 {step > 0 && (
-                  <div style={{ display: "flex", gap: "1rem", marginTop: "2.5rem" }}>
+                  <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.75rem", marginTop: "2.5rem" }}>
                     {step > 1 && (
-                      <button type="button" onClick={prevStep} style={{ 
-                        flex: 1, background: "rgba(255,255,255,0.08)", color: "white", padding: "1.1rem", 
+                      <button className="apply-nav-btn" type="button" onClick={prevStep} style={{ 
+                        background: "rgba(255,255,255,0.08)", color: "white", padding: "0.8rem 1.35rem", 
                         borderRadius: "14px", border: "1px solid rgba(255,255,255,0.1)", fontWeight: 700, cursor: "pointer",
                         transition: "all 0.2s"
                       }} onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.15)"} onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.08)"}>
@@ -865,10 +840,10 @@ export default function ApplyPage() {
                       </button>
                     )}
                     
-                    <button type="submit" disabled={isSubmitting} style={{ 
-                      flex: step > 1 ? 2 : 1, background: c.orange, color: "white", padding: "1.1rem", 
-                      borderRadius: "14px", border: "none", fontWeight: 800, cursor: "pointer",
-                      boxShadow: "0 4px 15px rgba(139, 92, 246, 0.4)", transition: "all 0.2s", width: "100%",
+                    <button className="apply-nav-btn" type="submit" disabled={isSubmitting} style={{ 
+                      background: c.orange, color: "white", padding: "0.8rem 1.5rem", minWidth: "170px",
+                      borderRadius: "14px", border: "none", fontWeight: 700, cursor: "pointer",
+                      boxShadow: "0 4px 15px rgba(139, 92, 246, 0.4)", transition: "all 0.2s",
                       opacity: isSubmitting ? 0.65 : 1
                     }} onMouseEnter={e => e.currentTarget.style.transform = "translateY(-2px)"} onMouseLeave={e => e.currentTarget.style.transform = "translateY(0)"}>
                       {step < totalSteps ? "Continuar" : isSubmitting ? "Enviando..." : "Finalizar postulación"}

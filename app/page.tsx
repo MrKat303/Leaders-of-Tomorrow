@@ -153,30 +153,24 @@ export default function Home() {
     // ── FAQ entrance on desktop only ──
     const faqMedia = gsap.matchMedia();
     faqMedia.add("(min-width: 769px) and (prefers-reduced-motion: no-preference)", () => {
-      const faqTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".faq-section",
-          start: "top 92%",
-          end: "bottom 12%",
-          scrub: 1,
-        },
-      });
+      const faqItems = gsap.utils.toArray<HTMLElement>(".faq-item");
 
-      faqTimeline
-        .from(".faq-item", {
+      faqItems.forEach((item) => {
+        gsap.fromTo(item, {
           opacity: 0,
           y: 38,
-          duration: 0.7,
-          stagger: 0.12,
-          ease: "power3.out",
-        })
-        .to(".faq-item", {
-          opacity: 0,
-          y: -30,
-          duration: 0.7,
-          stagger: 0.1,
-          ease: "power2.in",
-        }, "+=0.8");
+        }, {
+          opacity: 1,
+          y: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 92%",
+            end: "top 72%",
+            scrub: 0.5,
+          },
+        });
+      });
     });
 
     // ── Airplane enters, crosses the FAQ and leaves with the scroll ──
@@ -375,14 +369,14 @@ export default function Home() {
               <path d="M8 2v4M16 2v4M3 10h18" />
               <rect x="3" y="4" width="18" height="18" rx="2" />
             </svg>
-            <span>14 — 18 diciembre 2026</span>
+            <span className="hero-meta-date">14 — 18 diciembre 2026</span>
           </div>
           <div className="hero-meta-item" style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
             <svg className="hero-meta-icon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
               <circle cx="12" cy="10" r="2.5" />
             </svg>
-            <span>Pontificia Universidad Católica, Santiago, RM</span>
+            <span className="hero-meta-location">Pontificia Universidad Católica, Santiago, RM</span>
           </div>
         </div>
 
@@ -479,8 +473,23 @@ export default function Home() {
       <section className="application-process-section">
         <div className="application-process-inner">
           <div className="application-how">
-            <p className="application-eyebrow">Paso a paso</p>
-            <h2 className="section-heading">¿Cómo postulo?</h2>
+            <div className="application-heading-row">
+              <div>
+                <p className="application-eyebrow">Paso a paso</p>
+                <h2 className="section-heading">¿Cómo postulo?</h2>
+              </div>
+              <div className="application-airship-wrap" aria-hidden="true">
+                <Image
+                  src="/application-airship-transparent.png"
+                  alt=""
+                  width={384}
+                  height={256}
+                  sizes="(max-width: 760px) 125px, 240px"
+                  unoptimized
+                  className="application-airship"
+                />
+              </div>
+            </div>
             <div className="application-steps">
               {[
                 {
@@ -496,7 +505,7 @@ export default function Home() {
                 {
                   number: "03",
                   title: "Bienvenido a The Builders Camp",
-                  description: "Si eres seleccionado, recibirás toda la información para comenzar la experiencia. Comprométete a asistir los cinco días, conoce gente nueva y prepárate para aprender, construir y disfrutar.",
+                  description: "Si eres seleccionado, recibirás toda la información para comenzar la experiencia. Comprométete a asistir los cinco días, conoce gente nueva y prepárate para aprender y construir",
                 },
               ].map((step) => (
                 <article key={step.number} className="application-step">
@@ -899,8 +908,11 @@ export default function Home() {
 
           <p className="footer-copyright" style={{ fontSize: "0.9rem" }}>© {new Date().getFullYear()} The Builders Camp by HiveYoung</p>
           <div style={{ display: "flex", gap: "1.5rem" }}>
-            {["Twitter", "LinkedIn", "Instagram", "Spotify"].map(s => (
-              <a key={s} href="#" style={{ color: "rgba(255,255,255,0.9)", textDecoration: "none", fontSize: "0.9rem", fontWeight: 600 }}>{s}</a>
+            {[
+              { name: "Instagram", href: "https://www.instagram.com/thebuilders.cl/" },
+              { name: "LinkedIn", href: "https://www.linkedin.com/company/hiveyoung/" },
+            ].map((social) => (
+              <a key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" style={{ color: "rgba(255,255,255,0.9)", textDecoration: "none", fontSize: "0.9rem", fontWeight: 600 }}>{social.name}</a>
             ))}
           </div>
         </div>
