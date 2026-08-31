@@ -370,15 +370,15 @@ export default function Home() {
           color: c.white, fontSize: "clamp(0.78rem, 1.2vw, 0.92rem)", fontWeight: 700,
           textTransform: "uppercase", letterSpacing: "0.02em",
         }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
-            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <div className="hero-meta-item" style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
+            <svg className="hero-meta-icon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M8 2v4M16 2v4M3 10h18" />
               <rect x="3" y="4" width="18" height="18" rx="2" />
             </svg>
             <span>14 — 18 diciembre 2026</span>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
-            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <div className="hero-meta-item" style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
+            <svg className="hero-meta-icon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
               <circle cx="12" cy="10" r="2.5" />
             </svg>
@@ -439,7 +439,7 @@ export default function Home() {
         <div style={{ width: "100%", maxWidth: 1180, margin: "0 auto" }}>
           <div style={{ maxWidth: 1050, margin: "0 auto clamp(2.5rem, 5vw, 4.5rem)", textAlign: "center" }}>
             <p className="hero-sub skills-intro" style={{
-              color: "rgba(255,255,255,0.72)", fontSize: "clamp(1.15rem, 1.8vw, 1.45rem)",
+              color: "rgba(255,255,255,0.72)", fontSize: "clamp(1rem, 1.55vw, 1.25rem)",
               lineHeight: 1.5, marginBottom: "0.75rem",
             }}>
               El mundo está cambiando más rápido que nunca y necesita
