@@ -274,7 +274,7 @@ export default function ApplyPage() {
       `Palabras con las que se identifica: ${selectedTraits.map((trait) => trait === "Otro" ? `Otro: ${formValues.trait_other || ""}` : trait).join(", ")}`,
       `Rol que toma en un equipo: ${formValues.team_role || ""}`,
       `Persona que admira y por qué: ${formValues.admired_person || ""}`,
-      `Capacidad de pago del programa: ${paymentCapacity}`,
+      `Capacidad de pago del bootcamp: ${paymentCapacity}`,
       ...step3Questions.map((question, index) =>
         `Situación de desafío ${index + 1}: ${question.q}\nRespuesta: ${answers[question.id] || ""}`
       ),
@@ -456,7 +456,7 @@ export default function ApplyPage() {
                     <h2 style={{ fontSize: "2rem", color: c.white, marginBottom: "1.5rem", fontWeight: 600 }}>Antes de comenzar</h2>
                     
                     <div style={{ display: "flex", flexDirection: "column", gap: "1.2rem", color: "rgba(255,255,255,0.85)", fontSize: "1.05rem", lineHeight: 1.6, maxWidth: "550px", margin: "0 auto" }}>
-                      <p>Este cuestionario es parte del proceso de selección del programa <strong>The Builders Camp</strong>.</p>
+                      <p>Este cuestionario es parte del proceso de selección del bootcamp <strong>The Builders Camp</strong>.</p>
                       <p>No hay respuestas correctas ni incorrectas. Queremos conocerte tal como eres: tu forma de pensar, tus intereses y cómo enfrentas los desafíos.</p>
                       <p>Los postulantes seleccionados serán contactados directamente por WhatsApp con los próximos pasos.</p>
                     </div>
