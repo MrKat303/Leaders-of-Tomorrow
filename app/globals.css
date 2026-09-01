@@ -161,12 +161,9 @@ body footer .footer-col .footer-section-title {
   width: fit-content !important;
   max-width: min(100%, 920px);
   margin: 0 auto 1.1rem !important;
-  padding: 0.7rem 0.9rem !important;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 16px;
-  background: rgba(20, 8, 38, 0.34);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  padding: 0 !important;
+  border: 0;
+  background: transparent;
 }
 
 .hero-meta-item {
@@ -174,14 +171,12 @@ body footer .footer-col .footer-section-title {
 }
 
 .hero-meta-icon {
-  box-sizing: border-box;
-  flex: 0 0 34px;
-  width: 34px;
-  height: 34px;
-  padding: 7px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  background: rgba(90, 24, 154, 0.62);
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  background: transparent;
 }
 
 .hero-meta-item span {
@@ -1148,6 +1143,21 @@ body footer .footer-col .footer-section-title {
 }
 
 @media (max-width: 760px) {
+  .hero-section {
+    min-height: 100svh !important;
+    justify-content: flex-start !important;
+    padding-top: 7.25rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  .hero-section h1 {
+    margin-bottom: 1rem !important;
+  }
+
+  .hero-section .hero-partners {
+    margin-top: 1.25rem !important;
+  }
+
   .hero-intro-line {
     white-space: normal;
   }

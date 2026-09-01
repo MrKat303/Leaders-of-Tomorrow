@@ -47,10 +47,10 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const faqs = [
-    { q: "¿Qué es The Builders Camp?", a: "Una experiencia intensiva de cinco días para estudiantes de enseñanza media enfocada en desarrollar habilidades para el futuro a través de desafíos, talleres, empresas, tecnología y trabajo práctico." },
+    { q: "¿Qué es The Builders Camp?", a: "Un bootcamp intensivo de 5 días para estudiantes de enseñanza media, enfocado en desarrollar habilidades para el futuro mediante desafíos reales, talleres, empresas, tecnología y trabajo práctico." },
     { q: "¿Cuándo es?", a: "Del 14 al 18 de diciembre de 2026." },
     { q: "¿Quién puede postular?", a: "Estudiantes de enseñanza media que cumplan los requisitos de la convocatoria." },
-    { q: "¿Tiene costo?", a: "Sí. El programa tiene un costo de $60.000 CLP, con opción de beca para quienes lo necesiten." },
+    { q: "¿Tiene costo?", a: "Sí. El bootcamp tiene un costo de $60.000 CLP, con opción de beca para quienes lo necesiten." },
     { q: "¿Necesito experiencia?", a: "No. The Builders Camp está diseñado precisamente para aprender, descubrir y desarrollar nuevas habilidades durante la experiencia." },
     { q: "¿Puedo postular con mis amigos?", a: "La postulación es individual. Los equipos se formarán buscando reunir perfiles e intereses diferentes." },
     { q: "¿Cómo se seleccionan los participantes?", a: "Queremos conocer quién eres más allá de tus notas. Nos interesan especialmente tu motivación, curiosidad, iniciativa, intereses y las ganas que tengas de aprovechar la experiencia." },
@@ -329,12 +329,6 @@ export default function Home() {
 
 
 
-
-        {/* Decorative Hero SVGs */}
-        <img src="/hero/hero1.svg" alt="" style={{ position: "absolute", top: "22%", left: "4%", width: "clamp(70px, 10vw, 140px)", zIndex: 1, animation: "float 6s ease-in-out infinite", pointerEvents: "none" }} className="hero-svg" />
-        <img src="/hero/hero2.svg" alt="" style={{ position: "absolute", top: "18%", right: "6%", width: "clamp(60px, 8vw, 120px)", zIndex: 1, animation: "float 8s ease-in-out infinite reverse", pointerEvents: "none" }} className="hero-svg" />
-        <img src="/hero/hero3.svg" alt="" style={{ position: "absolute", bottom: "18%", left: "6%", width: "clamp(80px, 12vw, 160px)", zIndex: 1, animation: "float 7s ease-in-out infinite 1s", pointerEvents: "none" }} className="hero-svg" />
-        <img src="/hero/hero4.svg" alt="" style={{ position: "absolute", bottom: "15%", right: "8%", width: "clamp(70px, 10vw, 140px)", zIndex: 1, animation: "float 9s ease-in-out infinite 0.5s", pointerEvents: "none" }} className="hero-svg" />
 
         <h1 style={{
           fontSize: "clamp(2.1rem, 5vw, 3.75rem)", fontWeight: 400, color: c.white,
@@ -877,7 +871,7 @@ export default function Home() {
         <div className="footer-grid" style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", gap: "clamp(2rem, 4vw, 4rem)", marginBottom: "clamp(2rem, 4vw, 4rem)" }}>
           <div className="footer-col" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
             <Image src="/logo-white.svg" alt="Logo" width={180} height={50} style={{ height: "auto", marginBottom: "1.5rem", display: "block" }} />
-            <p className="footer-description" style={{ fontSize: "0.95rem", lineHeight: 1.8, maxWidth: 300, textAlign: "center", margin: "0 auto" }}>El nuevo programa de formación para las Skills del Futuro. Diseñada para entrenar a los próximos leaders, builders y founders del mañana.</p>
+            <p className="footer-description" style={{ fontSize: "0.95rem", lineHeight: 1.8, maxWidth: 300, textAlign: "center", margin: "0 auto" }}>Un bootcamp intensivo de 5 días para desarrollar las Skills del Futuro y formar a los próximos leaders, builders y founders del mañana.</p>
           </div>
           {[
             { title: "Inmersión", links: ["Currículo", "Admisiones", "Becas"] },

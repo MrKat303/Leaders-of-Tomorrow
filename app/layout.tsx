@@ -21,9 +21,126 @@ const cenura = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Leaders of Tomorrow by CBA · Bootcamp de Liderazgo",
+  metadataBase: new URL("https://www.thebuilderscamp.com"),
+  title: {
+    default: "The Builders Camp | Habilidades del Futuro para Jóvenes",
+    template: "%s | The Builders Camp",
+  },
   description:
-    "Programa intensivo para jóvenes que quieren desarrollar habilidades de liderazgo, emprendimiento e impacto social. Cohorte 2026.",
+    "The Builders Camp by HiveYoung es un bootcamp intensivo de 5 días para jóvenes de enseñanza media que quieren desarrollar las habilidades del futuro.",
+  applicationName: "The Builders Camp by HiveYoung",
+  authors: [{ name: "HiveYoung", url: "https://hiveyoung.org/" }],
+  creator: "HiveYoung",
+  publisher: "HiveYoung",
+  keywords: [
+    "bootcamp para jóvenes",
+    "bootcamp estudiantes enseñanza media",
+    "habilidades del futuro",
+    "emprendimiento juvenil",
+    "liderazgo juvenil",
+    "The Builders Camp",
+    "HiveYoung",
+    "The Builders Camp by HiveYoung",
+  ],
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "es_CL",
+    url: "/",
+    siteName: "The Builders Camp by HiveYoung",
+    title: "The Builders Camp | Habilidades del Futuro para Jóvenes",
+    description:
+      "Una iniciativa de HiveYoung: bootcamp intensivo de 5 días para jóvenes que quieren aprender, crear y desarrollar las habilidades del futuro.",
+    images: [
+      {
+        url: "/hero/hero.webp",
+        alt: "The Builders Camp, bootcamp intensivo para jóvenes",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Builders Camp | Habilidades del Futuro para Jóvenes",
+    description:
+      "The Builders Camp by HiveYoung: aprende de expertos, trabaja en equipo y desarrolla las habilidades del futuro.",
+    images: ["/hero/hero.webp"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.thebuilderscamp.com/#organization",
+      name: "The Builders Camp",
+      alternateName: "The Builders Camp by HiveYoung",
+      url: "https://www.thebuilderscamp.com/",
+      logo: "https://www.thebuilderscamp.com/logo-white.svg",
+      parentOrganization: {
+        "@type": "Organization",
+        name: "HiveYoung",
+        url: "https://hiveyoung.org/",
+        sameAs: ["https://www.linkedin.com/company/hiveyoung/"],
+      },
+      sameAs: [
+        "https://www.instagram.com/thebuilders.cl/",
+        "https://www.linkedin.com/company/hiveyoung/",
+      ],
+    },
+    {
+      "@type": "Event",
+      "@id": "https://www.thebuilderscamp.com/#event",
+      name: "The Builders Camp 2026",
+      description:
+        "Bootcamp intensivo de 5 días para estudiantes de enseñanza media, enfocado en habilidades del futuro, trabajo en equipo y construcción de soluciones para desafíos reales.",
+      url: "https://www.thebuilderscamp.com/",
+      image: "https://www.thebuilderscamp.com/hero/hero.webp",
+      startDate: "2026-12-14T09:00:00-03:00",
+      endDate: "2026-12-18T18:00:00-03:00",
+      eventStatus: "https://schema.org/EventScheduled",
+      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+      location: {
+        "@type": "Place",
+        name: "Pontificia Universidad Católica de Chile",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Santiago",
+          addressRegion: "Región Metropolitana",
+          addressCountry: "CL",
+        },
+      },
+      organizer: {
+        "@type": "Organization",
+        name: "HiveYoung",
+        url: "https://hiveyoung.org/",
+      },
+      offers: {
+        "@type": "Offer",
+        url: "https://www.thebuilderscamp.com/apply",
+        price: "60000",
+        priceCurrency: "CLP",
+        availability: "https://schema.org/InStock",
+      },
+      audience: {
+        "@type": "EducationalAudience",
+        educationalRole: "student",
+      },
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -34,11 +151,11 @@ export default function RootLayout({
   return (
     <html lang="es" className={`h-full ${poppins.variable} ${cenura.variable}`}>
       <head>
-        {/* Keep the original backgrounds, but ask the browser for them immediately. */}
         <link rel="preload" href="/hero/hero.webp" as="image" fetchPriority="high" />
-        <link rel="preload" href="/image.webp" as="image" fetchPriority="high" />
-        <link rel="preload" href="/city.webp" as="image" fetchPriority="high" />
-        <link rel="preload" href="/beach.webp" as="image" fetchPriority="high" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
       </head>
       <body
         suppressHydrationWarning

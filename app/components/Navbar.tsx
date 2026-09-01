@@ -169,7 +169,7 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
         <div className="mobile-spacer" style={{ display: "none" }} />
 
         <Link href="/" style={{ display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none", flexShrink: 0 }}>
-          <Image src="/logo-white.svg" alt="Leaders of Tomorrow" width={240} height={56} priority
+          <Image src="/logo-white.svg" alt="The Builders Camp" width={240} height={56} priority
             style={{ height: "48px", width: "auto", maxWidth: "200px", transition: "opacity 0.3s ease" }} />
         </Link>
 
@@ -349,7 +349,7 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
           >
             <Image
               src="/logo-white.svg"
-              alt="Leaders of Tomorrow"
+              alt="The Builders Camp"
               width={260}
               height={70}
               style={{
