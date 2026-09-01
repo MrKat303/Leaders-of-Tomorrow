@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Postula al bootcamp",
+  title: {
+    absolute: "Postula a The Builders Camp 2026 | Bootcamp para Jóvenes",
+  },
   description:
     "Postula a The Builders Camp, el bootcamp intensivo de 5 días para estudiantes de enseñanza media que quieren aprender, crear y construir.",
   alternates: {

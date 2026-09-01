@@ -880,21 +880,14 @@ export default function Home() {
           ].map((col) => (
             <div key={col.title} className="footer-col" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
               <p className="footer-section-title" style={{ fontWeight: 400, color: c.white, marginBottom: "1.8rem", fontSize: "1rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", textAlign: "center", width: "100%" }}>{col.title}</p>
-              {col.links.map((link) => {
-                const isPodcast = link === "Podcast";
-                const LinkComponent = isPodcast ? Link : "a";
-                return (
-                  <LinkComponent
-                    key={link}
-                    href={isPodcast ? "/podcast" : "#"}
-                    style={{ display: "inline-block", color: "rgba(255,255,255,0.8)", textDecoration: "none", fontSize: "0.95rem", marginBottom: "0.8rem", transition: "all 0.3s", textAlign: "center" }}
-                    onMouseEnter={(e) => { e.currentTarget.style.color = c.white; e.currentTarget.style.transform = "translateY(-2px)"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(255,255,255,0.8)"; e.currentTarget.style.transform = "translateY(0)"; }}
-                  >
-                    {link}
-                  </LinkComponent>
-                );
-              })}
+              {col.links.map((label) => (
+                <span
+                  key={label}
+                  style={{ display: "inline-block", color: "rgba(255,255,255,0.65)", fontSize: "0.95rem", marginBottom: "0.8rem", textAlign: "center" }}
+                >
+                  {label}
+                </span>
+              ))}
             </div>
           ))}
         </div>
