@@ -84,6 +84,20 @@ const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "WebSite",
+      "@id": "https://www.thebuilderscamp.com/#website",
+      url: "https://www.thebuilderscamp.com/",
+      name: "The Builders Camp",
+      alternateName: [
+        "The Builders Camp by HiveYoung",
+        "The Builders Camp Chile",
+      ],
+      publisher: {
+        "@id": "https://www.thebuilderscamp.com/#organization",
+      },
+      inLanguage: "es-CL",
+    },
+    {
       "@type": "Organization",
       "@id": "https://www.thebuilderscamp.com/#organization",
       name: "The Builders Camp",
