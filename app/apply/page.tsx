@@ -371,7 +371,7 @@ export default function ApplyPage() {
       <main className="apply-main" style={{ padding: "120px 1.5rem 80px", maxWidth: "800px", margin: "0 auto", position: "relative", zIndex: 1 }}>
         <div className="form-header" style={{ textAlign: "center", marginBottom: "2.5rem" }}>
           <h1 className="apply-title" style={{ fontSize: "2.8rem", color: c.white, marginBottom: "0.75rem", lineHeight: 1.1, fontWeight: 400 }}>Únete ahora</h1>
-          <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "1.1rem", fontWeight: 500, marginBottom: "0.5rem" }}>Buscamos a los futuros líderes de Chile.</p>
+          <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "1.1rem", fontWeight: 500, marginBottom: "0.5rem" }}>Buscamos a los futuros builders, líderes y founders de Chile.</p>
         </div>
 
         <div className="apply-card form-card" style={{ 
