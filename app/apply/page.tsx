@@ -223,88 +223,43 @@ export default function ApplyPage() {
     }
 
     const challengeEntries = [
-      "entry.1258104398", "entry.2011180882", "entry.85410485",
-      "entry.1154651905", "entry.1954333023", "entry.1840982094",
-      "entry.389948038", "entry.1642628590", "entry.1410565911",
-      "entry.72940813"
-    ];
-    const challengeChoices = [
-      ["Hago su parte yo.", "Lo confronto frente al equipo.", "Hablo con él en privado y acordamos una tarea concreta.", "Lo reporto inmediatamente."],
-      ["Apoyo a quien tenga más razón.", "Propongo exponer argumentos y decidir con criterios claros.", "Evito el conflicto.", "Llamo a un adulto para que resuelva."],
-      ["Reparto tareas y exijo que se cumplan.", "Converso para entender qué le importa a cada integrante.", "Hago todo yo.", "Propongo votar un nuevo líder."],
-      ["Explico los errores del equipo.", "Asumo la responsabilidad y explico qué mejoraría.", "Culpo a las circunstancias.", "Evito la reunión."],
-      ["Elijo siempre la segura.", "Elijo siempre la innovadora.", "Analizo los criterios y recomiendo según el contexto.", "No doy mi opinión."],
-      ["Lo oculto.", "Presento la propuesta sin cambios.", "Informo al equipo y buscamos nuestra diferencia.", "Empezamos todo desde cero."],
-      ["Busco otra idea desde cero.", "Analizo qué falló y ajusto esa parte.", "Sigo únicamente el consejo de otros.", "Insisto sin cambiarla."],
-      ["Lo ignoro.", "Lo confronto frente a todos.", "Le pregunto en privado cómo está.", "Pido al tutor que intervenga."],
-      ["Sigo sin decir nada.", "Pido ayuda o delego.", "Me desconecto del proyecto.", "Culpo a otros."],
-      ["Repito mi argumento con más fuerza.", "Entiendo su postura y busco puntos en común.", "Escucho, pero no considero cambiar mi postura.", "Cedo para evitar el conflicto."]
+      "entry.258710818", "entry.385088841", "entry.1074730730",
+      "entry.53236873", "entry.1105933179", "entry.409478847"
     ];
     const courseLabels: Record<string, string> = { "1": "1ro Medio", "2": "2do Medio", "3": "3ro Medio", "4": "4to Medio" };
-    const attendanceLabels = [
-      "Sí, podría asistir sin inconvenientes.",
-      "Sí, pero necesitaría apoyo para transporte y/o alojamiento.",
-      "Tal vez, depende de mi situación en ese momento.",
-      "Tal vez, depende de mi situación en ese momento."
-    ];
-    const websiteAttendance = [
-      "Sí, podría participar durante los cinco días sin inconvenientes.",
-      "Sí, pero necesitaría apoyo para transporte y/o alojamiento.",
-      "Probablemente sí, aunque todavía debo confirmar algunos detalles.",
-      "No estoy seguro/a por el momento."
-    ];
-    const familyLabels = [
-      "Sí, tienen todo el apoyo",
-      "Sí, aunque aún no les he contado los detalles",
-      "Aún no sé, debo conversarlo con ellos",
-      "Aún no sé, debo conversarlo con ellos"
-    ];
-    const websiteFamilySupport = [
-      "Sí, y apoya mi participación.",
-      "Sí, pero todavía tenemos que conversar algunos detalles.",
-      "Aún no les he contado sobre mi postulación.",
-      "Prefiero conversarlo con ellos si avanzo en el proceso."
-    ];
-
-    const supplementalAnswers = [
-      formValues.actividades_desc?.trim(),
-      `Área, tema o profesión que le interesa explorar: ${formValues.future_interest || ""}`,
-      `Tema que podría investigar o aprender durante horas: ${formValues.curiosity_topic || ""}`,
-      `Problema que resolvería en su entorno: ${formValues.community_problem || ""}`,
-      `Palabras con las que se identifica: ${selectedTraits.map((trait) => trait === "Otro" ? `Otro: ${formValues.trait_other || ""}` : trait).join(", ")}`,
-      `Rol que toma en un equipo: ${formValues.team_role || ""}`,
-      `Persona que admira y por qué: ${formValues.admired_person || ""}`,
-      `Capacidad de pago del bootcamp: ${paymentCapacity}`,
-      ...step3Questions.map((question, index) =>
-        `Situación de desafío ${index + 1}: ${question.q}\nRespuesta: ${answers[question.id] || ""}`
-      ),
-    ].filter(Boolean).join("\n\n");
 
     const payload = new URLSearchParams({
-      "entry.925029811": formValues.name || "",
-      "entry.110091287": formValues.age || "",
-      "entry.835305152": formValues.school || "",
-      "entry.1661750505": courseLabels[formValues.course] || "",
-      "entry.1234810771": formValues.region || "",
-      "entry.1750316403": formValues.comuna || "",
-      "entry.1591252637": formValues.email || "",
-      "entry.1938497111": formValues.phone || "",
-      "entry.2022898191": formValues.gender || "",
-      "entry.1363239132": formValues.tiempo_libre || "",
-      "entry.589482520": hasLiderado,
-      "entry.133956557": supplementalAnswers,
-      "entry.1809938391": familyLabels[websiteFamilySupport.indexOf(familySupport)] || "",
-      "entry.409709723": attendanceLabels[websiteAttendance.indexOf(attendance)] || "",
-      "entry.1526197600": formValues.ref_1 || "",
-      "entry.1723851986": formValues.ref_2 || "",
-      "entry.1807435063": "Acepto que mis datos sean utilizados exclusivamente para analizar mi postulación a The Builders Camp. No serán compartidos con terceros ni descargados por ningún motivo."
+      "entry.781459710": formValues.name || "",
+      "entry.1187180142": formValues.age || "",
+      "entry.1705219438": formValues.school || "",
+      "entry.1455852837": courseLabels[formValues.course] || "",
+      "entry.1436178938": formValues.region || "",
+      "entry.1625050353": formValues.comuna || "",
+      "entry.159407556": formValues.email || "",
+      "entry.779351655": formValues.phone || "",
+      "entry.1869493394": formValues.gender || "",
+      "entry.634755484": formValues.tiempo_libre || "",
+      "entry.935512835": formValues.future_interest || "",
+      "entry.1679683040": formValues.curiosity_topic || "",
+      "entry.920754456": hasLiderado,
+      "entry.1920943622": hasLiderado === "Sí" ? formValues.actividades_desc?.trim() || "" : "",
+      "entry.1862178203": familySupport,
+      "entry.182877332": attendance,
+      "entry.1838260082": paymentCapacity,
+      "entry.804024667": formValues.community_problem || "",
+      "entry.1963440088": selectedTraits.includes("Otro") ? formValues.trait_other || "" : "",
+      "entry.169260751": formValues.team_role || "",
+      "entry.161688947": formValues.admired_person || "",
+      "entry.1085691853": formValues.ref_1 || "",
+      "entry.321074777": formValues.ref_2 || "",
+      "entry.413881830": "Acepto que mis datos sean enviados y utilizados exclusivamente para analizar mi postulación a la convocatoria de The Builders Camp. Mis datos no serán compartidos con terceros ni descargados por ningún motivo."
     });
 
-    selectedAreas.forEach(value => payload.append("entry.1266806866", value));
-    step3Questions.forEach((question, index) => {
-      const selectedIndex = question.options.indexOf(answers[question.id]);
-      if (selectedIndex >= 0) payload.set(challengeEntries[index], challengeChoices[index][selectedIndex]);
-    });
+    selectedAreas.forEach(value => payload.append("entry.2096164779", value));
+    selectedTraits.forEach(value => payload.append("entry.1447882457", value));
+    step3Questions.forEach((question, index) =>
+      payload.set(challengeEntries[index], answers[question.id] || "")
+    );
 
     setIsSubmitting(true);
     setSubmitError("");

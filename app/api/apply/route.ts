@@ -1,5 +1,5 @@
 const GOOGLE_FORM_URL =
-  "https://docs.google.com/forms/d/e/1FAIpQLScWfU7x-YHSHM39tohF-iY4DOSk6Joa1EvfltTyUrVpojwPDw/formResponse";
+  "https://docs.google.com/forms/d/e/1FAIpQLSd86_m4wXE6GVMQC-2rcxB3MkbijdBpltrDXHczu6kJ7DuAHQ/formResponse";
 
 export async function POST(request: Request) {
   try {
@@ -10,14 +10,15 @@ export async function POST(request: Request) {
       if (key.startsWith("entry.")) payload.append(key, value);
     }
 
-    if (!payload.get("entry.925029811") || !payload.get("entry.1591252637")) {
+    if (!payload.get("entry.781459710") || !payload.get("entry.159407556")) {
       return Response.json({ error: "Faltan datos obligatorios." }, { status: 400 });
     }
 
     // Google Forms requires the visited-page history for multi-section forms.
     // Without it, it records a response shell but discards the entry values.
     payload.set("fvv", "1");
-    payload.set("pageHistory", "0,1,2,3,4");
+    const hasActivities = payload.get("entry.920754456") === "Sí";
+    payload.set("pageHistory", hasActivities ? "0,1,2,3,4,5,6,7" : "0,1,2,4,5,6,7");
     payload.set("draftResponse", "[]");
     payload.set("submit", "Submit");
 
